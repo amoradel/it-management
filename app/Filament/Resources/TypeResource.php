@@ -23,7 +23,16 @@ class TypeResource extends Resource
     {
         return $form
             ->schema([
-                
+                Forms\Components\Select::make('model_id')
+                    ->relationship('model', 'name')
+                    ->searchable()->preload()
+                    ->createOptionForm([
+                        Forms\Components\TextInput::make('name')
+                            ->required()->maxLength(50),
+                    ])
+                    ->required(),
+                Forms\Components\TextInput::make('name')
+                    ->required()->maxLength(50),
             ]);
     }
 
@@ -31,7 +40,8 @@ class TypeResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('model.name'),
+                Tables\Columns\TextColumn::make('name')
             ])
             ->filters([
                 //
@@ -45,14 +55,14 @@ class TypeResource extends Resource
                 ]),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -60,5 +70,5 @@ class TypeResource extends Resource
             'create' => Pages\CreateType::route('/create'),
             'edit' => Pages\EditType::route('/{record}/edit'),
         ];
-    }    
+    }
 }
