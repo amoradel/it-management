@@ -18,6 +18,9 @@ class PartnerResource extends Resource
 {
     protected static ?string $model = Partner::class;
 
+    protected static ?string $modelLabel = 'Usuario';
+    protected static ?string $pluralModelLabel = 'Usuarios';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -26,35 +29,55 @@ class PartnerResource extends Resource
             ->schema([
                 // Campo Nombre
                 Forms\Components\TextInput::make('name')
-                    ->required()->maxLength(50),
+                    ->required()
+                    ->maxLength(50)
+                    ->translateLabel(),
                 // Campo Departamento
                 Forms\Components\Select::make('department_id')
                     ->relationship('department', 'name')
-                    ->searchable()->preload()
+                    ->searchable()
+                    ->preload()
                     ->createOptionForm([
                         Forms\Components\TextInput::make('name')
-                            ->required()->maxLength(50),
+                            ->required()
+                            ->maxLength(50)
+                            ->translateLabel(),
                     ])
-                    ->required(),
+                    ->required()
+                    ->translateLabel(),
                 // Campo username_network
                 Forms\Components\TextInput::make('username_network')
-                    ->required()->maxLength(15),
+                    ->required()
+                    ->maxLength(15)
+                    ->translateLabel(),
                 // Campo username_odoo
-                Forms\Components\TextInput::make('username_odoo')->label('Username_Odoo')
-                    ->required()->maxLength(15),
+                Forms\Components\TextInput::make('username_odoo')
+                    ->required()
+                    ->maxLength(15)
+                    ->translateLabel(),
                 // Campo username_odoo
-                Forms\Components\TextInput::make('username_AS400')->label('Username AS400')
-                    ->required()->maxLength(15),
+                Forms\Components\TextInput::make('username_AS400')
+                    ->required()
+                    ->maxLength(15)
+                    ->translateLabel(),
                 // Campo email
                 Forms\Components\TextInput::make('email')
-                    ->email()->required()->regex('/^.+@.+$/i'),
+                    ->email()
+                    ->required()
+                    ->regex('/^.+@.+$/i')
+                    ->translateLabel(),
                 // Campo Extension
                 Forms\Components\TextInput::make('extension')
-                    ->required()->maxLength(4),
+                    ->required()
+                    ->maxLength(4)
+                    ->translateLabel(),
                 // Campo email
                 Forms\Components\TextInput::make('company_position')
-                    ->required(),
-                Forms\Components\Toggle::make('status')->onColor('success'),
+                    ->required()
+                    ->translateLabel(),
+                Forms\Components\Toggle::make('status')
+                    ->onColor('success')
+                    ->translateLabel(),
             ]);
     }
 
@@ -62,14 +85,17 @@ class PartnerResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('department.name'),
-                Tables\Columns\TextColumn::make('username_network'),
-                Tables\Columns\TextColumn::make('username_odoo'),
-                Tables\Columns\TextColumn::make('username_AS400'),
-                Tables\Columns\TextColumn::make('extension'),
-                Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\ToggleColumn::make('status')->onColor('success')->offColor('warning'),
+                Tables\Columns\TextColumn::make('name')->translateLabel(),
+                Tables\Columns\TextColumn::make('department.name')->translateLabel(),
+                Tables\Columns\TextColumn::make('username_network')->translateLabel(),
+                Tables\Columns\TextColumn::make('username_odoo')->translateLabel(),
+                Tables\Columns\TextColumn::make('username_AS400')->translateLabel(),
+                Tables\Columns\TextColumn::make('extension')->translateLabel(),
+                Tables\Columns\TextColumn::make('email')->translateLabel(),
+                Tables\Columns\TextColumn::make('company_position')->translateLabel(),
+                Tables\Columns\ToggleColumn::make('status')->translateLabel()
+                    ->onColor('success')
+                    ->offColor('warning'),
             ])
             ->filters([
                 //

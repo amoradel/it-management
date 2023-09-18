@@ -18,6 +18,9 @@ class BrandResource extends Resource
 {
     protected static ?string $model = Brand::class;
 
+    protected static ?string $modelLabel = 'Marca';
+    protected static ?string $pluralModelLabel = 'Marcas';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -25,7 +28,9 @@ class BrandResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                ->required()->maxLength(50)
+                ->required()
+                ->maxLength(50)
+                ->translateLabel()
             ]);
     }
 
@@ -33,7 +38,7 @@ class BrandResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('name')->translateLabel()
             ])
             ->filters([
                 //

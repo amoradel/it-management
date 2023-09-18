@@ -19,6 +19,9 @@ class ModelResource extends Resource
 {
     protected static ?string $model = Device_model::class;
 
+    protected static ?string $modelLabel = 'Modelo';
+    protected static ?string $pluralModelLabel = 'Modelos';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -27,14 +30,18 @@ class ModelResource extends Resource
             ->schema([
                 Forms\Components\Select::make('brand_id')
                     ->relationship('brand', 'name')
-                    ->searchable()->preload()
+                    ->searchable()
+                    ->preload()
                     ->createOptionForm([
                         Forms\Components\TextInput::make('name')
                             ->required()->maxLength(50),
                     ])
-                    ->required(),
+                    ->required()
+                    ->translateLabel(),
                 Forms\Components\TextInput::make('name')
-                    ->required()->maxLength(50),
+                    ->required()
+                    ->maxLength(50)
+                    ->translateLabel(),
 
             ]);
     }
@@ -43,8 +50,8 @@ class ModelResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('brand.name'),
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('brand.name')->translateLabel(),
+                Tables\Columns\TextColumn::make('name')->translateLabel(),
             ])
             ->filters([
                 //

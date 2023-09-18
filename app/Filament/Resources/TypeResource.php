@@ -17,6 +17,9 @@ class TypeResource extends Resource
 {
     protected static ?string $model = Type::class;
 
+    protected static ?string $modelLabel = 'Tipo';
+    protected static ?string $pluralModelLabel = 'Tipos';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -25,14 +28,20 @@ class TypeResource extends Resource
             ->schema([
                 Forms\Components\Select::make('model_id')
                     ->relationship('model', 'name')
-                    ->searchable()->preload()
+                    ->searchable()
+                    ->preload()
                     ->createOptionForm([
                         Forms\Components\TextInput::make('name')
-                            ->required()->maxLength(50),
+                            ->required()
+                            ->maxLength(50)
+                            ->translateLabel(),
                     ])
-                    ->required(),
+                    ->required()
+                    ->translateLabel(),
                 Forms\Components\TextInput::make('name')
-                    ->required()->maxLength(50),
+                    ->required()
+                    ->maxLength(50)
+                    ->translateLabel(),
             ]);
     }
 
@@ -40,8 +49,8 @@ class TypeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('model.name'),
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('model.name')->translateLabel(),
+                Tables\Columns\TextColumn::make('name')->translateLabel()
             ])
             ->filters([
                 //
