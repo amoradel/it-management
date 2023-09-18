@@ -18,4 +18,8 @@ class Device_model extends Model
     public function types(){
         return $this->hasMany('App\Models\Type');
     }
+
+    public function devices(){
+        return $this->hasMany('App\Models\Device');
+    }
 }

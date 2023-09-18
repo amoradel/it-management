@@ -269,5 +269,18 @@
     "Company position": "Cargo",
     "Model": "Modelo",
     "Brand": "Marca",
+    "Device name": "Nombre del Equipo",
+    "Ubication": "Ubicación",
+    "Type": "Tipo",
+    "Historic": "Historico",
+    "Storage": "Almacenamiento",
+    "Ram memory": "Memoria RAM",
+    "Processor": "Procesador",
+    "Asset number": "Número de Activo",
+    "Serial number": "Número de Serie",
+    "Office version": "Versión de Office",
+    "Windows version": "Versión de Windows",
+    "Condition": "Condición", 
+    "Entry date": "Fecha de Ingreso",
     "Sorry, your session has expired. Please click \"Go Home\" and try again.": "Lo sentimos, su sesión ha expirado. Haga clic en \"Ir a inicio\" e intente nuevamente."
 }

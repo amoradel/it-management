@@ -75,6 +75,7 @@ class PartnerResource extends Resource
                 Forms\Components\TextInput::make('company_position')
                     ->required()
                     ->translateLabel(),
+                // Campo Estado
                 Forms\Components\Toggle::make('status')
                     ->onColor('success')
                     ->translateLabel(),

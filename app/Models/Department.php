@@ -15,4 +15,8 @@ class Department extends Model
     public function partners(){
         return $this->hasMany('App\Models\Partner');
     }
+
+    public function devices(){
+        return $this->hasMany('App\Models\Device');
+    }
 }
