@@ -98,7 +98,6 @@ class ComputerResource extends Resource
                 // Campo Numero de Serie
                 Forms\Components\TextInput::make('serial_number')
                     ->required()
-                    ->maxLength(15)
                     ->translateLabel(),
                 // Campo Numero de Serie
                 Forms\Components\TextInput::make('any_desk')

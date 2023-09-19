@@ -61,7 +61,7 @@ class POSResource extends Resource
                 Forms\Components\TextInput::make('serial_number')
                     ->required()
                     ->translateLabel(),
-                // Campo Numero de Serie
+                // Campo Observacion
                 Forms\Components\TextInput::make('observation')
                     ->required()
                     ->translateLabel(),
