@@ -4,15 +4,21 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ComputerResource\Pages;
 use App\Filament\Resources\ComputerResource\RelationManagers;
+use App\Filament\Resources\ComputerResource\RelationManagers\PartnersRelationManager;
 use App\Models\Device;
+use Doctrine\DBAL\Schema\Schema;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
+use Filament\Forms\FormsComponent;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\TextColumn\TextColumnSize;
 use Filament\Tables\Table;
+use Filament\Tables\TablesServiceProvider;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ComputerResource extends Resource
@@ -33,6 +39,7 @@ class ComputerResource extends Resource
                     ->required()
                     ->maxLength(15)
                     ->translateLabel(),
+
                 // Campo Marca
                 Forms\Components\Select::make('brand_id')
                     ->relationship('brand', 'name')
@@ -52,13 +59,7 @@ class ComputerResource extends Resource
                     ->preload()
                     ->required()
                     ->translateLabel(),
-                // Campo Departamento
-                Forms\Components\Select::make('department_id')
-                    ->relationship('department', 'name')
-                    ->searchable()
-                    ->preload()
-                    ->required()
-                    ->translateLabel(),
+
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
                     ->relationship('type', 'name')
@@ -128,16 +129,32 @@ class ComputerResource extends Resource
                 Forms\Components\Toggle::make('status')
                     ->onColor('success')
                     ->translateLabel(),
+                // Campo Seleccion Usuarios
+                Forms\Components\Select::make('partner_id')
+                    ->relationship('partners', 'name')
+                    ->preload()
+                    ->multiple()
+                    ->translateLabel()
             ]);
     }
+
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->translateLabel(),
-                // Tables\Columns\TextColumn::make('department.name')->translateLabel(),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable()
+                    ->translateLabel(),
                 Tables\Columns\TextColumn::make('ubication')
+                    ->translateLabel(),
+                Tables\Columns\TextColumn::make('')
+                    ->translateLabel(),
+                Tables\Columns\TextColumn::make('serial_number')
+                    ->translateLabel(),
+                Tables\Columns\TextColumn::make('any_desk')
+                    ->translateLabel(),
+                Tables\Columns\TextColumn::make('asset_number')
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('brand.name')
                     ->translateLabel()
@@ -149,6 +166,7 @@ class ComputerResource extends Resource
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('description')
+                    ->wrap()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('historic')
@@ -163,12 +181,6 @@ class ComputerResource extends Resource
                 Tables\Columns\TextColumn::make('processor')
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('asset_number')
-                    ->translateLabel(),
-                Tables\Columns\TextColumn::make('serial_number')
-                    ->translateLabel(),
-                Tables\Columns\TextColumn::make('any_desk')
-                    ->translateLabel(),
                 Tables\Columns\TextColumn::make('office_version')
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -184,13 +196,13 @@ class ComputerResource extends Resource
                 Tables\Columns\ToggleColumn::make('status')
                     ->translateLabel()
                     ->onColor('success'),
-
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -202,7 +214,7 @@ class ComputerResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            // 
         ];
     }
 

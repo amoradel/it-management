@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('brand_id')->nullable();
             $table->unsignedBigInteger('model_id')->nullable();
             $table->unsignedBigInteger('type_id')->nullable();
-            $table->unsignedBigInteger('department_id')->nullable();
+            // $table->unsignedBigInteger('department_id')->nullable();
             $table->text('description')->nullable();
             $table->string('historic')->nullable();
             $table->string('storage')->nullable();

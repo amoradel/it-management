@@ -27,4 +27,9 @@ class Device extends Model
     public function department(){
         return $this->belongsTo('App\Models\Department');
     }
+
+    // Relacion muchos a muchos
+    public function partners(){
+        return $this->belongsToMany('App\Models\Partner', 'device_partner')->withTimestamps();
+    }
 }
