@@ -134,6 +134,7 @@ class ComputerResource extends Resource
                 // Campo Estado
                 Forms\Components\Toggle::make('status')
                     ->onColor('success')
+                    ->default('true')
                     ->translateLabel(),
                 // Columna que envia el tipo de equipo igual a computer
                 Forms\Components\Hidden::make('device_type')
@@ -150,8 +151,6 @@ class ComputerResource extends Resource
                     ->searchable()
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('ubication')
-                    ->translateLabel(),
-                Tables\Columns\TextColumn::make('')
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('serial_number')
                     ->translateLabel(),

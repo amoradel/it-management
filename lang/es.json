@@ -280,8 +280,9 @@
     "Serial number": "Número de Serie",
     "Office version": "Versión de Office",
     "Windows version": "Versión de Windows",
-    "Condition": "Condición", 
+    "Condition": "Condición",
     "Entry date": "Fecha de Ingreso",
-    "Partners":"Usuarios",
+    "Partners": "Usuarios",
+    "Dvr program": "Programa de Dvr",
     "Sorry, your session has expired. Please click \"Go Home\" and try again.": "Lo sentimos, su sesión ha expirado. Haga clic en \"Ir a inicio\" e intente nuevamente."
 }

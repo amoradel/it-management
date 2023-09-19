@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('storage')->nullable();
             $table->string('ram_memory')->nullable();
             $table->string('processor')->nullable();
-            $table->string('asset_number');
+            $table->string('asset_number')->nullable();
             $table->string('serial_number');
             $table->string('any_desk')->nullable();
             $table->string('office_version')->nullable();
