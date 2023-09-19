@@ -107,7 +107,6 @@ class PartnerResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\ToggleColumn::make('status')->translateLabel()
                     ->onColor('success')
-                    ->offColor('warning'),
             ])
             ->filters([
                 //

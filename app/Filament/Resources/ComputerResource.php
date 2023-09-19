@@ -5,7 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ComputerResource\Pages;
 use App\Filament\Resources\ComputerResource\RelationManagers;
 use App\Filament\Resources\ComputerResource\RelationManagers\PartnersRelationManager;
-use App\Models\Device;
+        use App\Models\Device;
 use Doctrine\DBAL\Schema\Schema;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
