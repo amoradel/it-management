@@ -2,25 +2,23 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CamerasDVRResource\Pages;
-use App\Filament\Resources\CamerasDVRResource\RelationManagers;
+use App\Filament\Resources\POSResource\Pages;
+use App\Filament\Resources\POSResource\RelationManagers;
 use App\Models\Device;
 use Filament\Forms;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Tables\TablesServiceProvider;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class CamerasDVRResource extends Resource
+class POSResource extends Resource
 {
     protected static ?string $model = Device::class;
 
-    protected static ?string $modelLabel = 'Cámara o DVR';
-    protected static ?string $pluralModelLabel = "Cámaras y DVR'S";
+    protected static ?string $modelLabel = 'POS';
+    protected static ?string $pluralModelLabel = "POS";
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -43,6 +41,7 @@ class CamerasDVRResource extends Resource
                 // Campo Ubicacion
                 Forms\Components\TextInput::make('ubication')
                     ->required()
+                    ->maxLength(15)
                     ->translateLabel(),
                 // Campo Modelo
                 Forms\Components\Select::make('model_id')
@@ -58,21 +57,13 @@ class CamerasDVRResource extends Resource
                     ->required()
                     ->preload()
                     ->translateLabel(),
-                // Campo Programa
-                Forms\Components\Select::make('dvr_program')
-                    ->options(['IVMS-4200' => 'IVMS-4200', 'CMS3.0' => 'CMS3.0', 'VI MonitorPlus' => 'VI MonitorPlus',])
-                    ->searchable()
-                    ->preload()
-                    ->translateLabel(),
-                // Campo Numero de Activo
-                Forms\Components\TextInput::make('asset_number')
-                    ->translateLabel()
-                    ->required()
-                    ->maxLength(15),
                 // Campo Numero de Serie
                 Forms\Components\TextInput::make('serial_number')
                     ->required()
-                    ->maxLength(15)
+                    ->translateLabel(),
+                // Campo Numero de Serie
+                Forms\Components\TextInput::make('observation')
+                    ->required()
                     ->translateLabel(),
                 // Campo Condicion
                 Forms\Components\Select::make('condition')
@@ -84,10 +75,6 @@ class CamerasDVRResource extends Resource
                     ->required()
                     ->maxDate(now())
                     ->translateLabel(),
-                // Campo Observacion
-                Forms\Components\TextInput::make('observation')
-                    ->required()
-                    ->translateLabel(),
                 // Campo Estado
                 Forms\Components\Toggle::make('status')
                     ->onColor('success')
@@ -95,8 +82,7 @@ class CamerasDVRResource extends Resource
                     ->translateLabel(),
                 // Columna que envia el tipo de equipo igual a computer
                 Forms\Components\Hidden::make('device_type')
-                    ->default('camera_dvr'),
-
+                    ->default('pos'),
             ]);
     }
 
@@ -127,16 +113,6 @@ class CamerasDVRResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),
-                // Columna Programa de Dvr
-                Tables\Columns\TextColumn::make('dvr_program')
-                    ->searchable()
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                // Columna Numero de Asset
-                Tables\Columns\TextColumn::make('asset_number')
-                    ->searchable()
-                    ->sortable()
-                    ->translateLabel(),
                 // Columna Numero de Serie
                 Tables\Columns\TextColumn::make('serial_number')
                     ->searchable()
@@ -164,7 +140,8 @@ class CamerasDVRResource extends Resource
 
             ])
             ->filters([
-                Tables\Filters\BaseFilter::make('device_type')->query(fn (Builder $query): Builder => $query->where('device_type', 'camera_dvr'))
+                Tables\Filters\BaseFilter::make('device_type')->query(fn (Builder $query): Builder => $query->where('device_type', 'pos'))
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -187,9 +164,9 @@ class CamerasDVRResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCamerasDVRS::route('/'),
-            'create' => Pages\CreateCamerasDVR::route('/create'),
-            'edit' => Pages\EditCamerasDVR::route('/{record}/edit'),
+            'index' => Pages\ListPOS::route('/'),
+            'create' => Pages\CreatePOS::route('/create'),
+            'edit' => Pages\EditPOS::route('/{record}/edit'),
         ];
     }
 }
