@@ -5,7 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ComputerResource\Pages;
 use App\Filament\Resources\ComputerResource\RelationManagers;
 use App\Filament\Resources\ComputerResource\RelationManagers\PartnersRelationManager;
-        use App\Models\Device;
+use App\Models\Device;
 use Doctrine\DBAL\Schema\Schema;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
@@ -125,16 +125,19 @@ class ComputerResource extends Resource
                     ->required()
                     ->maxDate(now())
                     ->translateLabel(),
-                // Campo Estado
-                Forms\Components\Toggle::make('status')
-                    ->onColor('success')
-                    ->translateLabel(),
                 // Campo Seleccion Usuarios
                 Forms\Components\Select::make('partner_id')
                     ->relationship('partners', 'name')
                     ->preload()
                     ->multiple()
-                    ->translateLabel()
+                    ->translateLabel(),
+                // Campo Estado
+                Forms\Components\Toggle::make('status')
+                    ->onColor('success')
+                    ->translateLabel(),
+                // Columna que envia el tipo de equipo igual a computer
+                Forms\Components\Hidden::make('device_type')
+                    ->default('computer'),
             ]);
     }
 
@@ -198,7 +201,7 @@ class ComputerResource extends Resource
                     ->onColor('success'),
             ])
             ->filters([
-                //
+                Tables\Filters\BaseFilter::make('device_type')->query(fn (Builder $query): Builder => $query->where('device_type', 'computer'))
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
