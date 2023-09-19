@@ -270,6 +270,7 @@
     "Model": "Modelo",
     "Brand": "Marca",
     "Device name": "Nombre del Equipo",
+    "Device": "Equipo",
     "Ubication": "Ubicación",
     "Type": "Tipo",
     "Historic": "Historico",
@@ -285,5 +286,8 @@
     "Partners": "Usuarios",
     "Dvr program": "Programa de Dvr",
     "Observation": "Observación",
+    "Ip number": "Número de Equipo",
+    "Ip type": "Tipo de Ip",
+    "Segment": "Segmento",
     "Sorry, your session has expired. Please click \"Go Home\" and try again.": "Lo sentimos, su sesión ha expirado. Haga clic en \"Ir a inicio\" e intente nuevamente."
 }

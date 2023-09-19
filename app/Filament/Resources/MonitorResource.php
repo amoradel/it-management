@@ -69,7 +69,6 @@ class MonitorResource extends Resource
                     ->translateLabel(),
                 // Campo Observacion
                 Forms\Components\TextInput::make('observation')
-                    ->required()
                     ->translateLabel(),
                 // Campo Condicion
                 Forms\Components\Select::make('condition')

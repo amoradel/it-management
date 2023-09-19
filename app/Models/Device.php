@@ -32,4 +32,9 @@ class Device extends Model
     public function partners(){
         return $this->belongsToMany('App\Models\Partner', 'device_partner')->withTimestamps();
     }
+
+    // Relacion uno a uno
+    public function ip(){
+        return $this->hasOne('App\Models\Ip');
+    }
 }
