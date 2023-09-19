@@ -31,7 +31,13 @@ class TypeResource extends Resource
                     ->searchable()
                     ->preload()
                     ->createOptionForm([
-                        Forms\Components\TextInput::make('name')
+                        Forms\Components\Select::make('brand_id')
+                            ->relationship('brand', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->translateLabel(),
+                        Forms\Components\TextInput::make('name')->label('Modelo')
                             ->required()
                             ->maxLength(50)
                             ->translateLabel(),

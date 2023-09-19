@@ -34,7 +34,9 @@ class ModelResource extends Resource
                     ->preload()
                     ->createOptionForm([
                         Forms\Components\TextInput::make('name')
-                            ->required()->maxLength(50),
+                            ->required()
+                            ->maxLength(50)
+                            ->translateLabel(),
                     ])
                     ->required()
                     ->translateLabel(),
