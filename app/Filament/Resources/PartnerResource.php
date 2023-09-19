@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PartnerResource\Pages;
 use App\Filament\Resources\PartnerResource\RelationManagers;
 use App\Models\Partner;
+use Filament\Actions\ViewAction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\FormsComponent;
@@ -75,6 +76,12 @@ class PartnerResource extends Resource
                 Forms\Components\TextInput::make('company_position')
                     ->required()
                     ->translateLabel(),
+                // Campo Seleccion Equipos
+                Forms\Components\Select::make('device_id')
+                    ->relationship('devices', 'name')
+                    ->preload()
+                    ->multiple()
+                    ->translateLabel(),
                 // Campo Estado
                 Forms\Components\Toggle::make('status')
                     ->onColor('success')
@@ -92,8 +99,12 @@ class PartnerResource extends Resource
                 Tables\Columns\TextColumn::make('username_odoo')->translateLabel(),
                 Tables\Columns\TextColumn::make('username_AS400')->translateLabel(),
                 Tables\Columns\TextColumn::make('extension')->translateLabel(),
-                Tables\Columns\TextColumn::make('email')->translateLabel(),
-                Tables\Columns\TextColumn::make('company_position')->translateLabel(),
+                Tables\Columns\TextColumn::make('email')
+                    ->translateLabel()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('company_position')
+                    ->translateLabel()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\ToggleColumn::make('status')->translateLabel()
                     ->onColor('success')
                     ->offColor('warning'),
@@ -103,6 +114,7 @@ class PartnerResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
