@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\MonitorResource\Pages;
 use App\Filament\Resources\MonitorResource\RelationManagers;
 use App\Models\Device;
+use App\Models\Device_model;
+use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,6 +14,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Get;
+use Illuminate\Support\Collection;
 
 class MonitorResource extends Resource
 {
@@ -37,7 +41,11 @@ class MonitorResource extends Resource
                     ->searchable()
                     ->preload()
                     ->required()
-                    ->translateLabel(),
+                    ->translateLabel()
+                    ->afterStateUpdated(function (callable $set) {
+                        $set('model_id', null);
+                        $set('type_id', null);
+                    }),
                 // Campo Ubicacion
                 Forms\Components\TextInput::make('ubication')
                     ->required()
@@ -45,19 +53,24 @@ class MonitorResource extends Resource
                     ->translateLabel(),
                 // Campo Modelo
                 Forms\Components\Select::make('model_id')
-                    ->relationship('model', 'name')
+                    ->label('Model')
+                    ->options(fn (Get $get): Collection => Device_model::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
                     ->searchable()
                     ->preload()
+                    ->live()
                     ->required()
-                    ->translateLabel(),
+                    ->translateLabel()
+                    ->afterStateUpdated(function (callable $set) {
+                        $set('type_id', null);
+                    }),
                 // Campo Numero de Serie
                 Forms\Components\TextInput::make('serial_number')
                     ->required()
                     ->translateLabel(),
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
-                    ->relationship('type', 'name')
-                    ->default('Monitor')
+                    ->label('Type')
+                    ->options(fn (Get $get): Collection => Type::query()->where('model_id', $get('model_id'))->pluck('name', 'id'))
                     ->searchable()
                     ->required()
                     ->preload()

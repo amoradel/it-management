@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CamerasDVRResource\Pages;
 use App\Filament\Resources\CamerasDVRResource\RelationManagers;
 use App\Models\Device;
+use App\Models\Device_model;
+use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Form;
@@ -14,6 +16,8 @@ use Filament\Tables\Table;
 use Filament\Tables\TablesServiceProvider;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Get;
+use Illuminate\Support\Collection;
 
 class CamerasDVRResource extends Resource
 {
@@ -39,29 +43,39 @@ class CamerasDVRResource extends Resource
                     ->searchable()
                     ->preload()
                     ->required()
-                    ->translateLabel(),
+                    ->translateLabel()
+                    ->afterStateUpdated(function (callable $set) {
+                        $set('model_id', null);
+                        $set('type_id', null);
+                    }),
                 // Campo Ubicacion
                 Forms\Components\TextInput::make('ubication')
                     ->required()
                     ->translateLabel(),
                 // Campo Modelo
                 Forms\Components\Select::make('model_id')
-                    ->relationship('model', 'name')
+                    ->label('Model')
+                    ->options(fn (Get $get): Collection => Device_model::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
                     ->searchable()
                     ->preload()
+                    ->live()
                     ->required()
-                    ->translateLabel(),
-                // Campo Tipo
-                Forms\Components\Select::make('type_id')
-                    ->relationship('type', 'name')
-                    ->searchable()
-                    ->required()
-                    ->preload()
-                    ->translateLabel(),
+                    ->translateLabel()
+                    ->afterStateUpdated(function (callable $set) {
+                        $set('type_id', null);
+                    }),
                 // Campo Programa
                 Forms\Components\Select::make('dvr_program')
                     ->options(['IVMS-4200' => 'IVMS-4200', 'CMS3.0' => 'CMS3.0', 'VI MonitorPlus' => 'VI MonitorPlus',])
                     ->searchable()
+                    ->preload()
+                    ->translateLabel(),
+                // Campo Tipo
+                Forms\Components\Select::make('type_id')
+                    ->label('Type')
+                    ->options(fn (Get $get): Collection => Type::query()->where('model_id', $get('model_id'))->pluck('name', 'id'))
+                    ->searchable()
+                    ->required()
                     ->preload()
                     ->translateLabel(),
                 // Campo Numero de Activo

@@ -6,6 +6,8 @@ use App\Filament\Resources\ComputerResource\Pages;
 use App\Filament\Resources\ComputerResource\RelationManagers;
 use App\Filament\Resources\ComputerResource\RelationManagers\PartnersRelationManager;
 use App\Models\Device;
+use App\Models\Device_model;
+use App\Models\Type;
 use Doctrine\DBAL\Schema\Schema;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
@@ -18,8 +20,12 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Tables\TablesServiceProvider;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\App;
+use Filament\Forms\Get;
+use Illuminate\Support\Collection;
 
 class ComputerResource extends Resource
 {
@@ -39,14 +45,17 @@ class ComputerResource extends Resource
                     ->required()
                     ->maxLength(15)
                     ->translateLabel(),
-
                 // Campo Marca
                 Forms\Components\Select::make('brand_id')
                     ->relationship('brand', 'name')
                     ->searchable()
                     ->preload()
                     ->required()
-                    ->translateLabel(),
+                    ->translateLabel()
+                    ->afterStateUpdated(function (callable $set) {
+                        $set('model_id', null);
+                        $set('type_id', null);
+                    }),
                 // Campo Ubicacion
                 Forms\Components\TextInput::make('ubication')
                     ->required()
@@ -54,22 +63,27 @@ class ComputerResource extends Resource
                     ->translateLabel(),
                 // Campo Modelo
                 Forms\Components\Select::make('model_id')
-                    ->relationship('model', 'name')
+                    ->label('Model')
+                    ->options(fn (Get $get): Collection => Device_model::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
                     ->searchable()
                     ->preload()
+                    ->live()
                     ->required()
-                    ->translateLabel(),
-
-                // Campo Tipo
-                Forms\Components\Select::make('type_id')
-                    ->relationship('type', 'name')
-                    ->searchable()
-                    ->required()
-                    ->preload()
-                    ->translateLabel(),
+                    ->translateLabel()
+                    ->afterStateUpdated(function (callable $set) {
+                        $set('type_id', null);
+                    }),
                 // Campo Descripcion
                 Forms\Components\Textarea::make('description')
                     ->maxLength(300)
+                    ->translateLabel(),
+                // Campo Tipo
+                Forms\Components\Select::make('type_id')
+                    ->label('Type')
+                    ->options(fn (Get $get): Collection => Type::query()->where('model_id', $get('model_id'))->pluck('name', 'id'))
+                    ->searchable()
+                    ->required()
+                    ->preload()
                     ->translateLabel(),
                 // Campo Historico
                 Forms\Components\TextInput::make('historic')
@@ -99,7 +113,7 @@ class ComputerResource extends Resource
                 Forms\Components\TextInput::make('serial_number')
                     ->required()
                     ->translateLabel(),
-                // Campo Numero de Serie
+                // Campo Any Desk
                 Forms\Components\TextInput::make('any_desk')
                     ->required()
                     ->maxLength(15)

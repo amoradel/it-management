@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\POSResource\Pages;
 use App\Filament\Resources\POSResource\RelationManagers;
 use App\Models\Device;
+use App\Models\Device_model;
+use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,6 +14,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Get;
+use Illuminate\Support\Collection;
 
 class POSResource extends Resource
 {
@@ -29,7 +33,7 @@ class POSResource extends Resource
                 // Campo Nombre
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(15)
+                    ->maxLength(50)
                     ->translateLabel(),
                 // Campo Marca
                 Forms\Components\Select::make('brand_id')
@@ -37,7 +41,11 @@ class POSResource extends Resource
                     ->searchable()
                     ->preload()
                     ->required()
-                    ->translateLabel(),
+                    ->translateLabel()
+                    ->afterStateUpdated(function (callable $set) {
+                        $set('model_id', null);
+                        $set('type_id', null);
+                    }),
                 // Campo Ubicacion
                 Forms\Components\TextInput::make('ubication')
                     ->required()
@@ -45,25 +53,30 @@ class POSResource extends Resource
                     ->translateLabel(),
                 // Campo Modelo
                 Forms\Components\Select::make('model_id')
-                    ->relationship('model', 'name')
+                    ->label('Model')
+                    ->options(fn (Get $get): Collection => Device_model::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
                     ->searchable()
                     ->preload()
+                    ->live()
                     ->required()
-                    ->translateLabel(),
-                // Campo Tipo
-                Forms\Components\Select::make('type_id')
-                    ->relationship('type', 'name')
-                    ->searchable()
-                    ->required()
-                    ->preload()
-                    ->translateLabel(),
+                    ->translateLabel()
+                    ->afterStateUpdated(function (callable $set) {
+                        $set('type_id', null);
+                    }),
                 // Campo Numero de Serie
                 Forms\Components\TextInput::make('serial_number')
                     ->required()
                     ->translateLabel(),
+                // Campo Tipo
+                Forms\Components\Select::make('type_id')
+                    ->label('Type')
+                    ->options(fn (Get $get): Collection => Type::query()->where('model_id', $get('model_id'))->pluck('name', 'id'))
+                    ->searchable()
+                    ->required()
+                    ->preload()
+                    ->translateLabel(),
                 // Campo Observacion
                 Forms\Components\TextInput::make('observation')
-                    ->required()
                     ->translateLabel(),
                 // Campo Condicion
                 Forms\Components\Select::make('condition')

@@ -6,6 +6,8 @@ use App\Filament\Resources\PrinterResource\Pages;
 use App\Filament\Resources\PrinterResource\RelationManagers;
 use Filament\Forms;
 use App\Models\Device;
+use App\Models\Device_model;
+use App\Models\Type;
 use DeepCopy\Filter\Filter;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,6 +15,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Get;
+use Illuminate\Support\Collection;
 
 class PrinterResource extends Resource
 {
@@ -28,26 +32,63 @@ class PrinterResource extends Resource
         return $form
             ->schema([
                 // Campo Nombre
-                Forms\Components\TextInput::make('name'),
-                // Campo Ubicacion
-                Forms\Components\TextInput::make('ubication'),
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(15)
+                    ->translateLabel(),
                 // Campo Marca
                 Forms\Components\Select::make('brand_id')
-                    ->relationship('brand', 'name'),
+                    ->relationship('brand', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->required()
+                    ->translateLabel()
+                    ->afterStateUpdated(function (callable $set) {
+                        $set('model_id', null);
+                        $set('type_id', null);
+                    }),
+                // Campo Ubicacion
+                Forms\Components\TextInput::make('ubication')
+                    ->required()
+                    ->maxLength(15)
+                    ->translateLabel(),
                 // Campo Modelo
                 Forms\Components\Select::make('model_id')
-                    ->relationship('model', 'name'),
+                    ->label('Model')
+                    ->options(fn (Get $get): Collection => Device_model::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
+                    ->searchable()
+                    ->preload()
+                    ->live()
+                    ->required()
+                    ->translateLabel()
+                    ->afterStateUpdated(function (callable $set) {
+                        $set('type_id', null);
+                    }),
+                // Campo Descripcion
+                Forms\Components\Textarea::make('description')
+                    ->maxLength(300)
+                    ->translateLabel(),
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
-                    ->relationship('type', 'name'),
-                // Campo Descripcion
-                Forms\Components\Textarea::make('description'),
-                // Campo  historic
-                Forms\Components\TextInput::make('historic'),
-                // Campo  Numero de Activo
-                Forms\Components\TextInput::make('asset_number'),
-                // Campo  Numero de Serie
-                Forms\Components\TextInput::make('serial_number'),
+                    ->label('Type')
+                    ->options(fn (Get $get): Collection => Type::query()->where('model_id', $get('model_id'))->pluck('name', 'id'))
+                    ->searchable()
+                    ->required()
+                    ->preload()
+                    ->translateLabel(),
+                // Campo Historico
+                Forms\Components\TextInput::make('historic')
+                    ->maxLength(150)
+                    ->translateLabel(),
+                // Campo Numero de Activo
+                Forms\Components\TextInput::make('asset_number')
+                    ->required()
+                    ->maxLength(15)
+                    ->translateLabel(),
+                // Campo Numero de Serie
+                Forms\Components\TextInput::make('serial_number')
+                    ->required()
+                    ->translateLabel(),
                 // Campo Condicion
                 Forms\Components\Select::make('condition')
                     ->options((['Viejo' => 'Viejo', 'Nuevo' => 'Nuevo']))
@@ -66,7 +107,8 @@ class PrinterResource extends Resource
                 // Campo Estado
                 Forms\Components\Toggle::make('status')
                     ->onColor('success')
-                    ->translateLabel(),
+                    ->translateLabel()
+                    ->default(true),
                 // Columna que envia el tipo de equipo igual a printer
                 Forms\Components\Hidden::make('device_type')
                     ->default('printer'),
