@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class ModelResource extends Resource
 {
     protected static ?string $model = Device_model::class;
+    protected static ?string $navigationGroup = 'Marcas y Más';
 
     protected static ?string $modelLabel = 'Modelo';
     protected static ?string $pluralModelLabel = 'Modelos';

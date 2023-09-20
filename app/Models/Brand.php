@@ -21,4 +21,8 @@ class Brand extends Model
     {
         return $this->hasMany('App\Models\Device');
     }
+
+    public function types(){
+        return $this->hasMany('App\Models\Type');
+    }
 }

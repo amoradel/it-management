@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class BrandResource extends Resource
 {
     protected static ?string $model = Brand::class;
+    protected static ?string $navigationGroup = 'Marcas y Más';
 
     protected static ?string $modelLabel = 'Marca';
     protected static ?string $pluralModelLabel = 'Marcas';
@@ -28,9 +29,9 @@ class BrandResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                ->required()
-                ->maxLength(50)
-                ->translateLabel()
+                    ->required()
+                    ->maxLength(50)
+                    ->translateLabel()
             ]);
     }
 
@@ -52,14 +53,14 @@ class BrandResource extends Resource
                 ]),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -67,5 +68,5 @@ class BrandResource extends Resource
             'create' => Pages\CreateBrand::route('/create'),
             'edit' => Pages\EditBrand::route('/{record}/edit'),
         ];
-    }    
+    }
 }

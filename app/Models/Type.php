@@ -16,8 +16,14 @@ class Type extends Model
         return $this->belongsTo('App\Models\Device_model');
     }
 
+    public function brand(){
+        return $this->belongsTo('App\Models\Brand');
+    }
+    
     // Relacion uno a muchos
     public function devices(){
         return $this->hasMany('App\Models\Device');
     }
+
+
 }
