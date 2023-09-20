@@ -22,11 +22,12 @@ use Illuminate\Support\Collection;
 class CamerasDVRResource extends Resource
 {
     protected static ?string $model = Device::class;
+    protected static ?string $navigationGroup = 'Dispositivos';
 
     protected static ?string $modelLabel = 'Cámara o DVR';
     protected static ?string $pluralModelLabel = "Cámaras y DVR'S";
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-video-camera';
 
     public static function form(Form $form): Form
     {

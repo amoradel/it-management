@@ -23,7 +23,7 @@ class ModelResource extends Resource
     protected static ?string $modelLabel = 'Modelo';
     protected static ?string $pluralModelLabel = 'Modelos';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-hashtag';
 
     public static function form(Form $form): Form
     {

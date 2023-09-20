@@ -20,11 +20,12 @@ use Illuminate\Support\Collection;
 class MonitorResource extends Resource
 {
     protected static ?string $model = Device::class;
+    protected static ?string $navigationGroup = 'Dispositivos';
 
     protected static ?string $modelLabel = 'Monitor';
     protected static ?string $pluralModelLabel = "Monitores";
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-tv';
 
     public static function form(Form $form): Form
     {

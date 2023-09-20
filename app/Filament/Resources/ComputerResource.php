@@ -30,11 +30,12 @@ use Illuminate\Support\Collection;
 class ComputerResource extends Resource
 {
     protected static ?string $model = Device::class;
+    protected static ?string $navigationGroup = 'Dispositivos';
 
     protected static ?string $modelLabel = 'Computadora';
     protected static ?string $pluralModelLabel = 'Computadoras';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-computer-desktop';
 
     public static function form(Form $form): Form
     {

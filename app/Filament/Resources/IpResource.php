@@ -17,11 +17,12 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class IpResource extends Resource
 {
     protected static ?string $model = Ip::class;
+    protected static ?string $navigationGroup = 'Dispositivos';
 
     protected static ?string $modelLabel = 'Ip';
     protected static ?string $pluralModelLabel = "Ip's";
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-wifi';
 
     public static function form(Form $form): Form
     {
