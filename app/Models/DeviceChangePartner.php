@@ -15,16 +15,17 @@ class DeviceChangePartner extends Model
     // Relacion muchos a muchos
     public function device_change()
     {
-        return $this->belongsToMany('App\Models\DeviceChange', 'device_change_partner');
+        return $this->belongsTo(DeviceChange::class);
+
     }
 
     public function device()
     {
-        return $this->belongsToMany('App\Models\Device', 'device_change_partner');
+        return $this->belongsTo(Device::class);
     }
 
     public function partner()
     {
-        return $this->belongsToMany('App\Models\Partner', 'device_change_partner');
+        return $this->belongsTo(Partner::class);
     }
 }
