@@ -161,54 +161,72 @@ class ComputerResource extends Resource
     {
         return $table
             ->columns([
+                // Columna Nombre
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->translateLabel(),
+                // Columna Ubicacion
                 Tables\Columns\TextColumn::make('ubication')
                     ->translateLabel(),
+                // Columna Numero de Serie
                 Tables\Columns\TextColumn::make('serial_number')
                     ->translateLabel(),
+                // Columna Any Desk
                 Tables\Columns\TextColumn::make('any_desk')
                     ->translateLabel(),
+                // Columna Numero de activo
                 Tables\Columns\TextColumn::make('asset_number')
                     ->translateLabel(),
+                // Columna Marca
                 Tables\Columns\TextColumn::make('brand.name')
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
+                // Columna Modelo
                 Tables\Columns\TextColumn::make('model.name')
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
+                // Columna Tipo
                 Tables\Columns\TextColumn::make('type.name')
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
+                // Columna Descripcion
                 Tables\Columns\TextColumn::make('description')
                     ->wrap()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
+                // Columna Historico
                 Tables\Columns\TextColumn::make('historic')
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
+                // Columna Almacenamiento
                 Tables\Columns\TextColumn::make('storage')
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
+                // Columna Memoria RAM
                 Tables\Columns\TextColumn::make('ram_memory')
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
+                // Columna Procesador
                 Tables\Columns\TextColumn::make('processor')
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
+                // Columna Version de Office
                 Tables\Columns\TextColumn::make('office_version')
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
+                // Columna Version de Windows
                 Tables\Columns\TextColumn::make('windows_version')
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
+                // Columna Condicion
                 Tables\Columns\TextColumn::make('condition')
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
+                // Columna Fecha de Entrada
                 Tables\Columns\TextColumn::make('entry_date')
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
+                // Columna Estado
                 Tables\Columns\ToggleColumn::make('status')
                     ->translateLabel()
                     ->onColor('success'),
@@ -217,8 +235,9 @@ class ComputerResource extends Resource
                 Tables\Filters\BaseFilter::make('device_type')->query(fn (Builder $query): Builder => $query->where('device_type', 'computer'))
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make()
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
