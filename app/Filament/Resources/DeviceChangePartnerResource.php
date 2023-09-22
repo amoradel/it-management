@@ -18,8 +18,11 @@ use Filament\Forms\FormsComponent;
 class DeviceChangePartnerResource extends Resource
 {
     protected static ?string $model = DeviceChangePartner::class;
+    protected static ?string $navigationGroup = 'Personal';
+    protected static ?string $modelLabel = 'Entrega o Mejora';
+    protected static ?string $pluralModelLabel = 'Entregas o Mejoras';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-m-arrows-up-down';
 
     public static function form(Form $form): Form
     {
@@ -28,6 +31,8 @@ class DeviceChangePartnerResource extends Resource
                 Forms\Components\Select::make('partner_id')
                     ->label('id user')
                     ->relationship('partner', 'name')
+                    ->preload()
+                    ->searchable()
                     ->live()
                     ->required()
                     ->afterStateUpdated(function (callable $set) {
@@ -81,8 +86,31 @@ class DeviceChangePartnerResource extends Resource
     {
         return $table
             ->columns([
-                // Tables\Columns\TextColumn::make('device.name')
-                Tables\Columns\TextColumn::make('id')
+                // Columna Nombre del Equipo
+                Tables\Columns\TextColumn::make('device.name')
+                    ->translateLabel()
+                    ->sortable(),
+                // Columna Usuario
+                Tables\Columns\TextColumn::make('partner.name')
+                    ->translateLabel()
+                    ->sortable(),
+                // Columna Cambio en el Equipo
+                Tables\Columns\TextColumn::make('device_change.name'),
+                // Columna Tipo
+                Tables\Columns\TextColumn::make('type')
+                    ->translateLabel()
+                    ->sortable(),
+                // Columna Reabastecimiento
+                Tables\Columns\TextColumn::make('replenishment')
+                    ->translateLabel()
+                    ->sortable(),
+                // Columna Descripcion
+                Tables\Columns\TextColumn::make('description')
+                    ->wrap()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel()
+                    ->sortable(),
+
             ])
             ->filters([
                 //

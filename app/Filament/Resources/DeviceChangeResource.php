@@ -18,10 +18,10 @@ class DeviceChangeResource extends Resource
     protected static ?string $model = DeviceChange::class;
     protected static ?string $navigationGroup = 'Dispositivos';
 
-    protected static ?string $modelLabel = 'Entrega o Mejora';
-    protected static ?string $pluralModelLabel = 'Entregas o Mejoras';
+    protected static ?string $modelLabel = 'Equipo o Pieza';
+    protected static ?string $pluralModelLabel = 'Equipos o Piezas';
 
-    protected static ?string $navigationIcon = 'heroicon-m-arrows-up-down';
+    protected static ?string $navigationIcon = 'heroicon-m-cog';
 
     public static function form(Form $form): Form
     {
