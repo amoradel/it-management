@@ -38,12 +38,17 @@ class IpResource extends Resource
                     ->relationship('device', 'name')
                     ->searchable()
                     ->preload()
-                    ->translateLabel(),
+                    ->translateLabel()
+                    ->reactive()
+                    ->afterStateUpdated(function (callable $set, callable $get, $state) {
+                        $set('disponibility', setDisponibility($state, $get('description')));
+                    }),
                 // Campo Descripcion
                 Forms\Components\Textarea::make('description')
                     ->translateLabel()
-                    ->afterStateUpdated(function (Closure $set, $state) {
-                        $set('disponibility', $state);
+                    ->reactive()
+                    ->afterStateUpdated(function (callable $set, callable $get, $state) {
+                        $set('disponibility', setDisponibility($state, $get('device_id')));
                     }),
                 // Campo Tipo de Ip
                 Forms\Components\Select::make('ip_type')
@@ -56,7 +61,7 @@ class IpResource extends Resource
                     ->translateLabel(),
                 Forms\Components\TextInput::make('disponibility')
                     ->readOnly(),
-                    // ->fill(fn (callable $get) => $get('description') !== "" ? "Ocupado" : "Disponible")   ,                 
+                // ->fill(fn (callable $get) => $get('description') !== "" ? "Ocupado" : "Disponible")   ,                 
                 // Campo Estado
                 Forms\Components\Toggle::make('status')
                     ->onColor('success')
@@ -117,7 +122,7 @@ class IpResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                    
+
                 ]),
             ]);
     }
