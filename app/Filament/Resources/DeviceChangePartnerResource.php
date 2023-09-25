@@ -41,6 +41,7 @@ class DeviceChangePartnerResource extends Resource
                 Forms\Components\Select::make('device_change_id')
                     ->label('Entrega o Mejora')
                     ->relationship('device_change', 'name')
+                    ->multiple()
                     ->preload()
                     ->searchable()
                     ->required(),

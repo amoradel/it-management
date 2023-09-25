@@ -15,11 +15,16 @@ class DeviceChange extends Model
     // Relacion muchos a muchos
     public function partners()
     {
-        return $this->belongsToMany('App\Models\Partner', 'device_change_partner')->withTimestamps();
+        return $this->belongsToMany(Partner::class, 'device_change_partner')->withTimestamps();
     }
 
+    public function devices()
+    {
+        return $this->belongsToMany(Device::class, 'device_change_partner')->withTimestamps();
+    }
 
-    public function devices(){
-        return $this->belongsToMany('App\Models\Device', 'device_change_partner')->withTimestamps();
+    public function device_change_partner()
+    {
+        return $this->belongsToMany(DeviceChangePartner::class, 'device_change_partner_details');
     }
 }

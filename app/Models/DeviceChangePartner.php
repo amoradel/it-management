@@ -15,7 +15,7 @@ class DeviceChangePartner extends Model
     // Relacion muchos a muchos
     public function device_change()
     {
-        return $this->belongsTo(DeviceChange::class);
+        return $this->belongsToMany(DeviceChange::class, 'device_change_partner_details');
 
     }
 
