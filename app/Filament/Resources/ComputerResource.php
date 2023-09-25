@@ -169,6 +169,12 @@ class ComputerResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),
+                // Campo Usuarios
+                Tables\Columns\TextColumn::make('partners.name')
+                    ->searchable()
+                    ->sortable()
+                    ->wrap()
+                    ->translateLabel(),
                 // Columna Numero de Serie
                 Tables\Columns\TextColumn::make('serial_number')
                     ->searchable()
@@ -256,7 +262,8 @@ class ComputerResource extends Resource
                 // Columna Estado
                 Tables\Columns\ToggleColumn::make('status')
                     ->translateLabel()
-                    ->onColor('success'),
+                    ->onColor('success')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\BaseFilter::make('device_type')
