@@ -109,6 +109,7 @@ class IpResource extends Resource
                 // Columna Estado
                 Tables\Columns\ToggleColumn::make('status')
                     ->translateLabel()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->onColor('success'),
             ])
             ->filters([
