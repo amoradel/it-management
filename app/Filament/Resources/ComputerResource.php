@@ -259,7 +259,9 @@ class ComputerResource extends Resource
                     ->onColor('success'),
             ])
             ->filters([
-                Tables\Filters\BaseFilter::make('device_type')->query(fn (Builder $query): Builder => $query->where('device_type', 'computer'))
+                Tables\Filters\BaseFilter::make('device_type')
+                    ->query(fn (Builder $query): Builder => $query
+                        ->where('device_type', 'computer'))
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

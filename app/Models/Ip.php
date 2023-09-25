@@ -10,9 +10,17 @@ class Ip extends Model
     use HasFactory;
 
     protected $guarded = [];
+    // protected $disponibility = 'Libre';
 
+    public function Store()
+    {
+        if ('description' !== Null) {
+            $disponibility = 'Ocupada';
+        }
+    }
     // Relacion uno a uno
-    public function device(){
+    public function device()
+    {
         return $this->belongsTo('App\Models\Device');
     }
 }

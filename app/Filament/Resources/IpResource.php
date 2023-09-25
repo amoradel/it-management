@@ -14,6 +14,7 @@ use Filament\Tables\Table;
 use Filament\Tables\TablesServiceProvider;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Closure;
 
 class IpResource extends Resource
 {
@@ -40,7 +41,10 @@ class IpResource extends Resource
                     ->translateLabel(),
                 // Campo Descripcion
                 Forms\Components\Textarea::make('description')
-                    ->translateLabel(),
+                    ->translateLabel()
+                    ->afterStateUpdated(function (Closure $set, $state) {
+                        $set('disponibility', $state);
+                    }),
                 // Campo Tipo de Ip
                 Forms\Components\Select::make('ip_type')
                     ->options(['Estática' => 'Estática', 'Dinámica' => 'Dinámica'])
@@ -50,6 +54,9 @@ class IpResource extends Resource
                 Forms\Components\TextInput::make('segment')
                     ->required()
                     ->translateLabel(),
+                Forms\Components\TextInput::make('disponibility')
+                    ->readOnly(),
+                    // ->fill(fn (callable $get) => $get('description') !== "" ? "Ocupado" : "Disponible")   ,                 
                 // Campo Estado
                 Forms\Components\Toggle::make('status')
                     ->onColor('success')
