@@ -44,7 +44,12 @@ class DeviceChangePartnerResource extends Resource
                     ->multiple()
                     ->preload()
                     ->searchable()
-                    ->required(),
+                    ->required()
+                    ->createOptionForm([
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->translateLabel(),
+                    ]),
                 // Campo Tipo de Cambio
                 Forms\Components\Select::make('type')
                     ->options(['Entrega' => 'Entrega', 'Mejora' => 'Mejora'])
