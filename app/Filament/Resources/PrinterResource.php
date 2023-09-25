@@ -152,6 +152,7 @@ class PrinterResource extends Resource
                 // Columna Descripcion
                 Tables\Columns\TextColumn::make('description')
                     ->wrap()
+                    ->searchable()
                     ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -195,8 +196,10 @@ class PrinterResource extends Resource
                 Tables\Filters\BaseFilter::make('device_type')->query(fn (Builder $query): Builder => $query->where('device_type', 'printer'))
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make()
+                Tables\Actions\DeleteAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

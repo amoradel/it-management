@@ -31,10 +31,8 @@ class ComputerResource extends Resource
 {
     protected static ?string $model = Device::class;
     protected static ?string $navigationGroup = 'Dispositivos';
-
     protected static ?string $modelLabel = 'Computadora';
     protected static ?string $pluralModelLabel = 'Computadoras';
-
     protected static ?string $navigationIcon = 'heroicon-o-computer-desktop';
 
     public static function form(Form $form): Form
@@ -164,34 +162,51 @@ class ComputerResource extends Resource
                 // Columna Nombre
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
+                    ->sortable()
                     ->translateLabel(),
                 // Columna Ubicacion
                 Tables\Columns\TextColumn::make('ubication')
+                    ->searchable()
+                    ->sortable()
                     ->translateLabel(),
                 // Columna Numero de Serie
                 Tables\Columns\TextColumn::make('serial_number')
+                    ->searchable()
+                    ->sortable()
                     ->translateLabel(),
                 // Columna Any Desk
                 Tables\Columns\TextColumn::make('any_desk')
+                    ->searchable()
+                    ->sortable()
                     ->translateLabel(),
                 // Columna Numero de activo
                 Tables\Columns\TextColumn::make('asset_number')
+                    ->searchable()
+                    ->sortable()
                     ->translateLabel(),
                 // Columna Marca
                 Tables\Columns\TextColumn::make('brand.name')
+                    ->searchable()
+                    ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
                 // Columna Modelo
                 Tables\Columns\TextColumn::make('model.name')
+                    ->searchable()
+                    ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
                 // Columna Tipo
                 Tables\Columns\TextColumn::make('type.name')
+                    ->searchable()
+                    ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
                 // Columna Descripcion
                 Tables\Columns\TextColumn::make('description')
                     ->wrap()
+                    ->searchable()
+                    ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
                 // Columna Historico
@@ -200,26 +215,38 @@ class ComputerResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 // Columna Almacenamiento
                 Tables\Columns\TextColumn::make('storage')
+                    ->searchable()
+                    ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
                 // Columna Memoria RAM
                 Tables\Columns\TextColumn::make('ram_memory')
+                    ->searchable()
+                    ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
                 // Columna Procesador
                 Tables\Columns\TextColumn::make('processor')
+                    ->searchable()
+                    ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
                 // Columna Version de Office
                 Tables\Columns\TextColumn::make('office_version')
+                    ->searchable()
+                    ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
                 // Columna Version de Windows
                 Tables\Columns\TextColumn::make('windows_version')
+                    ->searchable()
+                    ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
                 // Columna Condicion
                 Tables\Columns\TextColumn::make('condition')
+                    ->searchable()
+                    ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
                 // Columna Fecha de Entrada

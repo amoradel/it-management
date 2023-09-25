@@ -19,16 +19,15 @@ class ModelResource extends Resource
 {
     protected static ?string $model = Device_model::class;
     protected static ?string $navigationGroup = 'Marcas y Más';
-
     protected static ?string $modelLabel = 'Modelo';
     protected static ?string $pluralModelLabel = 'Modelos';
-
     protected static ?string $navigationIcon = 'heroicon-o-hashtag';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                // Campo Marca
                 Forms\Components\Select::make('brand_id')
                     ->relationship('brand', 'name')
                     ->searchable()
@@ -41,6 +40,7 @@ class ModelResource extends Resource
                     ])
                     ->required()
                     ->translateLabel(),
+                // Campo Nombre
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(50)
@@ -53,14 +53,23 @@ class ModelResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('brand.name')->translateLabel(),
-                Tables\Columns\TextColumn::make('name')->translateLabel(),
+                // Columna Marca
+                Tables\Columns\TextColumn::make('brand.name')
+                    ->translateLabel()
+                    ->searchable()
+                    ->sortable(),
+                // Columna Modelo
+                Tables\Columns\TextColumn::make('name')
+                    ->translateLabel()
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

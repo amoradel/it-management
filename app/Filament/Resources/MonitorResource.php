@@ -21,10 +21,8 @@ class MonitorResource extends Resource
 {
     protected static ?string $model = Device::class;
     protected static ?string $navigationGroup = 'Dispositivos';
-
     protected static ?string $modelLabel = 'Monitor';
     protected static ?string $pluralModelLabel = "Monitores";
-
     protected static ?string $navigationIcon = 'heroicon-o-tv';
 
     public static function form(Form $form): Form
@@ -166,8 +164,10 @@ class MonitorResource extends Resource
                 Tables\Filters\BaseFilter::make('device_type')->query(fn (Builder $query): Builder => $query->where('device_type', 'monitor'))
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -11,6 +11,7 @@ use Filament\Forms\FormsComponent;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\TablesServiceProvider;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -18,10 +19,8 @@ class IpResource extends Resource
 {
     protected static ?string $model = Ip::class;
     protected static ?string $navigationGroup = 'Dispositivos';
-
     protected static ?string $modelLabel = 'Ip';
     protected static ?string $pluralModelLabel = "Ip's";
-
     protected static ?string $navigationIcon = 'heroicon-o-wifi';
 
     public static function form(Form $form): Form
@@ -104,11 +103,14 @@ class IpResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    
                 ]),
             ]);
     }

@@ -7,6 +7,7 @@ use App\Filament\Resources\CamerasDVRResource\RelationManagers;
 use App\Models\Device;
 use App\Models\Device_model;
 use App\Models\Type;
+use Filament\Actions\DeleteAction;
 use Filament\Forms;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Form;
@@ -23,10 +24,8 @@ class CamerasDVRResource extends Resource
 {
     protected static ?string $model = Device::class;
     protected static ?string $navigationGroup = 'Dispositivos';
-
     protected static ?string $modelLabel = 'Cámara o DVR';
     protected static ?string $pluralModelLabel = "Cámaras y DVR'S";
-
     protected static ?string $navigationIcon = 'heroicon-o-video-camera';
 
     public static function form(Form $form): Form
@@ -56,7 +55,9 @@ class CamerasDVRResource extends Resource
                 // Campo Modelo
                 Forms\Components\Select::make('model_id')
                     ->label('Model')
-                    ->options(fn (Get $get): Collection => Device_model::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
+                    ->options(fn (Get $get): Collection => Device_model::query()
+                        ->where('brand_id', $get('brand_id'))
+                        ->pluck('name', 'id'))
                     ->searchable()
                     ->preload()
                     ->live()
@@ -181,8 +182,9 @@ class CamerasDVRResource extends Resource
                 Tables\Filters\BaseFilter::make('device_type')->query(fn (Builder $query): Builder => $query->where('device_type', 'camera_dvr'))
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

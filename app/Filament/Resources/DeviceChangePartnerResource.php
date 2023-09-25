@@ -21,7 +21,6 @@ class DeviceChangePartnerResource extends Resource
     protected static ?string $navigationGroup = 'Personal';
     protected static ?string $modelLabel = 'Entrega o Mejora';
     protected static ?string $pluralModelLabel = 'Entregas o Mejoras';
-
     protected static ?string $navigationIcon = 'heroicon-m-arrows-up-down';
 
     public static function form(Form $form): Form
@@ -29,7 +28,7 @@ class DeviceChangePartnerResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('partner_id')
-                    ->label('id user')
+                    ->label('Usuario')
                     ->relationship('partner', 'name')
                     ->preload()
                     ->searchable()
@@ -89,25 +88,33 @@ class DeviceChangePartnerResource extends Resource
                 // Columna Nombre del Equipo
                 Tables\Columns\TextColumn::make('device.name')
                     ->translateLabel()
+                    ->searchable()
                     ->sortable(),
                 // Columna Usuario
                 Tables\Columns\TextColumn::make('partner.name')
                     ->translateLabel()
+                    ->searchable()
                     ->sortable(),
                 // Columna Cambio en el Equipo
-                Tables\Columns\TextColumn::make('device_change.name'),
+                Tables\Columns\TextColumn::make('device_change.name')
+                    ->translateLabel()
+                    ->searchable()
+                    ->sortable(),
                 // Columna Tipo
                 Tables\Columns\TextColumn::make('type')
                     ->translateLabel()
+                    ->searchable()
                     ->sortable(),
                 // Columna Reabastecimiento
                 Tables\Columns\TextColumn::make('replenishment')
                     ->translateLabel()
+                    ->searchable()
                     ->sortable(),
                 // Columna Descripcion
                 Tables\Columns\TextColumn::make('description')
                     ->wrap()
                     ->toggleable(isToggledHiddenByDefault: true)
+                    ->searchable()
                     ->translateLabel()
                     ->sortable(),
 
@@ -116,7 +123,9 @@ class DeviceChangePartnerResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

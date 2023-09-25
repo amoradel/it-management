@@ -24,7 +24,6 @@ class POSResource extends Resource
     protected static ?string $modelLabel = 'POS';
     protected static ?string $pluralModelLabel = "POS";
     protected static ?string $navigationGroup = 'Dispositivos';
-
     protected static ?string $navigationIcon = 'heroicon-o-server';
 
     public static function form(Form $form): Form
@@ -116,6 +115,7 @@ class POSResource extends Resource
                     ->translateLabel(),
                 // Columna Ubicacion
                 Tables\Columns\TextColumn::make('ubication')
+                    ->searchable()
                     ->translateLabel(),
                 // Columna Marca
                 Tables\Columns\TextColumn::make('brand.name')
@@ -158,8 +158,9 @@ class POSResource extends Resource
 
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

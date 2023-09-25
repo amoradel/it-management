@@ -21,7 +21,6 @@ class TypeResource extends Resource
 {
     protected static ?string $model = Type::class;
     protected static ?string $navigationGroup = 'Marcas y Más';
-
     protected static ?string $modelLabel = 'Tipo';
     protected static ?string $pluralModelLabel = 'Tipos';
 
@@ -65,17 +64,27 @@ class TypeResource extends Resource
         return $table
             ->columns([
                 // Columna Marca
-                Tables\Columns\TextColumn::make('brand.name')->translateLabel(),
+                Tables\Columns\TextColumn::make('brand.name')
+                    ->translateLabel()
+                    ->searchable()
+                    ->sortable(),
                 // Columna Modelo
-                Tables\Columns\TextColumn::make('model.name')->translateLabel(),
+                Tables\Columns\TextColumn::make('model.name')
+                    ->translateLabel()
+                    ->searchable()
+                    ->sortable(),
                 // Columna Tipo
-                Tables\Columns\TextColumn::make('name')->translateLabel()
+                Tables\Columns\TextColumn::make('name')
+                    ->translateLabel()
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

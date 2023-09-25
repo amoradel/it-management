@@ -17,16 +17,15 @@ class DeviceChangeResource extends Resource
 {
     protected static ?string $model = DeviceChange::class;
     protected static ?string $navigationGroup = 'Dispositivos';
-
     protected static ?string $modelLabel = 'Equipo o Pieza';
     protected static ?string $pluralModelLabel = 'Equipos o Piezas';
-
     protected static ?string $navigationIcon = 'heroicon-m-cog';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                // Campo Nombre
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->translateLabel()
@@ -36,14 +35,19 @@ class DeviceChangeResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            // Columna Nombre
             ->columns([
-                Tables\Columns\TextColumn::make('name')->translateLabel()
+                Tables\Columns\TextColumn::make('name')
+                ->translateLabel()
+                ->searchable()
+                ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

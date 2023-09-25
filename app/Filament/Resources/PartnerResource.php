@@ -99,27 +99,62 @@ class PartnerResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->translateLabel(),
-                Tables\Columns\TextColumn::make('department.name')->translateLabel(),
-                Tables\Columns\TextColumn::make('username_network')->translateLabel(),
-                Tables\Columns\TextColumn::make('username_odoo')->translateLabel(),
-                Tables\Columns\TextColumn::make('username_AS400')->translateLabel(),
-                Tables\Columns\TextColumn::make('extension')->translateLabel(),
+                // Columna Nombre
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable()
+                    ->sortable()
+                    ->translateLabel(),
+                // Columna Departamento
+                Tables\Columns\TextColumn::make('department.name')
+                    ->searchable()
+                    ->sortable()
+                    ->translateLabel(),
+                // Columna Usuario de Red
+                Tables\Columns\TextColumn::make('username_network')
+                    ->searchable()
+                    ->sortable()
+                    ->translateLabel(),
+                // Columna Usuario de Odoo
+                Tables\Columns\TextColumn::make('username_odoo')
+                    ->searchable()
+                    ->sortable()
+                    ->translateLabel(),
+                // Columna Usuario AS400
+                Tables\Columns\TextColumn::make('username_AS400')
+                    ->searchable()
+                    ->sortable()
+                    ->translateLabel(),
+                // Columna Extension
+                Tables\Columns\TextColumn::make('extension')
+                    ->searchable()
+                    ->sortable()
+                    ->translateLabel(),
+                // Columna Correo
                 Tables\Columns\TextColumn::make('email')
+                    ->searchable()
+                    ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
+                // Columna Puesto
                 Tables\Columns\TextColumn::make('company_position')
+                    ->searchable()
+                    ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\ToggleColumn::make('status')->translateLabel()
+                // Columna Estado
+                Tables\Columns\ToggleColumn::make('status')
                     ->onColor('success')
+                    ->default('true')
+                    ->translateLabel()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -20,13 +20,13 @@ class DepartmentResource extends Resource
     protected static ?string $modelLabel = 'Departamento';
     protected static ?string $pluralModelLabel = 'Departamentos';
     protected static ?string $navigationGroup = 'Personal';
-
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                // Campo Nombre
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(50)
@@ -37,14 +37,19 @@ class DepartmentResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            // Columna Nombre
             ->columns([
-                Tables\Columns\TextColumn::make('name')->translateLabel()
+                Tables\Columns\TextColumn::make('name')
+                ->translateLabel()
+                ->sortable()
+                ->searchable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
