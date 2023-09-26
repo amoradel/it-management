@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\DeviceChangePartnerResource\Pages;
 use App\Models\DeviceChangePartner;
+use App\Models\Type;
+use App\Models\Device_model;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Get;
 use App\Models\Partner;
 use Filament\Forms\FormsComponent;
+use Illuminate\Support\Collection;
 
 class DeviceChangePartnerResource extends Resource
 {
@@ -46,7 +49,48 @@ class DeviceChangePartnerResource extends Resource
                     ->searchable()
                     ->required()
                     ->createOptionForm([
+                        // Campo Nombre de la Pieza
                         Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->translateLabel(),
+                        // Campo Marca
+                        Forms\Components\Select::make('brand_id')
+                            ->relationship('brand', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->translateLabel()
+                            ->afterStateUpdated(function (callable $set) {
+                                $set('model_id', null);
+                                $set('type_id', null);
+                            }),
+                        // Campo Modelo
+                        Forms\Components\Select::make('model_id')
+                            ->label('Model')
+                            ->options(fn (Get $get): Collection => Device_model::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
+                            ->searchable()
+                            ->preload()
+                            ->live()
+                            ->required()
+                            ->translateLabel()
+                            ->afterStateUpdated(function (callable $set) {
+                                $set('type_id', null);
+                            }),
+                        // Campo Tipo
+                        Forms\Components\Select::make('type_id')
+                            ->label('Type')
+                            ->options(fn (Get $get): Collection => Type::query()->where('model_id', $get('model_id'))->pluck('name', 'id'))
+                            ->searchable()
+                            ->required()
+                            ->preload()
+                            ->translateLabel(),
+                        // Campo Numero de Activo
+                        Forms\Components\TextInput::make('asset_number')
+                            ->required()
+                            ->maxLength(15)
+                            ->translateLabel(),
+                        // Campo Numero de Serie
+                        Forms\Components\TextInput::make('serial_number')
                             ->required()
                             ->translateLabel(),
                     ]),
@@ -135,7 +179,7 @@ class DeviceChangePartnerResource extends Resource
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\Action::make('pdf')
                     ->icon('heroicon-s-document-arrow-down')
-                    ->color('info') 
+                    ->color('info')
                     ->url(fn (DeviceChangePartner $records) => route('download_pdf', $records))
                     ->openUrlInNewTab(),
             ])
