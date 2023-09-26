@@ -22,4 +22,8 @@ class Device_model extends Model
     public function devices(){
         return $this->hasMany('App\Models\Device');
     }
+
+    public function device_changes(){
+        return $this->hasMany(DeviceChange::class);
+    }
 }

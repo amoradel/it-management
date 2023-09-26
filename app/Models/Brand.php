@@ -19,10 +19,14 @@ class Brand extends Model
 
     public function devices()
     {
-        return $this->hasMany('App\Models\Device');
+        return $this->hasMany(Device::class);
     }
 
     public function types(){
-        return $this->hasMany('App\Models\Type');
+        return $this->hasMany(Type::class);
+    }
+
+    public function device_changes(){
+        return $this->hasMany(DeviceChange::class);
     }
 }

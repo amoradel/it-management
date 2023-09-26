@@ -104,6 +104,7 @@ class DeviceChangePartnerResource extends Resource
                 // Columna Cambio en el Equipo
                 Tables\Columns\TextColumn::make('device_change.name')
                     ->translateLabel()
+                    ->wrap()
                     ->searchable()
                     ->sortable(),
                 // Columna Tipo
@@ -132,6 +133,11 @@ class DeviceChangePartnerResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('pdf')
+                    ->icon('heroicon-s-document-arrow-down')
+                    ->color('info') 
+                    ->url(fn (DeviceChangePartner $records) => route('download_pdf', $records))
+                    ->openUrlInNewTab(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

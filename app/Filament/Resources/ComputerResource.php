@@ -148,7 +148,7 @@ class ComputerResource extends Resource
                     ->onColor('success')
                     ->default('true')
                     ->translateLabel(),
-                // Columna que envia el tipo de equipo igual a computer
+                // Campo que envia el tipo de equipo igual a computer
                 Forms\Components\Hidden::make('device_type')
                     ->default('computer'),
             ]);
@@ -169,7 +169,7 @@ class ComputerResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),
-                // Campo Usuarios
+                // Columna Usuarios
                 Tables\Columns\TextColumn::make('partners.name')
                     ->searchable()
                     ->sortable()
