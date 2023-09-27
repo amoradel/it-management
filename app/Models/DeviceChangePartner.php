@@ -42,5 +42,11 @@ class DeviceChangePartner extends Model
         // $pdf = PDF::setPaper('letter', 'landscape');
         $pdf = PDF::loadView('pdf.pdf', compact('records'))->setPaper('letter' );
 
-        return $pdf->stream();    }
+        foreach ($records as $record)
+        {
+            $title = $title = $record->partner->name .'_' . $record->type .'_'. now()->format('d_m_Y');
+        }
+
+        return $pdf->stream($title);    
+    }
 }

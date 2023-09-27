@@ -42,4 +42,9 @@ class DeviceChange extends Model
     {
         return $this->belongsTo(Type::class);
     }
+
+    public function deviceChangePartners()
+    {
+        return $this->belongsToMany(DeviceChangePartner::class, 'device_change_partner_details', );
+    }
 }

@@ -5,8 +5,12 @@
     <meta charset="UTF-8">
     <title>Formato de Entrega o Mejora</title>
     <style>
+        body {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+        }
+
         @page {
-            margin-top: 10cm;
+            margin-top: 10cm; 
             margin-bottom: 10cm;
         }
 
@@ -42,19 +46,29 @@
         }
 
         th {
-            background-color: #ccc;
+            background-color: green;
+            color: white;
         }
 
         .t-header {
             border: 1px solid black;
             padding: 5px;
             text-align: center;
-            background-color: #ccc;
+            background-color: green;
+            color: white;
             font-weight: bold;
         }
 
         .tx-left {
             text-align: left;
+        }
+
+        .font-sm {
+            font-size: 10px;
+        }
+
+        .font-m {
+            font-size: 12px;
         }
 
         .pagenum:before {
@@ -64,13 +78,18 @@
         .page-break {
             page-break-before: always;
         }
+
+        .details-margin {
+            margin-top: -1.5cm;
+        }
     </style>
 </head>
 
 <body>
     {{-- Header --}}
+
     <header id="header">
-        <table>
+        <table class="font-sm">
             <tr>
                 <td>Hospital Vicente Dantoni</td>
                 <td>Entrega de Equipo</td>
@@ -92,7 +111,7 @@
             </tr>
         </table>
 
-        <h1>{{ $record->type }} de Equipo </h1>
+        <h1>1. {{ $record->type }} de Equipo </h1>
         <hr>
         <div class="t-header">
             Datos del Colaborador
@@ -116,7 +135,7 @@
                 <td>{{ $record->partner->department->name }}</td>
             </tr>
         </table>
-        <div class="t-header">
+        <div class="t-header" >
             Equipo Asignado: {{ $record->device->name }}
         </div>
         {{-- Fin de los datos --}}
@@ -143,7 +162,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class="tx-left font-m">
                     <b>{{ ucfirst($record->description) }}</b>
                 </td>
             </tr>
@@ -171,7 +190,7 @@
             </tr>
         </table>
         <br>
-        <table>
+        <table class="font-sm">
             <tr>
                 <td>Preparado Por: <br>Anibal Moradel</td>
                 <td>Revisado Por: <br>Sandra Gonzales</td>
@@ -182,7 +201,7 @@
     {{-- End Footer --}}
 
     {{-- Tabla que muestra los datos de las entregas/mejoras --}}
-    <div>
+    <div class="details-margin">
         <div class="t-header">
             Hardware
         </div>
@@ -197,12 +216,12 @@
                     <th>No.Serie</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="font-m">
                 {{-- Ciclo FOR PARA LAS PIEZAS --}}
                 {{ $i = 1 }}
 
                 @foreach ($record->device_change as $change)
-                    <tr class="@if ($i % 6 === 0) page-break @endif">
+                    <tr class="@if ($i % 6 === 0) page-break details-margin @endif">
                         <td>{{ $i++ }}</td>
                         <td>{{ $change->name }}</td>
                         <td>{{ $change->brand->name }}</td>
@@ -212,6 +231,11 @@
                     </tr>
                 @endforeach
             </tbody>
+        </table>
+        <table>
+            <tr>
+                <td><b>*** ULTIMA LINEA ***</b></td>
+            </tr>
         </table>
         <br>
     </div>

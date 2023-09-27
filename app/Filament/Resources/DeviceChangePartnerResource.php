@@ -17,6 +17,7 @@ use Filament\Forms\Get;
 use App\Models\Partner;
 use Filament\Forms\FormsComponent;
 use Illuminate\Support\Collection;
+use App\Filament\Resources\DeviceChangePartnerResource\RelationManagers\DeviceChangeRelationManager;
 
 class DeviceChangePartnerResource extends Resource
 {
@@ -40,59 +41,6 @@ class DeviceChangePartnerResource extends Resource
                     ->afterStateUpdated(function (callable $set) {
                         $set('device_id', null);
                     }),
-                // Campo Device_ID
-                Forms\Components\Select::make('device_change_id')
-                    ->label('Entrega o Mejora')
-                    ->relationship('device_change', 'name')
-                    ->multiple()
-                    ->preload()
-                    ->searchable()
-                    ->required()
-                    ->createOptionForm([
-                        // Campo Nombre de la Pieza
-                        Forms\Components\TextInput::make('name')
-                            ->required()
-                            ->translateLabel(),
-                        // Campo Marca
-                        Forms\Components\Select::make('brand_id')
-                            ->relationship('brand', 'name')
-                            ->searchable()
-                            ->preload()
-                            ->required()
-                            ->translateLabel()
-                            ->afterStateUpdated(function (callable $set) {
-                                $set('model_id', null);
-                                $set('type_id', null);
-                            }),
-                        // Campo Modelo
-                        Forms\Components\Select::make('model_id')
-                            ->label('Model')
-                            ->options(fn (Get $get): Collection => Device_model::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
-                            ->searchable()
-                            ->preload()
-                            ->live()
-                            ->required()
-                            ->translateLabel()
-                            ->afterStateUpdated(function (callable $set) {
-                                $set('type_id', null);
-                            }),
-                        // Campo Tipo
-                        Forms\Components\Select::make('type_id')
-                            ->label('Type')
-                            ->options(fn (Get $get): Collection => Type::query()->where('model_id', $get('model_id'))->pluck('name', 'id'))
-                            ->searchable()
-                            ->preload()
-                            ->translateLabel(),
-                        // Campo Numero de Activo
-                        Forms\Components\TextInput::make('asset_number')
-                            ->required()
-                            ->maxLength(15)
-                            ->translateLabel(),
-                        // Campo Numero de Serie
-                        Forms\Components\TextInput::make('serial_number')
-                            ->required()
-                            ->translateLabel(),
-                    ]),
                 // Campo Tipo de Cambio
                 Forms\Components\Select::make('type')
                     ->options(['Entrega' => 'Entrega', 'Mejora' => 'Mejora'])
@@ -127,6 +75,15 @@ class DeviceChangePartnerResource extends Resource
                     ->required()
                     ->searchable()
                     ->translateLabel(),
+                // Campo Device Change ID
+                Forms\Components\Select::make('device_change_id')
+                    ->label('Entrega o Mejora')
+                    ->relationship('device_change', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->searchable()
+                    ->required()
+                    ->disabled(),
             ]);
     }
 
@@ -192,7 +149,7 @@ class DeviceChangePartnerResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            DeviceChangeRelationManager::class,
         ];
     }
 

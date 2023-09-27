@@ -1,31 +1,24 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\DeviceChangePartnerResource\RelationManagers;
 
-use App\Filament\Resources\DeviceChangeResource\Pages;
-use App\Filament\Resources\DeviceChangeResource\RelationManagers;
-use App\Models\DeviceChange;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Get;
 use Illuminate\Support\Collection;
-use App\Models\Device_model;
+use Filament\Forms\Get;
 use App\Models\Type;
+use App\Models\Device_model;
 
-class DeviceChangeResource extends Resource
+class DeviceChangeRelationManager extends RelationManager
 {
-    protected static ?string $model = DeviceChange::class;
-    protected static ?string $navigationGroup = 'Dispositivos';
-    protected static ?string $modelLabel = 'Equipo o Pieza';
-    protected static ?string $pluralModelLabel = 'Equipos o Piezas';
-    protected static ?string $navigationIcon = 'heroicon-m-cog';
+    protected static string $relationship = 'device_change';
 
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -36,7 +29,6 @@ class DeviceChangeResource extends Resource
                 // Campo Marca
                 Forms\Components\Select::make('brand_id')
                     ->relationship('brand', 'name')
-                    ->searchable()
                     ->preload()
                     ->required()
                     ->translateLabel()
@@ -48,7 +40,6 @@ class DeviceChangeResource extends Resource
                 Forms\Components\Select::make('model_id')
                     ->label('Model')
                     ->options(fn (Get $get): Collection => Device_model::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
-                    ->searchable()
                     ->preload()
                     ->live()
                     ->required()
@@ -60,7 +51,6 @@ class DeviceChangeResource extends Resource
                 Forms\Components\Select::make('type_id')
                     ->label('Type')
                     ->options(fn (Get $get): Collection => Type::query()->where('model_id', $get('model_id'))->pluck('name', 'id'))
-                    ->searchable()
                     ->required()
                     ->preload()
                     ->translateLabel(),
@@ -76,68 +66,51 @@ class DeviceChangeResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
+            ->recordTitleAttribute('name')
             ->columns([
                 // Columna Nombre
                 Tables\Columns\TextColumn::make('name')
                     ->translateLabel()
-                    ->searchable()
                     ->sortable(),
                 // Columna Marca
                 Tables\Columns\TextColumn::make('brand.name')
-                    ->searchable()
                     ->sortable()
                     ->translateLabel(),
                 // Columna Modelo
                 Tables\Columns\TextColumn::make('model.name')
-                    ->searchable()
                     ->sortable()
                     ->translateLabel(),
                 // Columna Tipo
                 Tables\Columns\TextColumn::make('type.name')
-                    ->searchable()
                     ->sortable()
                     ->translateLabel(),
                 // Columna Numero de Activo
                 Tables\Columns\TextColumn::make('asset_number')
-                    ->searchable()
                     ->sortable()
                     ->translateLabel(),
                 // Columna Numero de Serie
                 Tables\Columns\TextColumn::make('serial_number')
-                    ->searchable()
                     ->sortable()
                     ->translateLabel(),
             ])
             ->filters([
                 //
             ])
+            ->headerActions([
+                Tables\Actions\AttachAction::make('device_change_partner')->preloadRecordSelect(),
+                Tables\Actions\CreateAction::make(),
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DetachAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListDeviceChanges::route('/'),
-            'create' => Pages\CreateDeviceChange::route('/create'),
-            'edit' => Pages\EditDeviceChange::route('/{record}/edit'),
-        ];
     }
 }
