@@ -5,13 +5,28 @@
     <meta charset="UTF-8">
     <title>Formato de Entrega o Mejora</title>
     <style>
+        @page {
+            margin-top: 10cm;
+            margin-bottom: 10cm;
+        }
+
+        #header {
+            position: fixed;
+            width: 100%;
+            top: -9cm;
+        }
+
+        #footer {
+            position: fixed;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+            bottom: 0.5cm;
+        }
+
         h1 {
             font-size: 20px;
             font-weight: bold;
-        }
-
-        p {
-            font-size: 16px;
         }
 
         table {
@@ -42,22 +57,24 @@
             text-align: left;
         }
 
-        footer {
-            position: fixed;
-            bottom: 0cm;
-            width: 100%;
+        .pagenum:before {
+            content: counter(page);
+        }
 
+        .page-break {
+            page-break-before: always;
         }
     </style>
 </head>
 
 <body>
-    <header>
+    {{-- Header --}}
+    <header id="header">
         <table>
             <tr>
                 <td>Hospital Vicente Dantoni</td>
                 <td>Entrega de Equipo</td>
-                <td>Pagina CALCULAR PAGINA</td>
+                <td>Número de Pagina: <span class="pagenum"></span></td>
             </tr>
             <tr>
                 <td>Área:
@@ -65,119 +82,95 @@
                         {{ $record->device->ubication }}
                     @endforeach
                 </td>
-                <td>Fecha de Vigencia: CALCULA (AUN NO SE COMO)</td>
-                <td>Numero de Revision (QUE?)</td>
+                <td>Fecha de Vigencia: 10 de Octubre de 2020</td>
+                <td>Numero de Revision: #1</td>
             </tr>
-            {{-- <tr>
-                <td>Politica (  )       Procedimiento (  )      Instructivo (  )</td>
-            </tr> --}}
-        </table>
-    </header>
-
-    <h1>{{ $record->type }} de Equipo </h1>
-    <hr>
-    <div class="t-header">
-        Datos del Colaborador
-    </div>
-    <table>
-        <tr>
-            <th>Nombre</th>
-            <td>{{ $record->partner->name }}</td>
-            <th>Cargo</th>
-            <td>{{ $record->partner->company_position }}</td>
-            <th>Usuario de red</th>
-            <td>{{ $record->partner->username_network }}</td>
-        </tr>
-        <tr>
-            <th>Teléfono/Ext.</th>
-            <td>{{ $record->partner->extension }}</td>
-            <th>Correo</th>
-            <td>{{ $record->partner->email }}</td>
-            <th>Área</th>
-            <td>{{ $record->partner->department->name }}</td>
-        </tr>
-    </table>
-    <div class="t-header">
-        Equipo Asignado: {{ $record->device->name }}
-    </div>
-    <br>
-    <div class="t-header">
-        Hardware
-    </div>
-    <table>
-        <tr>
-            <th>No.</th>
-            <th>Pieza o Equipo</th>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>No. Activo</th>
-            <th>No.Serie</th>
-        </tr>
-        {{-- Ciclo FOR PARA LAS PIEZAS --}}
-        {{ $i = 1 }}
-        @foreach ($record->device_change as $change)
             <tr>
-                <td>{{ $i++ }}</td>
-                <td>{{ $change->name }}</td>
-                <td>{{ $change->brand->name }}</td>
-                <td>{{ $change->model->name }}</td>
-                <td>{{ $change->asset_number }}</td>
-                <td>{{ $change->serial_number }}</td>
+                <td>Politica ( )</td>
+                <td>Procedimiento ( )</td>
+                <td>Instructivo ( )</td>
             </tr>
-        @endforeach
-        {{-- <td>{{ $record->device_change->brand_id }}</td>
-                <td>{{ $record->device_change->model_id }}</td> --}}
-        {{-- <td>{{ $record->device->asset_number }}</td>
-                <td>{{ $record->device->serial_number }}</td> --}}
-        {{-- <p>{{ $record->device_change }}</p> --}}
+        </table>
 
+        <h1>{{ $record->type }} de Equipo </h1>
+        <hr>
+        <div class="t-header">
+            Datos del Colaborador
+        </div>
+        {{-- Tabla que muestra los datos del empleado/partner --}}
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ $record->partner->name }}</td>
+                <th>Cargo</th>
+                <td>{{ $record->partner->company_position }}</td>
+                <th>Usuario de red</th>
+                <td>{{ $record->partner->username_network }}</td>
+            </tr>
+            <tr>
+                <th>Teléfono/Ext.</th>
+                <td>{{ $record->partner->extension }}</td>
+                <th>Correo</th>
+                <td>{{ $record->partner->email }}</td>
+                <th>Área</th>
+                <td>{{ $record->partner->department->name }}</td>
+            </tr>
+        </table>
+        <div class="t-header">
+            Equipo Asignado: {{ $record->device->name }}
+        </div>
+        {{-- Fin de los datos --}}
+    </header>
+    {{-- End Header --}}
 
-    </table>
-    <br>
-    <div class="t-header">
-        Observaciones
-    </div>
-    <table>
-        <tr>
-            <td style="text-align: justify">Certifico que los elementos detallados en el presente documento me han sido
-                entregados para mi cuidado y
-                custodia con el propósito de cumplir con las tareas y asignaciones propias de mi cargo en la
-                organización, siendo estos de mi única y exclusiva responsabilidad.
-                <br>
-                Me comprometo a usar correctamente los recursos, y solo para los fines establecidos, a no instalar o
-                permitir la instalación de software o hardware por personal ajeno al departamento de IT.
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <b>{{ $record->description }}</b>
-            </td>
-        </tr>
-    </table>
-    <br>
-    <div class="t-header">
-        {{ $record->type }} de Equipo
-    </div>
-    <table>
-        <tr>
-            <th>Recibe</th>
-            <th>Entrega</th>
-        </tr>
-        <tr>
-            <td class="tx-left">Nombre: {{ $record->partner->name }}</td>
-            <td class="tx-left">Nombre: Anibal Moradel</td>
-        </tr>
-        <tr>
-            <td class="tx-left">Firma: </td>
-            <td class="tx-left">Firma: </td>
-        </tr>
-        <tr>
-            <td class="tx-left">Fecha: {{ $record->created_at }}</td>
-            <td class="tx-left">Fecha: {{ $record->created_at }}</td>
-        </tr>
-    </table>
-    <br>
-    <footer>
+    {{-- Footer --}}
+    <div id="footer">
+        <div class="t-header">
+            Observaciones
+        </div>
+        <table>
+            <tr>
+                <td style="text-align: justify">Certifico que los elementos detallados en el presente documento me
+                    han
+                    sido
+                    entregados para mi cuidado y
+                    custodia con el propósito de cumplir con las tareas y asignaciones propias de mi cargo en la
+                    organización, siendo estos de mi única y exclusiva responsabilidad.
+                    <br>
+                    Me comprometo a usar correctamente los recursos, y solo para los fines establecidos, a no
+                    instalar o
+                    permitir la instalación de software o hardware por personal ajeno al departamento de IT.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>{{ ucfirst($record->description) }}</b>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <div class="t-header">
+            {{ $record->type }} de Equipo
+        </div>
+        <table>
+            <tr>
+                <th>Recibe</th>
+                <th>{{ $record->type }}</th>
+            </tr>
+            <tr>
+                <td class="tx-left">Nombre: {{ $record->partner->name }}</td>
+                <td class="tx-left">Nombre: {{ ucwords(env('USER')) }}</td>
+            </tr>
+            <tr>
+                <td class="tx-left">Firma: </td>
+                <td class="tx-left">Firma: </td>
+            </tr>
+            <tr>
+                <td class="tx-left">Fecha: </td>
+                <td class="tx-left">Fecha: {{ now()->format('d-m-Y') }}</td>
+            </tr>
+        </table>
+        <br>
         <table>
             <tr>
                 <td>Preparado Por: <br>Anibal Moradel</td>
@@ -185,7 +178,43 @@
                 <td>Aprobado Por: <br>Hugo Cabrera</td>
             </tr>
         </table>
-    </footer>
+    </div>
+    {{-- End Footer --}}
+
+    {{-- Tabla que muestra los datos de las entregas/mejoras --}}
+    <div>
+        <div class="t-header">
+            Hardware
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Pieza o Equipo</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>No. Activo</th>
+                    <th>No.Serie</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{-- Ciclo FOR PARA LAS PIEZAS --}}
+                {{ $i = 1 }}
+
+                @foreach ($record->device_change as $change)
+                    <tr class="@if ($i % 6 === 0) page-break @endif">
+                        <td>{{ $i++ }}</td>
+                        <td>{{ $change->name }}</td>
+                        <td>{{ $change->brand->name }}</td>
+                        <td>{{ $change->model->name }}</td>
+                        <td>{{ $change->asset_number }}</td>
+                        <td>{{ $change->serial_number }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <br>
+    </div>
 </body>
 
 </html>

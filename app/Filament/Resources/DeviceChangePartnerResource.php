@@ -81,7 +81,6 @@ class DeviceChangePartnerResource extends Resource
                             ->label('Type')
                             ->options(fn (Get $get): Collection => Type::query()->where('model_id', $get('model_id'))->pluck('name', 'id'))
                             ->searchable()
-                            ->required()
                             ->preload()
                             ->translateLabel(),
                         // Campo Numero de Activo

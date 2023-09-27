@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Dompdf\Dompdf;
 
 class DeviceChangePartner extends Model
 {
@@ -32,11 +33,14 @@ class DeviceChangePartner extends Model
     // Funcion para genera los reportes
     public function generatePdf($id)
     {
-        // $records = DeviceChangePartner::all()->where('id', $id); 
+        // $dompdf = new Dompdf();
+        // $options = config('dompdf');
+        // $dompdf->setOptions($options);
+    
         $records = DeviceChangePartner::with(['device_change', 'device', 'partner'])->get()->where('id', $id); //Obtener los datos de la tabla segun el ID
+        // $pdf = PDF::loadView('pdf.pdf', compact('records'));
+        // $pdf = PDF::setPaper('letter', 'landscape');
+        $pdf = PDF::loadView('pdf.pdf', compact('records'))->setPaper('letter' );
 
-        $pdf = PDF::loadView('pdf.pdf', compact('records'));
-
-        return $pdf->stream();
-    }
+        return $pdf->stream();    }
 }
