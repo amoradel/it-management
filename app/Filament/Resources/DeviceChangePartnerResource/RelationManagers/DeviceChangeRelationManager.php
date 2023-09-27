@@ -74,6 +74,7 @@ class DeviceChangeRelationManager extends RelationManager
                 // Columna Nombre
                 Tables\Columns\TextColumn::make('name')
                     ->translateLabel()
+                    ->wrap()
                     ->sortable(),
                 // Columna Marca
                 Tables\Columns\TextColumn::make('brand.name')
