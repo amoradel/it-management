@@ -33,7 +33,7 @@ class ComputerResource extends Resource
     protected static ?string $navigationGroup = 'Dispositivos';
     protected static ?string $modelLabel = 'Computadora';
     protected static ?string $pluralModelLabel = 'Computadoras';
-    protected static ?string $navigationIcon = 'heroicon-o-computer-desktop';
+    protected static ?string $navigationIcon = 'heroicon-o-cpu-chip';
 
     public static function form(Form $form): Form
     {

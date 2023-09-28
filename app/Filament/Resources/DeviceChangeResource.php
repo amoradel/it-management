@@ -17,6 +17,8 @@ use Illuminate\Support\Collection;
 use App\Models\Device_model;
 use App\Models\Type;
 
+use function Livewire\wrap;
+
 class DeviceChangeResource extends Resource
 {
     protected static ?string $model = DeviceChange::class;
@@ -84,7 +86,8 @@ class DeviceChangeResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->translateLabel()
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->wrap(),
                 // Columna Marca
                 Tables\Columns\TextColumn::make('brand.name')
                     ->searchable()
