@@ -17,6 +17,8 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Jeffgreco13\FilamentBreezy\BreezyCore;
+use Illuminate\Validation\Rules\Password;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -60,6 +62,24 @@ class AdminPanelProvider extends PanelProvider
                 'Dispositivos',
                 'Personal',
                 'Marcas y Más',
+            ])
+            ->plugins([
+                BreezyCore::make()
+                    ->myProfile(
+                        shouldRegisterUserMenu: true, // Sets the 'account' link in the panel User Menu (default = true)
+                        slug: 'my-profile' // Sets the slug for the profile page (default = 'my-profile')
+                    )
+                    ->passwordUpdateRules(
+                        rules: [Password::default()->letters()->numbers()->mixedCase()->uncompromised(3)], // you may pass an array of validation rules as well. (default = ['min:8'])
+                        requiresCurrentPassword: true, // when false, the user can update their password without entering their current password. (default = true)
+                    )
+                    ->enableTwoFactorAuthentication(
+                        force: false, // force the user to enable 2FA before they can use the application (default = false)
+                    )
+                    ->enableSanctumTokens(
+                        permissions: ['aqui', 'lo', 'que', 'necesiten'], // optional, customize the permissions (default = ["create", "view", "update", "delete"])
+                    )
+                    
             ]);
     }
 }
