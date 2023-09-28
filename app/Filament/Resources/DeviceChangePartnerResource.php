@@ -18,6 +18,9 @@ use App\Models\Partner;
 use Filament\Forms\FormsComponent;
 use Illuminate\Support\Collection;
 use App\Filament\Resources\DeviceChangePartnerResource\RelationManagers\DeviceChangeRelationManager;
+use App\Models\DeviceChange;
+use Filament\Forms\Components\Actions;
+use Filament\Support\View\Components\Modal;
 
 class DeviceChangePartnerResource extends Resource
 {
@@ -82,7 +85,6 @@ class DeviceChangePartnerResource extends Resource
                     ->multiple()
                     ->preload()
                     ->searchable()
-                    ->required()
                     ->disabled(),
             ]);
     }

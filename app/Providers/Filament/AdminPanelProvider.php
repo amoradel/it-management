@@ -54,6 +54,11 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->navigationGroups([
+                'Dispositivos',
+                'Personal',
+                'Marcas y Más',
             ]);
     }
 }
