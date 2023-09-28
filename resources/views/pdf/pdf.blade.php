@@ -10,7 +10,7 @@
         }
 
         @page {
-            margin-top: 10cm; 
+            margin-top: 10cm;
             margin-bottom: 10cm;
         }
 
@@ -135,7 +135,7 @@
                 <td>{{ $record->partner->department->name }}</td>
             </tr>
         </table>
-        <div class="t-header" >
+        <div class="t-header">
             Equipo Asignado: {{ $record->device->name }}
         </div>
         {{-- Fin de los datos --}}
@@ -178,7 +178,7 @@
             </tr>
             <tr>
                 <td class="tx-left">Nombre: {{ $record->partner->name }}</td>
-                <td class="tx-left">Nombre: {{ ucwords(env('USER')) }}</td>
+                <td class="tx-left">Nombre: {{ ucwords(auth()->user()->name) }}</td>
             </tr>
             <tr>
                 <td class="tx-left">Firma: </td>

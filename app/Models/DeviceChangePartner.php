@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Dompdf\Dompdf;
+use Filament\FilamentServiceProvider;
 
 class DeviceChangePartner extends Model
 {
@@ -40,7 +41,7 @@ class DeviceChangePartner extends Model
         $records = DeviceChangePartner::with(['device_change', 'device', 'partner'])->get()->where('id', $id); //Obtener los datos de la tabla segun el ID
         // $pdf = PDF::loadView('pdf.pdf', compact('records'));
         // $pdf = PDF::setPaper('letter', 'landscape');
-        $pdf = PDF::loadView('pdf.pdf', compact('records'))->setPaper('letter' );
+        $pdf = PDF::loadView('pdf.pdf', compact('records'))->setPaper('letter');
 
         foreach ($records as $record)
         {
