@@ -27,7 +27,46 @@ class DeviceRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('name')
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                // Columna Nombre
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable()
+                    ->sortable()
+                    ->translateLabel(),
+                // Columna Ubicacion
+                Tables\Columns\TextColumn::make('ubication')
+                    ->searchable()
+                    ->sortable()
+                    ->translateLabel(),
+                // Columna Numero de Serie
+                Tables\Columns\TextColumn::make('serial_number')
+                    ->searchable()
+                    ->sortable()
+                    ->translateLabel(),
+                // Columna Any Desk
+                Tables\Columns\TextColumn::make('any_desk')
+                    ->searchable()
+                    ->sortable()
+                    ->translateLabel(),
+                // Columna Ip
+                Tables\Columns\TextColumn::make('ip.ip_number')
+                    ->searchable()
+                    ->sortable()
+                    ->translateLabel(),
+                // Columna Marca
+                // Tables\Columns\TextColumn::make('brand.name')
+                //     ->searchable()
+                //     ->sortable()
+                //     ->translateLabel(),
+                // // Columna Modelo
+                // Tables\Columns\TextColumn::make('model.name')
+                //     ->searchable()
+                //     ->sortable()
+                //     ->translateLabel(),
+                // // Columna Tipo
+                // Tables\Columns\TextColumn::make('type.name')
+                //     ->searchable()
+                //     ->sortable()
+                //     ->translateLabel(),
             ])
             ->filters([
                 //
@@ -35,7 +74,7 @@ class DeviceRelationManager extends RelationManager
             ->headerActions([
                 Tables\Actions\AttachAction::make('devices')
 
-                ->preloadRecordSelect(),
+                    ->preloadRecordSelect(),
             ])
             ->actions([
                 Tables\Actions\DetachAction::make(),

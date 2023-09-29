@@ -29,6 +29,7 @@ class DeviceChangeRelationManager extends RelationManager
                 // Campo Marca
                 Forms\Components\Select::make('brand_id')
                     ->relationship('brand', 'name')
+                    ->searchable()
                     ->preload()
                     ->required()
                     ->translateLabel()
@@ -40,6 +41,7 @@ class DeviceChangeRelationManager extends RelationManager
                 Forms\Components\Select::make('model_id')
                     ->label('Model')
                     ->options(fn (Get $get): Collection => Device_model::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
+                    ->searchable()
                     ->preload()
                     ->live()
                     ->required()
@@ -51,6 +53,7 @@ class DeviceChangeRelationManager extends RelationManager
                 Forms\Components\Select::make('type_id')
                     ->label('Type')
                     ->options(fn (Get $get): Collection => Type::query()->where('model_id', $get('model_id'))->pluck('name', 'id'))
+                    ->searchable()
                     ->required()
                     ->preload()
                     ->translateLabel(),

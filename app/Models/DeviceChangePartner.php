@@ -41,7 +41,7 @@ class DeviceChangePartner extends Model
 
         foreach ($records as $record)
         {
-            $title = $title = $record->partner->name .'_' . $record->type .'_'. now()->format('d_m_Y');
+            $title = $title = $record->partner->name .'_' . $record->type .'_'. now()->format('d_m_Y'). '.pdf';
         }
 
         return $pdf->stream($title);    

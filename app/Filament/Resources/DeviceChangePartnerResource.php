@@ -22,6 +22,7 @@ use App\Filament\Resources\DeviceChangePartnerResource\RelationManagers\DeviceRe
 use App\Models\DeviceChange;
 use Filament\Forms\Components\Actions;
 use Filament\Support\View\Components\Modal;
+use Filament\Forms\Components\FileUpload;
 
 class DeviceChangePartnerResource extends Resource
 {
@@ -88,15 +89,26 @@ class DeviceChangePartnerResource extends Resource
                     ->preload()
                     ->searchable()
                     ->disabled(),
-                // Campo Device Change ID
+                // Campo Devices 
                 Forms\Components\Select::make('device_id')
                     ->label('Equipo Entregado o Mejorado')
-                    ->relationship('device_change', 'name')
+                    ->relationship('devices', 'name')
                     ->multiple()
                     ->preload()
                     ->searchable()
                     ->disabled(),
+
+                // Campo Para Subir Reportes(PDF) Firmados
+                FileUpload::make('attachment')
+                    ->translateLabel()
+                    ->columnSpan(2)
+                    ->AcceptedFileTypes(['application/pdf'])
+                    ->downloadable()
+                    ->preserveFilenames()
+                    ->maxFiles(1)
+
             ]);
+
     }
 
     public static function table(Table $table): Table

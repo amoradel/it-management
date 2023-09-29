@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('type'); //Entrega o Mejora
             $table->string('replenishment'); // Solicitado, Pendiente o No Aplica(N/A)
             $table->text('description')->nullable();
+            $table->text('attachment')->nullable();
             $table->timestamps();
 
             $table->foreign('partner_id')->references('id')->on('partners')->onDelete('set null');
