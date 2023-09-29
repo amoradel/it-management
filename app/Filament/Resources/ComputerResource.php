@@ -7,6 +7,7 @@ use App\Filament\Resources\ComputerResource\RelationManagers;
 use App\Filament\Resources\ComputerResource\RelationManagers\PartnersRelationManager;
 use App\Models\Device;
 use App\Models\Device_model;
+use App\Models\Ip;
 use App\Models\Type;
 use Doctrine\DBAL\Schema\Schema;
 use Filament\Forms;
@@ -154,7 +155,6 @@ class ComputerResource extends Resource
             ]);
     }
 
-
     public static function table(Table $table): Table
     {
         return $table
@@ -187,6 +187,11 @@ class ComputerResource extends Resource
                     ->translateLabel(),
                 // Columna Numero de activo
                 Tables\Columns\TextColumn::make('asset_number')
+                    ->searchable()
+                    ->sortable()
+                    ->translateLabel(),
+                // Columna Ip
+                Tables\Columns\TextColumn::make('ip.ip_number')
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),

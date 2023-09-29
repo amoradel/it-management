@@ -15,6 +15,7 @@ use Filament\Tables\TablesServiceProvider;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Closure;
+use App\Models\Device;
 
 class IpResource extends Resource
 {
@@ -40,6 +41,9 @@ class IpResource extends Resource
                     ->preload()
                     ->translateLabel()
                     ->reactive()
+                    ->options(function (Device $device) {
+                        return $device->whereDoesntHave('ip')->pluck('name', 'id');
+                    })
                     ->afterStateUpdated(function (callable $set, callable $get, $state) {
                         $set('disponibility', setDisponibility($state, $get('description')));
                     }),
