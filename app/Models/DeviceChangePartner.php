@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Dompdf\Dompdf;
 use Filament\FilamentServiceProvider;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DeviceChangePartner extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
     protected $table = 'device_change_partner';

@@ -273,16 +273,22 @@ class ComputerResource extends Resource
             ->filters([
                 Tables\Filters\BaseFilter::make('device_type')
                     ->query(fn (Builder $query): Builder => $query
-                        ->where('device_type', 'computer'))
+                        ->where('device_type', 'computer')),
+
+                Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ForceDeleteAction::make(),
+                Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\ForceDeleteBulkAction::make(),
+                    Tables\Actions\RestoreBulkAction::make(),
                 ]),
             ]);
     }

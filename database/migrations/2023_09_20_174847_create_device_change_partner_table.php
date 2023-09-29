@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreign('partner_id')->references('id')->on('partners')->onDelete('set null');
             // $table->foreign('device_change_id')->references('id')->on('device_changes')->onDelete('set null'); //quitar
             // $table->foreign('device_id')->references('id')->on('devices')->onDelete('set null');
+            $table->softDeletes();
         });
     }
 

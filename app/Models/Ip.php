@@ -4,20 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Ip extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
-    // protected $disponibility = 'Libre';
 
-    public function Store()
-    {
-        if ('description' !== Null) {
-            $disponibility = 'Ocupada';
-        }
-    }
     // Relacion uno a uno
     public function device()
     {

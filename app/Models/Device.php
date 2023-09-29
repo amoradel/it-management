@@ -4,36 +4,43 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Device extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
 
     // Relacion uno a muchos (inversa)
-    public function brand(){
+    public function brand()
+    {
         return $this->belongsTo(Brand::class);
     }
 
-    public function model(){
+    public function model()
+    {
         return $this->belongsTo(Device_model::class);
     }
 
-    public function type(){
+    public function type()
+    {
         return $this->belongsTo(Type::class);
     }
 
-    public function department(){
+    public function department()
+    {
         return $this->belongsTo(Department::class);
     }
 
     // Relacion muchos a muchos
-    public function partners(){
+    public function partners()
+    {
         return $this->belongsToMany(Partner::class, 'device_partner');
     }
 
-    public function device_changes(){
+    public function device_changes()
+    {
         return $this->belongsToMany(DeviceChange::class, 'device_change_partners');
     }
 
@@ -43,7 +50,8 @@ class Device extends Model
     }
 
     // Relacion uno a uno
-    public function ip(){
+    public function ip()
+    {
         return $this->hasOne('App\Models\Ip');
     }
 }

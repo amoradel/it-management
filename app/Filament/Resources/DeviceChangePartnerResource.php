@@ -142,7 +142,7 @@ class DeviceChangePartnerResource extends Resource
 
             ])
             ->filters([
-                //
+                Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
@@ -153,10 +153,14 @@ class DeviceChangePartnerResource extends Resource
                     ->color('info')
                     ->url(fn (DeviceChangePartner $records) => route('download_pdf', $records))
                     ->openUrlInNewTab(),
+                Tables\Actions\ForceDeleteAction::make(),
+                Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\ForceDeleteBulkAction::make(),
+                    Tables\Actions\RestoreBulkAction::make(),
                 ]),
             ]);
     }

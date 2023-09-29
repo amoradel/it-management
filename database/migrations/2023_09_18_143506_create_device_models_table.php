@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
             
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
