@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('partner_id')->nullable();
             // $table->unsignedBigInteger('device_change_id')->nullable();
-            $table->unsignedBigInteger('device_id')->nullable();
+            // $table->unsignedBigInteger('device_id')->nullable();
             $table->string('type'); //Entrega o Mejora
             $table->string('replenishment'); // Solicitado, Pendiente o No Aplica(N/A)
             $table->text('description')->nullable();
@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->foreign('partner_id')->references('id')->on('partners')->onDelete('set null');
             // $table->foreign('device_change_id')->references('id')->on('device_changes')->onDelete('set null'); //quitar
-            $table->foreign('device_id')->references('id')->on('devices')->onDelete('set null');
+            // $table->foreign('device_id')->references('id')->on('devices')->onDelete('set null');
         });
     }
 

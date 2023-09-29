@@ -16,9 +16,11 @@ return new class extends Migration
 
             $table->unsignedBigInteger('device_change_id')->nullable();
             $table->unsignedBigInteger('device_change_partner_id')->nullable();
+            $table->unsignedBigInteger('device_id')->nullable();
 
             $table->foreign('device_change_id')->references('id')->on('device_changes')->onDelete('set null');
             $table->foreign('device_change_partner_id')->references('id')->on('device_change_partner')->onDelete('set null');
+            $table->foreign('device_id')->references('id')->on('devices')->onDelete('set null');
 
             $table->timestamps();
         });

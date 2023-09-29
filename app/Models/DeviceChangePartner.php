@@ -21,9 +21,9 @@ class DeviceChangePartner extends Model
         return $this->belongsToMany(DeviceChange::class, 'device_change_partner_details');
     }
 
-    public function device()
+    public function devices()
     {
-        return $this->belongsTo(Device::class);
+        return $this->belongsToMany(Device::class, 'device_change_partner_details');
     }
 
     public function partner()
@@ -34,13 +34,8 @@ class DeviceChangePartner extends Model
     // Funcion para genera los reportes
     public function generatePdf($id)
     {
-        // $dompdf = new Dompdf();
-        // $options = config('dompdf');
-        // $dompdf->setOptions($options);
-    
-        $records = DeviceChangePartner::with(['device_change', 'device', 'partner'])->get()->where('id', $id); //Obtener los datos de la tabla segun el ID
-        // $pdf = PDF::loadView('pdf.pdf', compact('records'));
-        // $pdf = PDF::setPaper('letter', 'landscape');
+        $records = DeviceChangePartner::with(['device_change', 'devices', 'partner'])->get()->where('id', $id); //Obtener los datos de la tabla segun el ID
+
         $pdf = PDF::loadView('pdf.pdf', compact('records'))->setPaper('letter');
 
         foreach ($records as $record)

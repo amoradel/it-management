@@ -18,6 +18,7 @@ use App\Models\Partner;
 use Filament\Forms\FormsComponent;
 use Illuminate\Support\Collection;
 use App\Filament\Resources\DeviceChangePartnerResource\RelationManagers\DeviceChangeRelationManager;
+use App\Filament\Resources\DeviceChangePartnerResource\RelationManagers\DeviceRelationManager;
 use App\Models\DeviceChange;
 use Filament\Forms\Components\Actions;
 use Filament\Support\View\Components\Modal;
@@ -51,23 +52,24 @@ class DeviceChangePartnerResource extends Resource
                     ->searchable()
                     ->translateLabel(),
                 // Campo Computadora
-                Forms\Components\Select::make('device_id')
-                    ->label('Dispositivo')
-                    ->options(function (Get $get) {
-                        $partner = Partner::find($get('partner_id'));
+                // Forms\Components\Select::make('device_id')
+                //     ->label('Dispositivo')
+                //     ->options(function (Get $get) {
+                //         $partner = Partner::find($get('partner_id'));
 
-                        if ($partner) {
-                            $devices = $partner->devices;
-                            $options = $devices->pluck('name', 'id');
-                            return $options;
-                        } else {
-                            return collect();
-                        }
-                    })
-                    ->searchable()
-                    ->required()
-                    ->preload()
-                    ->translateLabel(),
+                //         if ($partner) {
+                //             $devices = $partner->devices;
+                //             $options = $devices->pluck('name', 'id');
+                //             return $options;
+                //         } else {
+                //             return collect();
+                //         }
+                //     })
+                //     ->searchable()
+                //     ->required()
+                //     ->preload()
+                //     ->multiple()
+                //     ->translateLabel(),
                 // Campo Descripcion
                 Forms\Components\Textarea::make('description')
                     ->maxLength('255')
@@ -80,7 +82,15 @@ class DeviceChangePartnerResource extends Resource
                     ->translateLabel(),
                 // Campo Device Change ID
                 Forms\Components\Select::make('device_change_id')
-                    ->label('Entrega o Mejora')
+                    ->label('Entregas o Mejoras')
+                    ->relationship('device_change', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->searchable()
+                    ->disabled(),
+                // Campo Device Change ID
+                Forms\Components\Select::make('device_id')
+                    ->label('Equipo Entregado o Mejorado')
                     ->relationship('device_change', 'name')
                     ->multiple()
                     ->preload()
@@ -93,11 +103,6 @@ class DeviceChangePartnerResource extends Resource
     {
         return $table
             ->columns([
-                // Columna Nombre del Equipo
-                Tables\Columns\TextColumn::make('device.name')
-                    ->translateLabel()
-                    ->searchable()
-                    ->sortable(),
                 // Columna Usuario
                 Tables\Columns\TextColumn::make('partner.name')
                     ->translateLabel()
@@ -105,6 +110,14 @@ class DeviceChangePartnerResource extends Resource
                     ->sortable(),
                 // Columna Cambio en el Equipo
                 Tables\Columns\TextColumn::make('device_change.name')
+                    ->label('Entregas o Mejoras')
+                    ->translateLabel()
+                    ->wrap()
+                    ->searchable()
+                    ->sortable(),
+                // Columna Cambio en el Equipo
+                Tables\Columns\TextColumn::make('devices.name')
+                    ->label('Equipos')
                     ->translateLabel()
                     ->wrap()
                     ->searchable()
@@ -152,6 +165,7 @@ class DeviceChangePartnerResource extends Resource
     {
         return [
             DeviceChangeRelationManager::class,
+            DeviceRelationManager::class,
         ];
     }
 

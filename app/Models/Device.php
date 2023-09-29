@@ -13,28 +13,33 @@ class Device extends Model
 
     // Relacion uno a muchos (inversa)
     public function brand(){
-        return $this->belongsTo('App\Models\Brand');
+        return $this->belongsTo(Brand::class);
     }
 
     public function model(){
-        return $this->belongsTo('App\Models\Device_model');
+        return $this->belongsTo(Device_model::class);
     }
 
     public function type(){
-        return $this->belongsTo('App\Models\Type');
+        return $this->belongsTo(Type::class);
     }
 
     public function department(){
-        return $this->belongsTo('App\Models\Department');
+        return $this->belongsTo(Department::class);
     }
 
     // Relacion muchos a muchos
     public function partners(){
-        return $this->belongsToMany('App\Models\Partner', 'device_partner')->withTimestamps();
+        return $this->belongsToMany(Partner::class, 'device_partner');
     }
 
     public function device_changes(){
-        return $this->belongsToMany('App\Models\DeviceChange', 'device_change_partners')->withTimestamps();
+        return $this->belongsToMany(DeviceChange::class, 'device_change_partners');
+    }
+
+    public function deviceChangePartners()
+    {
+        return $this->belongsToMany(DeviceChangePartner::class, 'device_change_partner_details');
     }
 
     // Relacion uno a uno

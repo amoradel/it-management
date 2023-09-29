@@ -10,21 +10,21 @@
         }
 
         @page {
-            margin-top: 10cm;
+            margin-top: 8cm;
             margin-bottom: 10cm;
         }
 
         #header {
             position: fixed;
             width: 100%;
-            top: -9cm;
+            top: -6.5cm;
         }
 
         #footer {
             position: fixed;
             left: 0px;
             right: 0px;
-            height: 50px;
+            height: 40px;
             bottom: 0.5cm;
         }
 
@@ -77,10 +77,7 @@
 
         .page-break {
             page-break-before: always;
-        }
-
-        .details-margin {
-            margin-top: -1.5cm;
+            margin-top: -2.5cm;
         }
     </style>
 </head>
@@ -98,7 +95,7 @@
             <tr>
                 <td>Área:
                     @foreach ($records as $record)
-                        {{ $record->device->ubication }}
+                        {{ $record->partner->department->name }}
                     @endforeach
                 </td>
                 <td>Fecha de Vigencia: 10 de Octubre de 2020</td>
@@ -127,17 +124,14 @@
                 <td>{{ $record->partner->username_network }}</td>
             </tr>
             <tr>
-                <th>Teléfono/Ext.</th>
-                <td>{{ $record->partner->extension }}</td>
                 <th>Correo</th>
                 <td>{{ $record->partner->email }}</td>
                 <th>Área</th>
                 <td>{{ $record->partner->department->name }}</td>
+                <th>Teléfono/Ext.</th>
+                <td>{{ $record->partner->extension }}</td>
             </tr>
         </table>
-        <div class="t-header">
-            Equipo Asignado: {{ $record->device->name }}
-        </div>
         {{-- Fin de los datos --}}
     </header>
     {{-- End Header --}}
@@ -201,7 +195,7 @@
     {{-- End Footer --}}
 
     {{-- Tabla que muestra los datos de las entregas/mejoras --}}
-    <div class="details-margin">
+    <div class="">
         <div class="t-header">
             Hardware
         </div>
@@ -219,9 +213,18 @@
             <tbody class="font-m">
                 {{-- Ciclo FOR PARA LAS PIEZAS --}}
                 {{ $i = 1 }}
-
+                @foreach ($record->devices as $device)
+                    <tr class="@if ($i % 6 === 0) page-break @endif">
+                        <td>{{ $i++ }}</td>
+                        <td> {{ $device->name }}</td>
+                        <td> {{ $device->brand->name }}</td>
+                        <td> {{ $device->model->name }}</td>
+                        <td> {{ $device->asset_number }}</td>
+                        <td> {{ $device->serial_number }}</td>
+                    </tr>
+                @endforeach
                 @foreach ($record->device_change as $change)
-                    <tr class="@if ($i % 6 === 0) page-break details-margin @endif">
+                    <tr class="@if ($i % 6 === 0) page-break @endif">
                         <td>{{ $i++ }}</td>
                         <td>{{ $change->name }}</td>
                         <td>{{ $change->brand->name }}</td>
