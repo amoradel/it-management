@@ -20,16 +20,24 @@ class Device extends Model
         return LogOptions::defaults()
             ->logOnly([
                 'name',
-                'type_id',
+                'ubication',
                 'brand_id',
                 'model_id',
-                'ubication',
-                'dvr_program',
+                'type_id',
+                'department_id',
+                'description',
+                'storage',
+                'ram_memory',
+                'processor',
                 'asset_number',
                 'serial_number',
+                'any_desk',
+                'office_version',
+                'windows_version',
+                'dvr_program',
+                'observation',
                 'condition',
                 'entry_date',
-                'observation',
                 'status'
             ]);
     }
