@@ -54,4 +54,15 @@ class Device extends Model
     {
         return $this->hasOne('App\Models\Ip');
     }
+
+
+    // Metodo que genera el log del Campo Historico Automaticamente
+    protected static function booted()
+    {
+        static::updating(function ($device) {
+            if ($device->isDirty('ubication')) {
+                $device->historic = $device->getOriginal('ubication');
+            }
+        });
+    }
 }
