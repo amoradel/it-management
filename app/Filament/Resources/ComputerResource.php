@@ -44,6 +44,7 @@ class ComputerResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(15)
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Marca
                 Forms\Components\Select::make('brand_id')
@@ -108,15 +109,18 @@ class ComputerResource extends Resource
                 Forms\Components\TextInput::make('asset_number')
                     ->required()
                     ->maxLength(15)
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Numero de Serie
                 Forms\Components\TextInput::make('serial_number')
                     ->required()
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Any Desk
                 Forms\Components\TextInput::make('any_desk')
                     ->required()
                     ->maxLength(15)
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Version Office
                 Forms\Components\Select::make('office_version')

@@ -33,6 +33,7 @@ class IpResource extends Resource
                 Forms\Components\TextInput::make('ip_number')
                     ->required()
                     ->maxLength(15)
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Equipo
                 Forms\Components\Select::make('device_id')

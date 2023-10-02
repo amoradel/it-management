@@ -38,6 +38,7 @@ class PartnerResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(50)
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Departamento
                 Forms\Components\Select::make('department_id')
@@ -56,22 +57,26 @@ class PartnerResource extends Resource
                 Forms\Components\TextInput::make('username_network')
                     ->required()
                     ->maxLength(15)
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo username_odoo
                 Forms\Components\TextInput::make('username_odoo')
                     ->required()
                     ->maxLength(15)
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo username_odoo
                 Forms\Components\TextInput::make('username_AS400')
                     ->required()
                     ->maxLength(15)
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo email
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->required()
                     ->regex('/^.+@.+$/i')
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Extension
                 Forms\Components\TextInput::make('extension')

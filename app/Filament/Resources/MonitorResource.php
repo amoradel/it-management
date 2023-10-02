@@ -33,6 +33,7 @@ class MonitorResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(15)
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Marca
                 Forms\Components\Select::make('brand_id')
@@ -65,6 +66,7 @@ class MonitorResource extends Resource
                 // Campo Numero de Serie
                 Forms\Components\TextInput::make('serial_number')
                     ->required()
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
@@ -78,6 +80,7 @@ class MonitorResource extends Resource
                 Forms\Components\TextInput::make('asset_number')
                     ->required()
                     ->maxLength(15)
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Observacion
                 Forms\Components\TextInput::make('observation')

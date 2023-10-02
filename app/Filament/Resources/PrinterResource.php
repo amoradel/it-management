@@ -36,6 +36,7 @@ class PrinterResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(15)
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Marca
                 Forms\Components\Select::make('brand_id')
@@ -85,10 +86,12 @@ class PrinterResource extends Resource
                 Forms\Components\TextInput::make('asset_number')
                     ->required()
                     ->maxLength(15)
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Numero de Serie
                 Forms\Components\TextInput::make('serial_number')
                     ->required()
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Condicion
                 Forms\Components\Select::make('condition')

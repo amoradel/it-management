@@ -34,6 +34,7 @@ class POSResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(50)
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Marca
                 Forms\Components\Select::make('brand_id')
@@ -66,6 +67,7 @@ class POSResource extends Resource
                 // Campo Numero de Serie
                 Forms\Components\TextInput::make('serial_number')
                     ->required()
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')

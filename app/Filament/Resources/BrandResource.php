@@ -31,6 +31,7 @@ class BrandResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(50)
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel()
             ]);
     }

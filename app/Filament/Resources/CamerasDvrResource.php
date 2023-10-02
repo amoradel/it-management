@@ -36,6 +36,7 @@ class CamerasDVRResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(15)
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Marca
                 Forms\Components\Select::make('brand_id')
@@ -84,10 +85,12 @@ class CamerasDVRResource extends Resource
                 Forms\Components\TextInput::make('asset_number')
                     ->translateLabel()
                     ->required()
+                    ->unique(ignorable: fn ($record) => $record)
                     ->maxLength(15),
                 // Campo Numero de Serie
                 Forms\Components\TextInput::make('serial_number')
                     ->required()
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Condicion
                 Forms\Components\Select::make('condition')
