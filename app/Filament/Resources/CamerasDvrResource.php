@@ -35,7 +35,7 @@ class CamerasDVRResource extends Resource
                 // Campo Nombre
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(15)
+                    ->maxLength(50)
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Marca
@@ -52,6 +52,7 @@ class CamerasDVRResource extends Resource
                 // Campo Ubicacion
                 Forms\Components\TextInput::make('ubication')
                     ->required()
+                    ->maxLength(50)
                     ->translateLabel(),
                 // Campo Modelo
                 Forms\Components\Select::make('model_id')

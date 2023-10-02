@@ -52,6 +52,7 @@ class IpResource extends Resource
                 Forms\Components\Textarea::make('description')
                     ->translateLabel()
                     ->reactive()
+                    ->maxLength(150)
                     ->afterStateUpdated(function (callable $set, callable $get, $state) {
                         $set('disponibility', setDisponibility($state, $get('device_id')));
                     }),
@@ -88,6 +89,7 @@ class IpResource extends Resource
                 Tables\Columns\TextColumn::make('device.name')
                     ->searchable()
                     ->sortable()
+                    ->wrap()
                     ->translateLabel(),
                 // Columna Tipo de Ip
                 Tables\Columns\TextColumn::make('ip_type')

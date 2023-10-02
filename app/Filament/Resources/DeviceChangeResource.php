@@ -70,12 +70,13 @@ class DeviceChangeResource extends Resource
                 // Campo Numero de Activo
                 Forms\Components\TextInput::make('asset_number')
                     ->required()
-                    ->maxLength(15)
+                    ->maxLength(20)
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Numero de Serie
                 Forms\Components\TextInput::make('serial_number')
                     ->required()
+                    ->maxLength(50)
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
             ]);

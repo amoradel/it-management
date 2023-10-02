@@ -32,7 +32,7 @@ class MonitorResource extends Resource
                 // Campo Nombre
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(15)
+                    ->maxLength(30)
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Marca
@@ -49,7 +49,7 @@ class MonitorResource extends Resource
                 // Campo Ubicacion
                 Forms\Components\TextInput::make('ubication')
                     ->required()
-                    ->maxLength(15)
+                    ->maxLength(50)
                     ->translateLabel(),
                 // Campo Modelo
                 Forms\Components\Select::make('model_id')
@@ -79,11 +79,12 @@ class MonitorResource extends Resource
                 // Campo Numero de Activo
                 Forms\Components\TextInput::make('asset_number')
                     ->required()
-                    ->maxLength(15)
+                    ->maxLength(20)
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Observacion
                 Forms\Components\TextInput::make('observation')
+                    ->maxLength(150)
                     ->translateLabel(),
                 // Campo Condicion
                 Forms\Components\Select::make('condition')

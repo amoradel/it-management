@@ -76,7 +76,7 @@ class ComputerResource extends Resource
                     }),
                 // Campo Descripcion
                 Forms\Components\Textarea::make('description')
-                    ->maxLength(300)
+                    ->maxLength(150)
                     ->translateLabel(),
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
@@ -93,7 +93,7 @@ class ComputerResource extends Resource
                 // Campo Almacenamiento
                 Forms\Components\TextInput::make('storage')
                     ->required()
-                    ->maxLength(10)
+                    ->maxLength(30)
                     ->translateLabel(),
                 // Campo RAM
                 Forms\Components\TextInput::make('ram_memory')
@@ -102,24 +102,25 @@ class ComputerResource extends Resource
                     ->translateLabel(),
                 // Campo Procesador
                 Forms\Components\TextInput::make('processor')
-                    ->maxLength(20)
+                    ->maxLength(30)
                     ->required()
                     ->translateLabel(),
                 // Campo Numero de Activo
                 Forms\Components\TextInput::make('asset_number')
                     ->required()
-                    ->maxLength(15)
+                    ->maxLength(20)
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Numero de Serie
                 Forms\Components\TextInput::make('serial_number')
                     ->required()
+                    ->maxLength(50)
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Any Desk
                 Forms\Components\TextInput::make('any_desk')
                     ->required()
-                    ->maxLength(15)
+                    ->maxLength(12)
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Version Office

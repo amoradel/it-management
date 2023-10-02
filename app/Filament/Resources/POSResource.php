@@ -50,7 +50,7 @@ class POSResource extends Resource
                 // Campo Ubicacion
                 Forms\Components\TextInput::make('ubication')
                     ->required()
-                    ->maxLength(15)
+                    ->maxLength(50)
                     ->translateLabel(),
                 // Campo Modelo
                 Forms\Components\Select::make('model_id')
