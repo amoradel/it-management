@@ -181,13 +181,15 @@ class CamerasDVRResource extends Resource
                 Tables\Filters\BaseFilter::make('device_type')
                     ->query(fn (Builder $query): Builder => $query->where('device_type', 'camera_dvr')),
 
-                    Tables\Filters\TrashedFilter::make(),
+                Tables\Filters\TrashedFilter::make(),
 
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('activities')->url(fn ($record) => CamerasDVRResource::getUrl('activities', ['record' => $record]))
+                    ->icon('heroicon-m-information-circle'),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
             ])
@@ -213,6 +215,7 @@ class CamerasDVRResource extends Resource
             'index' => Pages\ListCamerasDVRS::route('/'),
             'create' => Pages\CreateCamerasDVR::route('/create'),
             'edit' => Pages\EditCamerasDVR::route('/{record}/edit'),
+            'activities' => Pages\ListCamerasDvrActivities::route('/{record}/activities'),
         ];
     }
 }

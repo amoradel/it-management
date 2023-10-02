@@ -3,9 +3,9 @@
 namespace App\Filament\Resources\ComputerResource\Pages;
 
 use App\Filament\Resources\ComputerResource;
-use Filament\Resources\Pages\CreateRecord;
+use pxlrbt\FilamentActivityLog\Pages\ListActivities;
 
-class CreateComputer extends CreateRecord
+class ListComputerActivities extends ListActivities
 {
     protected static string $resource = ComputerResource::class;
 }
