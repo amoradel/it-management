@@ -3,21 +3,17 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\DeviceChangeResource\Pages;
-use App\Filament\Resources\DeviceChangeResource\RelationManagers;
 use App\Models\DeviceChange;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Get;
 use Illuminate\Support\Collection;
 use App\Models\Device_model;
 use App\Models\Type;
 
-use function Livewire\wrap;
 
 class DeviceChangeResource extends Resource
 {

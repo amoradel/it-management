@@ -3,28 +3,15 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ComputerResource\Pages;
-use App\Filament\Resources\ComputerResource\RelationManagers;
-use App\Filament\Resources\ComputerResource\RelationManagers\PartnersRelationManager;
 use App\Models\Device;
 use App\Models\Device_model;
-use App\Models\Ip;
 use App\Models\Type;
-use Doctrine\DBAL\Schema\Schema;
 use Filament\Forms;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
-use Filament\Forms\FormsComponent;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Filament\Tables\TablesServiceProvider;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\App;
 use Filament\Forms\Get;
 use Illuminate\Support\Collection;
 
@@ -120,7 +107,7 @@ class ComputerResource extends Resource
                 // Campo Any Desk
                 Forms\Components\TextInput::make('any_desk')
                     ->required()
-                    ->maxLength(12)
+                    ->maxLength(13)
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Version Office

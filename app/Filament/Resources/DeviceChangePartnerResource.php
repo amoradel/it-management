@@ -4,24 +4,14 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\DeviceChangePartnerResource\Pages;
 use App\Models\DeviceChangePartner;
-use App\Models\Type;
-use App\Models\Device_model;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Get;
-use App\Models\Partner;
-use Filament\Forms\FormsComponent;
-use Illuminate\Support\Collection;
 use App\Filament\Resources\DeviceChangePartnerResource\RelationManagers\DeviceChangeRelationManager;
 use App\Filament\Resources\DeviceChangePartnerResource\RelationManagers\DeviceRelationManager;
-use App\Models\DeviceChange;
-use Filament\Forms\Components\Actions;
-use Filament\Support\View\Components\Modal;
+
 use Filament\Forms\Components\FileUpload;
 
 class DeviceChangePartnerResource extends Resource

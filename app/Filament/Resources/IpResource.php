@@ -3,18 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\IpResource\Pages;
-use App\Filament\Resources\IpResource\RelationManagers;
 use App\Models\Ip;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Forms\FormsComponent;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Tables\TablesServiceProvider;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Closure;
 use App\Models\Device;
 
 class IpResource extends Resource

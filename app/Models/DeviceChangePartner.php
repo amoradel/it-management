@@ -5,8 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Dompdf\Dompdf;
-use Filament\FilamentServiceProvider;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DeviceChangePartner extends Model

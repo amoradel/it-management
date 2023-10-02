@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Device_model extends Model
 {
     use HasFactory, SoftDeletes;
+    
     protected $guarded = [];
+
     // Relacion uno a muchos (inversa)
     public function brand()
     {

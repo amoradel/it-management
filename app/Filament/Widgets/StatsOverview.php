@@ -5,7 +5,6 @@ namespace App\Filament\Widgets;
 use App\Models\Device;
 use App\Models\Ip;
 use App\Models\Partner;
-use Dompdf\Css\Color;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 

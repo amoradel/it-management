@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MonitorResource\Pages;
-use App\Filament\Resources\MonitorResource\RelationManagers;
 use App\Models\Device;
 use App\Models\Device_model;
 use App\Models\Type;
@@ -13,7 +12,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Get;
 use Illuminate\Support\Collection;
 

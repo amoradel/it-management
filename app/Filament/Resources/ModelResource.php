@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ModelResource\Pages;
-use App\Filament\Resources\ModelResource\RelationManagers;
 use App\Models\Model;
 use App\Models\Device_model;
 use Filament\Forms;
@@ -11,9 +10,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Tables\TablesServiceProvider;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ModelResource extends Resource
 {
