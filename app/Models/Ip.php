@@ -12,9 +12,11 @@ class Ip extends Model
 
     protected $guarded = [];
 
-    // Relacion uno a uno
+    // Relaciones uno a uno
     public function device()
     {
         return $this->belongsTo('App\Models\Device');
     }
+    // Fin Relaciones uno a uno
+
 }

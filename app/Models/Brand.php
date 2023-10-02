@@ -11,7 +11,7 @@ class Brand extends Model
     use HasFactory, SoftDeletes;
     protected $guarded = [];
 
-    //Relacion unos a muchos
+    //Relaciones unos a muchos
     public function models()
     {
         return $this->hasMany(Device_model::class);
@@ -22,11 +22,15 @@ class Brand extends Model
         return $this->hasMany(Device::class);
     }
 
-    public function types(){
+    public function types()
+    {
         return $this->hasMany(Type::class);
     }
 
-    public function device_changes(){
+    public function device_changes()
+    {
         return $this->hasMany(DeviceChange::class);
     }
+    //Relaciones unos a muchos
+
 }

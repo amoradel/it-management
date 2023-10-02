@@ -12,12 +12,16 @@ class Department extends Model
 
     protected $guarded = [];
 
-    // Relacion uno a muchos
-    public function partners(){
+    // Relaciones uno a muchos
+    public function partners()
+    {
         return $this->hasMany('App\Models\Partner');
     }
 
-    public function devices(){
+    public function devices()
+    {
         return $this->hasMany('App\Models\Device');
     }
+    // Fin Relaciones uno a muchos
+
 }

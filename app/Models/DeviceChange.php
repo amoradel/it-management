@@ -12,7 +12,7 @@ class DeviceChange extends Model
 
     protected $guarded = [];
 
-    // Relacion muchos a muchos
+    // Relaciones muchos a muchos
     public function partners()
     {
         return $this->belongsToMany(Partner::class, 'device_change_partner')->withTimestamps();
@@ -27,8 +27,9 @@ class DeviceChange extends Model
     {
         return $this->belongsToMany(DeviceChangePartner::class, 'device_change_partner_details');
     }
+    // Relaciones muchos a muchos
 
-    // Relacion uno a muchos (inversa)
+    // Relaciones uno a muchos (inversa)
     public function brand()
     {
         return $this->belongsTo(Brand::class);
@@ -43,7 +44,9 @@ class DeviceChange extends Model
     {
         return $this->belongsTo(Type::class);
     }
+    // Fin Relaciones uno a muchos (inversa)
 
+    // Relacion de las piezas/equipos (device_changes) con device_change_partner para el relation manager
     public function deviceChangePartners()
     {
         return $this->belongsToMany(DeviceChangePartner::class, 'device_change_partner_details');

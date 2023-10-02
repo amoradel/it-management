@@ -12,7 +12,7 @@ class Device extends Model
 
     protected $guarded = [];
 
-    // Relacion uno a muchos (inversa)
+    // Relaciones uno a muchos (inversa)
     public function brand()
     {
         return $this->belongsTo(Brand::class);
@@ -32,8 +32,9 @@ class Device extends Model
     {
         return $this->belongsTo(Department::class);
     }
+    // Fin Relaciones uno a muchos (inversa)
 
-    // Relacion muchos a muchos
+    // Relaciones muchos a muchos
     public function partners()
     {
         return $this->belongsToMany(Partner::class, 'device_partner');
@@ -43,18 +44,20 @@ class Device extends Model
     {
         return $this->belongsToMany(DeviceChange::class, 'device_change_partners');
     }
+    // Fin Relaciones muchos a muchos
 
-    public function deviceChangePartners()
-    {
-        return $this->belongsToMany(DeviceChangePartner::class, 'device_change_partner_details');
-    }
-
-    // Relacion uno a uno
+    // Relaciones uno a uno
     public function ip()
     {
         return $this->hasOne('App\Models\Ip');
     }
+    // Fin Relaciones uno a uno
 
+    // Relacion de los dispositivos (devices) con device_change_partner para el relation manager
+    public function deviceChangePartners()
+    {
+        return $this->belongsToMany(DeviceChangePartner::class, 'device_change_partner_details');
+    }
 
     // Metodo que genera el log del Campo Historico Automaticamente
     protected static function booted()

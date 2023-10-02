@@ -17,8 +17,9 @@ class Device_model extends Model
     {
         return $this->belongsTo('App\Models\Brand');
     }
+    // Fin Relacion uno a muchos (inversa)
 
-    // Relacion uno a muchos
+    // Relaciones uno a muchos
     public function types()
     {
         return $this->hasMany('App\Models\Type');
@@ -33,4 +34,6 @@ class Device_model extends Model
     {
         return $this->hasMany(DeviceChange::class);
     }
+    // Fin Relaciones uno a muchos
+
 }

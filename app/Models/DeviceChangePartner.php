@@ -14,7 +14,7 @@ class DeviceChangePartner extends Model
     protected $guarded = [];
     protected $table = 'device_change_partner';
 
-    // Relacion muchos a muchos
+    // Relaciones muchos a muchos
     public function device_change()
     {
         return $this->belongsToMany(DeviceChange::class, 'device_change_partner_details');
@@ -29,6 +29,7 @@ class DeviceChangePartner extends Model
     {
         return $this->belongsTo(Partner::class);
     }
+    // fin relaciones muchos a muchos
 
     // Funcion para genera los reportes
     public function generatePdf($id)
@@ -37,11 +38,10 @@ class DeviceChangePartner extends Model
 
         $pdf = PDF::loadView('pdf.pdf', compact('records'))->setPaper('letter');
 
-        foreach ($records as $record)
-        {
-            $title = $title = $record->partner->name .'_' . $record->type .'_'. now()->format('d_m_Y'). '.pdf';
+        foreach ($records as $record) {
+            $title = $title = $record->partner->name . '_' . $record->type . '_' . now()->format('d_m_Y') . '.pdf';
         }
 
-        return $pdf->stream($title);    
+        return $pdf->stream($title);
     }
 }

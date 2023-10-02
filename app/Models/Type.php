@@ -11,7 +11,7 @@ class Type extends Model
     use HasFactory, SoftDeletes;
     protected $guarded = [];
 
-    // Relacion uno a muchos (inversa)
+    // Relaciones uno a muchos (inversa)
     public function model()
     {
         return $this->belongsTo('App\Models\Device_model');
@@ -21,8 +21,9 @@ class Type extends Model
     {
         return $this->belongsTo('App\Models\Brand');
     }
+    // Fin Relaciones uno a muchos (inversa)
 
-    // Relacion uno a muchos
+    // Relaciones uno a muchos
     public function devices()
     {
         return $this->hasMany('App\Models\Device');
@@ -32,4 +33,5 @@ class Type extends Model
     {
         return $this->hasMany(DeviceChange::class);
     }
+    // Fin Relaciones uno a muchos
 }
