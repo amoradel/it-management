@@ -10,6 +10,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use App\Models\Device;
+use Filament\Forms\Components\Builder;
 
 class IpResource extends Resource
 {
@@ -114,6 +115,13 @@ class IpResource extends Resource
                     ->onColor('success'),
             ])
             ->filters([
+                Tables\Filters\SelectFilter::make('disponibility')
+                    ->options([
+                        'Ocupado' => 'Ocupado',
+                        'Disponible' => 'Disponible',
+                    ])
+                    ->translateLabel(),
+
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([

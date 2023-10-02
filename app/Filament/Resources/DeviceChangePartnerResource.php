@@ -98,7 +98,6 @@ class DeviceChangePartnerResource extends Resource
                     ->maxFiles(1)
 
             ]);
-
     }
 
     public static function table(Table $table): Table
@@ -144,6 +143,14 @@ class DeviceChangePartnerResource extends Resource
 
             ])
             ->filters([
+                Tables\Filters\SelectFilter::make('replenishment')
+                    ->options([
+                        'Solicitado' => 'Solicitado',
+                        'Pendiente' => 'Pendiente',
+                        'N/A' => 'No Aplica',
+                    ])
+                    ->translateLabel(),
+
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
