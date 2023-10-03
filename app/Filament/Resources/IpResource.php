@@ -128,6 +128,9 @@ class IpResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('activities')->url(fn ($record) => IpResource::getUrl('activities', ['record' => $record]))
+                    ->icon('heroicon-m-information-circle')
+                    ->translateLabel(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
             ])
@@ -153,6 +156,7 @@ class IpResource extends Resource
             'index' => Pages\ListIps::route('/'),
             'create' => Pages\CreateIp::route('/create'),
             'edit' => Pages\EditIp::route('/{record}/edit'),
+            'activities' => Pages\ListIpsActivities::route('/{record}/activities'),
         ];
     }
 }

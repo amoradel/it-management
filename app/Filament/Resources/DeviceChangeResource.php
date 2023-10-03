@@ -120,6 +120,9 @@ class DeviceChangeResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('activities')->url(fn ($record) => DeviceChangeResource::getUrl('activities', ['record' => $record]))
+                    ->icon('heroicon-m-information-circle')
+                    ->translateLabel(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
             ])
@@ -145,6 +148,7 @@ class DeviceChangeResource extends Resource
             'index' => Pages\ListDeviceChanges::route('/'),
             'create' => Pages\CreateDeviceChange::route('/create'),
             'edit' => Pages\EditDeviceChange::route('/{record}/edit'),
+            'activities' => Pages\ListDeviceChangeActivities::route('/{record}/activities'),
         ];
     }
 }

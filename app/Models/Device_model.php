@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Device_model extends Model
 {
-    use HasFactory, SoftDeletes;
-    
+    use HasFactory, SoftDeletes, LogsActivity;
+
     protected $guarded = [];
 
     // Relacion uno a muchos (inversa)
@@ -36,4 +38,10 @@ class Device_model extends Model
     }
     // Fin Relaciones uno a muchos
 
+    // Funcion para genera el log de la tabla
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['name']);
+    }
 }

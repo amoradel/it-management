@@ -67,6 +67,9 @@ class ModelResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('activities')->url(fn ($record) => ModelResource::getUrl('activities', ['record' => $record]))
+                    ->icon('heroicon-m-information-circle')
+                    ->translateLabel(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
             ])
@@ -92,6 +95,7 @@ class ModelResource extends Resource
             'index' => Pages\ListModels::route('/'),
             'create' => Pages\CreateModel::route('/create'),
             'edit' => Pages\EditModel::route('/{record}/edit'),
+            'activities' => Pages\ListModelActivities::route('/{record}/activities'),
         ];
     }
 }

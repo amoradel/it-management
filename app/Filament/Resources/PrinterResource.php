@@ -203,6 +203,9 @@ class PrinterResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('activities')->url(fn ($record) => PrinterResource::getUrl('activities', ['record' => $record]))
+                    ->icon('heroicon-m-information-circle')
+                    ->translateLabel(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
             ])
@@ -228,6 +231,7 @@ class PrinterResource extends Resource
             'index' => Pages\ListPrinters::route('/'),
             'create' => Pages\CreatePrinter::route('/create'),
             'edit' => Pages\EditPrinter::route('/{record}/edit'),
+            'activities' => Pages\ListPrinterActivities::route('/{record}/activities'),
         ];
     }
 }
