@@ -274,7 +274,8 @@ class ComputerResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\Action::make('activities')->url(fn ($record) => ComputerResource::getUrl('activities', ['record' => $record]))
-                    ->icon('heroicon-m-information-circle'),
+                    ->icon('heroicon-m-information-circle')
+                    ->translateLabel(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
             ])
