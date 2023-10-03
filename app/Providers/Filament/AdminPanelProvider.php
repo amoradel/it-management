@@ -78,7 +78,8 @@ class AdminPanelProvider extends PanelProvider
                     )
                     ->enableSanctumTokens(
                         permissions: ['aqui', 'lo', 'que', 'necesiten'], // optional, customize the permissions (default = ["create", "view", "update", "delete"])
-                    )
+                    ),
+                    \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
                     
             ]);
     }
