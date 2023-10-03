@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Partner extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, LogsActivity;
 
     protected $guarded = [];
 
@@ -31,4 +33,21 @@ class Partner extends Model
     }
     // Fin Relaciones muchos a muchos
 
+    // Funcion para genera el log de la tabla
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly([
+                'name',
+                'department_id',
+                'username_network',
+                'username_odoo',
+                'username_AS400',
+                'extension',
+                'company_position',
+                'status',
+                'asset_number',
+                'serial_number',
+            ]);
+    }
 }

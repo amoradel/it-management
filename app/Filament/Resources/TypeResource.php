@@ -83,6 +83,9 @@ class TypeResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('activities')->url(fn ($record) => TypeResource::getUrl('activities', ['record' => $record]))
+                    ->icon('heroicon-m-information-circle')
+                    ->translateLabel(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
             ])
@@ -108,6 +111,7 @@ class TypeResource extends Resource
             'index' => Pages\ListTypes::route('/'),
             'create' => Pages\CreateType::route('/create'),
             'edit' => Pages\EditType::route('/{record}/edit'),
+            'activities' => Pages\ListTypeActivities::route('/{record}/activities'),
         ];
     }
 }

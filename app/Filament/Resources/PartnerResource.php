@@ -152,6 +152,9 @@ class PartnerResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('activities')->url(fn ($record) => PartnerResource::getUrl('activities', ['record' => $record]))
+                ->icon('heroicon-m-information-circle')
+                ->translateLabel(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
             ])
@@ -175,6 +178,7 @@ class PartnerResource extends Resource
             'index' => Pages\ListPartners::route('/'),
             'create' => Pages\CreatePartner::route('/create'),
             'edit' => Pages\EditPartner::route('/{record}/edit'),
+            'activities' => Pages\ListPartnerActivities::route('/{record}/activities'),
         ];
     }
 }

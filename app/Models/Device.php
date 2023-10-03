@@ -5,12 +5,42 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Device extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, LogsActivity;
 
     protected $guarded = [];
+
+    // Funcion para genera el log de la tabla
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly([
+                'name',
+                'ubication',
+                'brand_id',
+                'model_id',
+                'type_id',
+                'department_id',
+                'description',
+                'storage',
+                'ram_memory',
+                'processor',
+                'asset_number',
+                'serial_number',
+                'any_desk',
+                'office_version',
+                'windows_version',
+                'dvr_program',
+                'observation',
+                'condition',
+                'entry_date',
+                'status'
+            ]);
+    }
 
     // Relaciones uno a muchos (inversa)
     public function brand()

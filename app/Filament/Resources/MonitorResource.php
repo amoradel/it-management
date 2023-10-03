@@ -13,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Get;
+use Illuminate\Contracts\Queue\Monitor;
 use Illuminate\Support\Collection;
 
 class MonitorResource extends Resource
@@ -172,6 +173,9 @@ class MonitorResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('activities')->url(fn ($record) => MonitorResource::getUrl('activities', ['record' => $record]))
+                ->icon('heroicon-m-information-circle')
+                ->translateLabel(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
             ])
@@ -197,6 +201,7 @@ class MonitorResource extends Resource
             'index' => Pages\ListMonitors::route('/'),
             'create' => Pages\CreateMonitor::route('/create'),
             'edit' => Pages\EditMonitor::route('/{record}/edit'),
+            'activities' => Pages\ListMonitorActivities::route('/{record}/activities'),
         ];
     }
 }

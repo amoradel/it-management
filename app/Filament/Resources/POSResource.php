@@ -163,6 +163,9 @@ class POSResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('activities')->url(fn ($record) => POSResource::getUrl('activities', ['record' => $record]))
+                    ->icon('heroicon-m-information-circle')
+                    ->translateLabel(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
             ])
@@ -188,6 +191,7 @@ class POSResource extends Resource
             'index' => Pages\ListPOS::route('/'),
             'create' => Pages\CreatePOS::route('/create'),
             'edit' => Pages\EditPOS::route('/{record}/edit'),
+            'activities' => Pages\ListPOSActivities::route('/{record}/activities'),
         ];
     }
 }
