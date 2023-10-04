@@ -73,10 +73,7 @@ class ComputerResource extends Resource
                     ->required()
                     ->preload()
                     ->translateLabel(),
-                // Campo Historico
-                Forms\Components\TextInput::make('historic')
-                    ->maxLength(150)
-                    ->translateLabel(),
+
                 // Campo Almacenamiento
                 Forms\Components\TextInput::make('storage')
                     ->required()
@@ -112,17 +109,20 @@ class ComputerResource extends Resource
                     ->translateLabel(),
                 // Campo Version Office
                 Forms\Components\Select::make('office_version')
-                    ->options(['2013' => '2013', '2016' => '2016', '2019' => '2019'])
+                    ->options(['2013' => '2013', '2016' => '2016', '2019' => '2019', '2021' => '2021', '365' => '365'])
+                    ->searchable()
                     ->required()
                     ->translateLabel(),
                 // Campo Version Windows
                 Forms\Components\Select::make('windows_version')
-                    ->options(['Windows 10' => 'Windows 10', 'Windows 11' => 'Windows 11'])
+                    ->options(['Windows 7' => 'Windows 7', 'Windows 8' => 'Windows 8', 'Windows 10' => 'Windows 10', 'Windows 11' => 'Windows 11'])
+                    ->searchable()
                     ->required()
                     ->translateLabel(),
                 // Campo Condicion
                 Forms\Components\Select::make('condition')
                     ->options((['Viejo' => 'Viejo', 'Nuevo' => 'Nuevo']))
+                    ->searchable()
                     ->required()
                     ->translateLabel(),
                 // Campo Fecha de Ingreso
@@ -210,10 +210,6 @@ class ComputerResource extends Resource
                     ->wrap()
                     ->searchable()
                     ->sortable()
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                // Columna Historico
-                Tables\Columns\TextColumn::make('historic')
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
                 // Columna Almacenamiento

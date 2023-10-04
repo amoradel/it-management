@@ -54,6 +54,7 @@ class IpResource extends Resource
                 // Campo Tipo de Ip
                 Forms\Components\Select::make('ip_type')
                     ->options(['Estática' => 'Estática', 'Dinámica' => 'Dinámica'])
+                    ->searchable()
                     ->required()
                     ->translateLabel(),
                 // Campo Segmento

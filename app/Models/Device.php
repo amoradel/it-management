@@ -89,13 +89,5 @@ class Device extends Model
         return $this->belongsToMany(DeviceChangePartner::class, 'device_change_partner_details');
     }
 
-    // Metodo que genera el log del Campo Historico Automaticamente
-    protected static function booted()
-    {
-        static::updating(function ($device) {
-            if ($device->isDirty('ubication')) {
-                $device->historic = $device->getOriginal('ubication');
-            }
-        });
-    }
+
 }

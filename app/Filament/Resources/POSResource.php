@@ -81,6 +81,7 @@ class POSResource extends Resource
                 // Campo Condicion
                 Forms\Components\Select::make('condition')
                     ->options((['Viejo' => 'Viejo', 'Nuevo' => 'Nuevo']))
+                    ->searchable()
                     ->required()
                     ->translateLabel(),
                 // Campo Fecha de Ingreso

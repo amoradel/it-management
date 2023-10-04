@@ -89,6 +89,7 @@ class MonitorResource extends Resource
                 Forms\Components\Select::make('condition')
                     ->options((['Viejo' => 'Viejo', 'Nuevo' => 'Nuevo']))
                     ->required()
+                    ->searchable()
                     ->translateLabel(),
                 // Campo Fecha de Ingreso
                 Forms\Components\DatePicker::make('entry_date')

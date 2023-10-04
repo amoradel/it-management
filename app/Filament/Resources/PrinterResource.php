@@ -75,10 +75,7 @@ class PrinterResource extends Resource
                     ->required()
                     ->preload()
                     ->translateLabel(),
-                // Campo Historico
-                Forms\Components\TextInput::make('historic')
-                    ->maxLength(150)
-                    ->translateLabel(),
+  
                 // Campo Numero de Activo
                 Forms\Components\TextInput::make('asset_number')
                     ->required()
@@ -94,6 +91,7 @@ class PrinterResource extends Resource
                 // Campo Condicion
                 Forms\Components\Select::make('condition')
                     ->options((['Viejo' => 'Viejo', 'Nuevo' => 'Nuevo']))
+                    ->searchable()
                     ->required()
                     ->translateLabel(),
                 Forms\Components\DatePicker::make('entry_date')
@@ -154,12 +152,6 @@ class PrinterResource extends Resource
                 Tables\Columns\TextColumn::make('description')
                     ->wrap()
                     ->searchable()
-                    ->sortable()
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                // Columna Historico
-                Tables\Columns\TextColumn::make('historic')
-                    ->wrap()
                     ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
