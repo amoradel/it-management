@@ -22,6 +22,7 @@ class CamerasDVRResource extends Resource
     protected static ?string $modelLabel = 'Cámara o DVR';
     protected static ?string $pluralModelLabel = "Cámaras y DVR'S";
     protected static ?string $navigationIcon = 'heroicon-o-video-camera';
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {

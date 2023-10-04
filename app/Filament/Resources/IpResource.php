@@ -19,6 +19,7 @@ class IpResource extends Resource
     protected static ?string $modelLabel = 'Ip';
     protected static ?string $pluralModelLabel = "Ip's";
     protected static ?string $navigationIcon = 'heroicon-o-wifi';
+    protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {

@@ -19,11 +19,10 @@ class PrinterResource extends Resource
 {
     protected static ?string $model = Device::class;
     protected static ?string $navigationGroup = 'Dispositivos';
-
     protected static ?string $modelLabel = 'Impresora';
     protected static ?string $pluralModelLabel = 'Impresoras';
-
     protected static ?string $navigationIcon = 'heroicon-o-printer';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {

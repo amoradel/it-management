@@ -23,6 +23,7 @@ class MonitorResource extends Resource
     protected static ?string $modelLabel = 'Monitor';
     protected static ?string $pluralModelLabel = "Monitores";
     protected static ?string $navigationIcon = 'heroicon-o-tv';
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {

@@ -25,40 +25,47 @@ class StatsOverview extends BaseWidget
             Stat::make('Computadoras', $computers)
                 ->description('Recuento de Computadoras')
                 ->icon('heroicon-o-cpu-chip')
-                ->color('info'),
+                ->color('info')
+                ->url('admin/computers'),
             // Suma Monitores
             Stat::make('Monitores', $monitors)
                 ->description('Recuento de Monitores')
                 ->icon('heroicon-o-tv')
-                ->color('info'),
+                ->color('info')
+                ->url('admin/monitors'),
             // Suma Impresoras
             Stat::make('Impresoras', $printers)
                 ->description('Recuento de Impresoras')
                 ->icon('heroicon-o-printer')
-                ->color('info'),
+                ->color('info')
+                ->url('admin/printers'),
             // Suma POS
             Stat::make('POS', $pos)
                 ->description('Recuento de Dispositivos POS Bancarios')
                 ->icon('heroicon-o-server')
-                ->color('info'),
+                ->color('info')
+                ->url('admin/p-o-s'),
             // Suma Ips Disponibles
             Stat::make("Ip's", $available_ips)
                 ->icon('heroicon-o-wifi')
                 ->description('Recuento de Ips Activas')
                 ->descriptionIcon('heroicon-s-arrow-trending-up')
                 // ->chart([$available_ips, $taked_ips])
-                ->color('success'),
+                ->color('success')
+                ->url('admin/ips?tableFilters[disponibility][value]=Disponible'),
             // Suma Ips Ocupadas
             Stat::make("Ip's", $taked_ips)
                 ->icon('heroicon-o-wifi')
                 ->description('Recuento de Ips Ocupadas')
                 ->descriptionIcon('heroicon-s-arrow-trending-down')
-                ->color('danger'),
+                ->color('danger')
+                ->url('admin/ips?tableFilters[disponibility][value]=Ocupado'),
             // Suma Personal
             Stat::make("Personal", $partners)
                 ->description('Usuarios Activos')
                 ->icon('heroicon-o-user-group')
-                ->color('info'),
+                ->color('info')
+                ->url('admin/partners'),
         ];
     }
 }

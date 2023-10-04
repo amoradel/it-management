@@ -23,6 +23,7 @@ class POSResource extends Resource
     protected static ?string $pluralModelLabel = "POS";
     protected static ?string $navigationGroup = 'Dispositivos';
     protected static ?string $navigationIcon = 'heroicon-o-server';
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {

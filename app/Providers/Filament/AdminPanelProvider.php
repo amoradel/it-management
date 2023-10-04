@@ -60,6 +60,7 @@ class AdminPanelProvider extends PanelProvider
             ->navigationGroups([
                 'Dispositivos',
                 'Personal',
+                'Gestión de Usuarios',
                 'Marcas y Más',
             ])
             ->plugins([

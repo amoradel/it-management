@@ -21,6 +21,7 @@ class DeviceChangePartnerResource extends Resource
     protected static ?string $modelLabel = 'Entrega o Mejora';
     protected static ?string $pluralModelLabel = 'Entregas o Mejoras';
     protected static ?string $navigationIcon = 'heroicon-m-arrows-up-down';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {

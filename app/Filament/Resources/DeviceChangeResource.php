@@ -22,6 +22,7 @@ class DeviceChangeResource extends Resource
     protected static ?string $modelLabel = 'Equipo o Pieza';
     protected static ?string $pluralModelLabel = 'Equipos o Piezas';
     protected static ?string $navigationIcon = 'heroicon-m-cog';
+    protected static ?int $navigationSort = 6;
 
     public static function form(Form $form): Form
     {
