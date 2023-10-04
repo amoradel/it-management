@@ -42,6 +42,6 @@ class Brand extends Model
     {
         return $this->hasMany(DeviceChange::class);
     }
-    //Relaciones unos a muchos
+    //Fin Relaciones unos a muchos
 
 }

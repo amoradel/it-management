@@ -134,7 +134,7 @@ class PartnerPolicy
      */
     public function replicate(User $user, Partner $partner): bool
     {
-        return $user->can('replicate_partner');
+        return $user->can('{{ Replicate }}');
     }
 
     /**
@@ -145,7 +145,7 @@ class PartnerPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_partner');
+        return $user->can('{{ Reorder }}');
     }
 
 }

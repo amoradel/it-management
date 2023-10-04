@@ -116,6 +116,7 @@ class POSResource extends Resource
                 // Columna Ubicacion
                 Tables\Columns\TextColumn::make('ubication')
                     ->searchable()
+                    ->sortable()
                     ->translateLabel(),
                 // Columna Marca
                 Tables\Columns\TextColumn::make('brand.name')

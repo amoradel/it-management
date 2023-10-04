@@ -134,7 +134,7 @@ class DeviceChangePartnerPolicy
      */
     public function replicate(User $user, DeviceChangePartner $deviceChangePartner): bool
     {
-        return $user->can('replicate_device::change::partner');
+        return $user->can('{{ Replicate }}');
     }
 
     /**
@@ -145,7 +145,7 @@ class DeviceChangePartnerPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_device::change::partner');
+        return $user->can('{{ Reorder }}');
     }
 
 }

@@ -134,7 +134,7 @@ class DevicePolicy
      */
     public function replicate(User $user, Device $device): bool
     {
-        return $user->can('replicate_printer');
+        return $user->can('{{ Replicate }}');
     }
 
     /**
@@ -145,7 +145,7 @@ class DevicePolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_printer');
+        return $user->can('{{ Reorder }}');
     }
 
 }

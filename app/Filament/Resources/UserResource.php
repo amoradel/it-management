@@ -9,11 +9,11 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
-
     protected static ?string $navigationGroup = 'Gestión de Usuarios';
     protected static ?string $modelLabel = 'Usuarios';
     protected static ?string $pluralModelLabel = 'Usuarios';
@@ -40,8 +40,9 @@ class UserResource extends Resource
 
                 // Campo Contraseña
                 Forms\Components\TextInput::make('password')
-                    ->required()
-                    ->minLength(8)
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state)) // Envia la contraseña encriptada
+                    ->dehydrated(fn ($state) => filled($state)) // hace la contraseña opcional cuando se edita el usuario y la contraseña está vacia
+                    ->required(fn (string $context): bool => $context === 'create') // hace la contraseña obligatoria cuando se crea un usuario
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
 
@@ -80,7 +81,7 @@ class UserResource extends Resource
                     ->translateLabel(),
             ])
             ->filters([
-                //
+                Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

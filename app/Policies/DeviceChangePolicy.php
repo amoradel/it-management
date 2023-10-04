@@ -134,7 +134,7 @@ class DeviceChangePolicy
      */
     public function replicate(User $user, DeviceChange $deviceChange): bool
     {
-        return $user->can('replicate_device::change');
+        return $user->can('{{ Replicate }}');
     }
 
     /**
@@ -145,7 +145,7 @@ class DeviceChangePolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_device::change');
+        return $user->can('{{ Reorder }}');
     }
 
 }

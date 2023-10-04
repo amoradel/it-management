@@ -8,7 +8,7 @@ return [
         'navigation_badge' => true,
         'navigation_group' => true,
         'is_globally_searchable' => false,
-        'show_model_path' => true,
+        'show_model_path' => false,
     ],
 
     'auth_provider_model' => [
@@ -35,8 +35,8 @@ return [
             'update',
             'restore',
             'restore_any',
-            'replicate',
-            'reorder',
+            // 'replicate',
+            // 'reorder',
             'delete',
             'delete_any',
             'force_delete',
@@ -48,8 +48,8 @@ return [
     ],
 
     'entities' => [
-        'pages' => true,
-        'widgets' => true,
+        'pages' => false,
+        'widgets' => false,
         'resources' => true,
         'custom_permissions' => false,
     ],

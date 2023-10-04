@@ -134,7 +134,7 @@ class BrandPolicy
      */
     public function replicate(User $user, Brand $brand): bool
     {
-        return $user->can('replicate_brand');
+        return $user->can('{{ Replicate }}');
     }
 
     /**
@@ -145,7 +145,7 @@ class BrandPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_brand');
+        return $user->can('{{ Reorder }}');
     }
 
 }

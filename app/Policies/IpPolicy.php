@@ -134,7 +134,7 @@ class IpPolicy
      */
     public function replicate(User $user, Ip $ip): bool
     {
-        return $user->can('replicate_ip');
+        return $user->can('{{ Replicate }}');
     }
 
     /**
@@ -145,7 +145,7 @@ class IpPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_ip');
+        return $user->can('{{ Reorder }}');
     }
 
 }

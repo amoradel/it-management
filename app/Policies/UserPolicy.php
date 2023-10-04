@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Department;
+
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class DepartmentPolicy
+class UserPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,18 @@ class DepartmentPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_department');
+        return $user->can('view_any_user');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Department  $department
      * @return bool
      */
-    public function view(User $user, Department $department): bool
+    public function view(User $user): bool
     {
-        return $user->can('view_department');
+        return $user->can('view_user');
     }
 
     /**
@@ -41,31 +40,29 @@ class DepartmentPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_department');
+        return $user->can('create_user');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Department  $department
      * @return bool
      */
-    public function update(User $user, Department $department): bool
+    public function update(User $user): bool
     {
-        return $user->can('update_department');
+        return $user->can('update_user');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Department  $department
      * @return bool
      */
-    public function delete(User $user, Department $department): bool
+    public function delete(User $user): bool
     {
-        return $user->can('delete_department');
+        return $user->can('delete_user');
     }
 
     /**
@@ -76,19 +73,18 @@ class DepartmentPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_department');
+        return $user->can('delete_any_user');
     }
 
     /**
      * Determine whether the user can permanently delete.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Department  $department
      * @return bool
      */
-    public function forceDelete(User $user, Department $department): bool
+    public function forceDelete(User $user): bool
     {
-        return $user->can('force_delete_department');
+        return $user->can('force_delete_user');
     }
 
     /**
@@ -99,19 +95,18 @@ class DepartmentPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_department');
+        return $user->can('force_delete_any_user');
     }
 
     /**
      * Determine whether the user can restore.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Department  $department
      * @return bool
      */
-    public function restore(User $user, Department $department): bool
+    public function restore(User $user): bool
     {
-        return $user->can('restore_department');
+        return $user->can('restore_user');
     }
 
     /**
@@ -122,17 +117,16 @@ class DepartmentPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_department');
+        return $user->can('restore_any_user');
     }
 
     /**
-     * Determine whether the user can replicate.
+     * Determine whether the user can bulk restore.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Department  $department
      * @return bool
      */
-    public function replicate(User $user, Department $department): bool
+    public function replicate(User $user): bool
     {
         return $user->can('{{ Replicate }}');
     }
@@ -147,5 +141,4 @@ class DepartmentPolicy
     {
         return $user->can('{{ Reorder }}');
     }
-
 }
