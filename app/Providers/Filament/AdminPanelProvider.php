@@ -30,7 +30,6 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->registration()
             ->maxContentWidth('screen-2xl')
             ->colors([
                 'primary' => Color::Amber,
@@ -78,7 +77,8 @@ class AdminPanelProvider extends PanelProvider
                     )
                     ->enableSanctumTokens(
                         permissions: ['aqui', 'lo', 'que', 'necesiten'], // optional, customize the permissions (default = ["create", "view", "update", "delete"])
-                    )
+                    ),
+                    \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
                     
             ]);
     }
