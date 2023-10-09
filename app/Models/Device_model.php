@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
+use Doctrine\DBAL\Query;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Models\Activity;
+
+use function Laravel\Prompts\select;
 
 class Device_model extends Model
 {
@@ -41,7 +46,12 @@ class Device_model extends Model
     // Funcion para genera el log de la tabla
     public function getActivitylogOptions(): LogOptions
     {
+
         return LogOptions::defaults()
-            ->logOnly(['name']);
+            ->logOnly([
+                'brand->id',
+                'brand->name',
+                'name'
+            ]);
     }
 }

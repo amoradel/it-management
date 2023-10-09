@@ -39,7 +39,8 @@ class Partner extends Model
         return LogOptions::defaults()
             ->logOnly([
                 'name',
-                'department_id',
+                'department->id',
+                'department->name',
                 'username_network',
                 'username_odoo',
                 'username_AS400',

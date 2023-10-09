@@ -41,6 +41,12 @@ class Type extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['name']);
+            ->logOnly([
+                'brand->id',
+                'brand->name',
+                'model->id',
+                'model->name',
+                'name'
+            ]);
     }
 }

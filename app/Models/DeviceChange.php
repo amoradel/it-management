@@ -60,9 +60,12 @@ class DeviceChange extends Model
         return LogOptions::defaults()
             ->logOnly([
                 'name',
-                'brand_id',
-                'model_id',
-                'type_id',
+                'brand->id',
+                'brand->name',
+                'model->id',
+                'model->name',
+                'type->id',
+                'type->name',
                 'asset_number',
                 'serial_number',
             ]);
