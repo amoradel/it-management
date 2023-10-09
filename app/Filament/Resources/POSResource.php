@@ -135,6 +135,11 @@ class POSResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),
+                // Columna Ip
+                Tables\Columns\TextColumn::make('ip.ip_number')
+                    ->searchable()
+                    ->sortable()
+                    ->translateLabel(),
                 // Columna Condicion
                 Tables\Columns\TextColumn::make('condition')
                     ->searchable()

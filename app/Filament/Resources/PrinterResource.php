@@ -74,7 +74,7 @@ class PrinterResource extends Resource
                     ->required()
                     ->preload()
                     ->translateLabel(),
-  
+
                 // Campo Numero de Activo
                 Forms\Components\TextInput::make('asset_number')
                     ->required()
@@ -161,6 +161,11 @@ class PrinterResource extends Resource
                     ->translateLabel(),
                 // Columna Numero de Serie
                 Tables\Columns\TextColumn::make('serial_number')
+                    ->searchable()
+                    ->sortable()
+                    ->translateLabel(),
+                // Columna Ip
+                Tables\Columns\TextColumn::make('ip.ip_number')
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),
