@@ -7,6 +7,7 @@ use BezhanSalleh\FilamentShield\Facades\FilamentShield;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use App\Filament\Resources\Shield\RoleResource\Pages;
 use BezhanSalleh\FilamentShield\Support\Utils;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Forms;
 use Filament\Forms\Components\Actions\Action as FormAction;
 use Filament\Forms\Components\Component;
@@ -18,6 +19,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
+use Filament\Notifications\Notification;
+use Spatie\Permission\Models\Role;
 
 class RoleResource extends Resource implements HasShieldPermissions
 {
@@ -228,7 +231,18 @@ class RoleResource extends Resource implements HasShieldPermissions
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->before(function (DeleteAction $action, Role $record) {
+                        if ($record->name == 'super_admin') {
+                            Notification::make()
+                                ->warning()
+                                ->title('Advertencia')
+                                ->body('Este rol no se puede eliminar.')
+                                ->send();
+
+                            $action->cancel();
+                        }
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

@@ -10,6 +10,8 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Hash;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Notifications\Notification;
 
 class UserResource extends Resource
 {
@@ -85,7 +87,18 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->before(function (DeleteAction $action, User $record) {
+                        if ($record->hasRole('super_admin')) {
+                            Notification::make()
+                                ->warning()
+                                ->title('Advertencia')
+                                ->body('Este usuario no se puede eliminar.')
+                                ->send();
+
+                            $action->cancel();
+                        }
+                    }),
                 Tables\Actions\Action::make('activities')->url(fn ($record) => UserResource::getUrl('activities', ['record' => $record]))
                     ->icon('heroicon-m-information-circle')
                     ->translateLabel(),
