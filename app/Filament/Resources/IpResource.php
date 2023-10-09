@@ -161,4 +161,9 @@ class IpResource extends Resource
             'activities' => Pages\ListIpsActivities::route('/{record}/activities'),
         ];
     }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 }

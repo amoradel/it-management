@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\App;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // Route::get('download/{id}', function ($id) {
 //     $records = DeviceChangePartner::all(); //Obtener los datos de la tabla segun el ID

@@ -54,7 +54,6 @@ class User extends Authenticatable
             ->logOnly([
                 'name',
                 'email',
-                'password'
             ]);
     }
 }

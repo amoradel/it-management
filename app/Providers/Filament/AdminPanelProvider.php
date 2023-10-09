@@ -20,6 +20,8 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
 use Illuminate\Validation\Rules\Password;
+use Filament\Navigation\NavigationGroup;
+
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -28,11 +30,11 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('admin')
+            ->path('/')
             ->login()
             ->maxContentWidth('screen-2xl')
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Emerald,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -57,11 +59,26 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            // ->navigationGroups([
+            //     'Dispositivos',
+            //     'Personal',
+            //     'Marcas y Más',
+            //     'Gestión de Usuarios',
+            // ])
             ->navigationGroups([
-                'Dispositivos',
-                'Personal',
-                'Gestión de Usuarios',
-                'Marcas y Más',
+                NavigationGroup::make()
+                    ->label('Dispositivos')->collapsed(),
+                NavigationGroup::make()
+                    ->label('Personal')->collapsed(),
+                NavigationGroup::make()
+                    ->label('Marcas y Más')->collapsed(),
+                NavigationGroup::make()
+                    ->label('Gestión de Usuarios')->collapsed(),
+
+                // NavigationGroup::make()
+                //     ->label(fn (): string => __('navigation.settings'))
+                //     ->icon('heroicon-o-cog-6-tooth')
+                //     ->collapsed(),
             ])
             ->plugins([
                 BreezyCore::make()
