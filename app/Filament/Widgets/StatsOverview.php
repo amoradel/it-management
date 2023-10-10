@@ -7,9 +7,13 @@ use App\Models\Ip;
 use App\Models\Partner;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
+
 
 class StatsOverview extends BaseWidget
 {
+    use HasWidgetShield;
+
     protected function getStats(): array
     {
         $computers = Device::where('device_type', 'computer')->count();
