@@ -14,9 +14,13 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\User::factory()->create([
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('secret123'),
+            // 'profile_photo_path' => 'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg',
+        ]);
+
+        $this->call(IpSeeder::class);
     }
 }
