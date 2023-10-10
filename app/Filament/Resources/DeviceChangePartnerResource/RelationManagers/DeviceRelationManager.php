@@ -30,7 +30,7 @@ class DeviceRelationManager extends RelationManager
                     ->sortable()
                     ->translateLabel(),
                 // Columna Ubicacion
-                Tables\Columns\TextColumn::make('ubication')
+                Tables\Columns\TextColumn::make('location')
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),

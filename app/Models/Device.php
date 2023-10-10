@@ -20,7 +20,7 @@ class Device extends Model
         return LogOptions::defaults()
             ->logOnly([
                 'name',
-                'ubication',
+                'location',
                 'brand->id',
                 'brand->name',
                 'model->id',

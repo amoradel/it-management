@@ -51,7 +51,7 @@ class POSResource extends Resource
                         $set('type_id', null);
                     }),
                 // Campo Ubicacion
-                Forms\Components\TextInput::make('ubication')
+                Forms\Components\TextInput::make('location')
                     ->required()
                     ->maxLength(50)
                     ->translateLabel(),
@@ -120,7 +120,7 @@ class POSResource extends Resource
                     ->sortable()
                     ->translateLabel(),
                 // Columna Ubicacion
-                Tables\Columns\TextColumn::make('ubication')
+                Tables\Columns\TextColumn::make('location')
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),
