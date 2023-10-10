@@ -4,16 +4,16 @@ namespace App\Filament\Resources\CamerasDvrResource\Pages;
 
 use App\Filament\Resources\CamerasDvrResource;
 use Filament\Actions;
-use Filament\Resources\Pages\EditRecord;
+use Filament\Resources\Pages\ListRecords;
 
-class EditCamerasDvr extends EditRecord
+class ListCamerasDvrs extends ListRecords
 {
     protected static string $resource = CamerasDvrResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\CreateAction::make(),
         ];
     }
 }

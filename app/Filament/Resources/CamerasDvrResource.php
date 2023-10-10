@@ -15,7 +15,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
-class CamerasDVRResource extends Resource
+class CamerasDvrResource extends Resource
 {
     protected static ?string $model = Device::class;
 

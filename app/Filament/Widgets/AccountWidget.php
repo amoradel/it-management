@@ -1,8 +1,8 @@
 <?php
 
-namespace Filament\Widgets;
+namespace App\Filament\Widgets;
 
-class AccountWidget extends Widget
+class AccountWidget
 {
     protected static ?int $sort = -3;
 
