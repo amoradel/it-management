@@ -110,7 +110,6 @@ class CamerasDVRResource extends Resource
                     ->translateLabel(),
                 // Campo Observacion
                 Forms\Components\TextInput::make('observation')
-                    ->required()
                     ->translateLabel(),
                 // Campo Estado
                 Forms\Components\Toggle::make('status')
