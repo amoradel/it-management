@@ -3,22 +3,26 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\IpResource\Pages;
+use App\Models\Device;
 use App\Models\Ip;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use App\Models\Device;
-use Filament\Forms\Components\Builder;
 
 class IpResource extends Resource
 {
     protected static ?string $model = Ip::class;
+
     protected static ?string $navigationGroup = 'Dispositivos';
+
     protected static ?string $modelLabel = 'Ip';
+
     protected static ?string $pluralModelLabel = "Ip's";
+
     protected static ?string $navigationIcon = 'heroicon-o-wifi';
+
     protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
@@ -64,7 +68,7 @@ class IpResource extends Resource
                     ->translateLabel(),
                 Forms\Components\TextInput::make('availability')
                     ->readOnly(),
-                // ->fill(fn (callable $get) => $get('description') !== "" ? "Ocupado" : "Disponible")   ,                 
+                // ->fill(fn (callable $get) => $get('description') !== "" ? "Ocupado" : "Disponible")   ,
                 // Campo Estado
                 Forms\Components\Toggle::make('status')
                     ->onColor('success')

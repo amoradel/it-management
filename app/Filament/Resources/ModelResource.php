@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ModelResource\Pages;
-use App\Models\Model;
 use App\Models\Device_model;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -14,9 +13,13 @@ use Filament\Tables\Table;
 class ModelResource extends Resource
 {
     protected static ?string $model = Device_model::class;
+
     protected static ?string $navigationGroup = 'Marcas y Más';
+
     protected static ?string $modelLabel = 'Modelo';
+
     protected static ?string $pluralModelLabel = 'Modelos';
+
     protected static ?string $navigationIcon = 'heroicon-o-hashtag';
 
     public static function form(Form $form): Form

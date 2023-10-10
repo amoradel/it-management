@@ -5,10 +5,9 @@ namespace App\Filament\Widgets;
 use App\Models\Device;
 use App\Models\Ip;
 use App\Models\Partner;
+use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
-
 
 class StatsOverview extends BaseWidget
 {
@@ -65,7 +64,7 @@ class StatsOverview extends BaseWidget
                 ->color('danger')
                 ->url('ips?tableFilters[availability][value]=Ocupado'),
             // Suma Personal
-            Stat::make("Personal", $partners)
+            Stat::make('Personal', $partners)
                 ->description('Usuarios Activos')
                 ->icon('heroicon-o-user-group')
                 ->color('info')

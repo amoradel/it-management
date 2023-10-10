@@ -3,21 +3,24 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TypeResource\Pages;
-use App\Models\Type;
 use App\Models\Device_model;
+use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Forms\Get;
 use Illuminate\Support\Collection;
 
 class TypeResource extends Resource
 {
     protected static ?string $model = Type::class;
+
     protected static ?string $navigationGroup = 'Marcas y Más';
+
     protected static ?string $modelLabel = 'Tipo';
+
     protected static ?string $pluralModelLabel = 'Tipos';
 
     protected static ?string $navigationIcon = 'heroicon-o-swatch';

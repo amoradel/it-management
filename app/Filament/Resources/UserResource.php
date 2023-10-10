@@ -6,19 +6,23 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Hash;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Notifications\Notification;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
+
     protected static ?string $navigationGroup = 'Gestión de Usuarios';
+
     protected static ?string $modelLabel = 'Usuarios';
+
     protected static ?string $pluralModelLabel = 'Usuarios';
+
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
     public static function form(Form $form): Form
@@ -54,7 +58,7 @@ class UserResource extends Resource
                     ->searchable()
                     ->preload()
                     ->relationship('roles', 'name')
-                    ->searchable()
+                    ->searchable(),
             ]);
     }
 

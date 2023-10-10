@@ -15,9 +15,13 @@ class DepartmentResource extends Resource
     protected static ?string $model = Department::class;
 
     protected static ?string $modelLabel = 'Departamento';
+
     protected static ?string $pluralModelLabel = 'Departamentos';
+
     protected static ?string $navigationGroup = 'Personal';
+
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
+
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
@@ -29,7 +33,7 @@ class DepartmentResource extends Resource
                     ->required()
                     ->maxLength(50)
                     ->unique(ignorable: fn ($record) => $record)
-                    ->translateLabel()
+                    ->translateLabel(),
             ]);
     }
 

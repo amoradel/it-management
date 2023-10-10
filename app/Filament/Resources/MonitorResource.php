@@ -8,21 +8,25 @@ use App\Models\Device_model;
 use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Get;
-use Illuminate\Contracts\Queue\Monitor;
 use Illuminate\Support\Collection;
 
 class MonitorResource extends Resource
 {
     protected static ?string $model = Device::class;
+
     protected static ?string $navigationGroup = 'Dispositivos';
+
     protected static ?string $modelLabel = 'Monitor';
-    protected static ?string $pluralModelLabel = "Monitores";
+
+    protected static ?string $pluralModelLabel = 'Monitores';
+
     protected static ?string $navigationIcon = 'heroicon-o-tv';
+
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
@@ -176,8 +180,8 @@ class MonitorResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\Action::make('activities')->url(fn ($record) => MonitorResource::getUrl('activities', ['record' => $record]))
-                ->icon('heroicon-m-information-circle')
-                ->translateLabel(),
+                    ->icon('heroicon-m-information-circle')
+                    ->translateLabel(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
             ])

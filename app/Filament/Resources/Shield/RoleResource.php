@@ -2,24 +2,24 @@
 
 namespace App\Filament\Resources\Shield;
 
+use App\Filament\Resources\Shield\RoleResource\Pages;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use BezhanSalleh\FilamentShield\Facades\FilamentShield;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
-use App\Filament\Resources\Shield\RoleResource\Pages;
 use BezhanSalleh\FilamentShield\Support\Utils;
-use Filament\Tables\Actions\DeleteAction;
 use Filament\Forms;
 use Filament\Forms\Components\Actions\Action as FormAction;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
-use Filament\Notifications\Notification;
 use Spatie\Permission\Models\Role;
 
 class RoleResource extends Resource implements HasShieldPermissions

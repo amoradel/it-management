@@ -8,20 +8,25 @@ use App\Models\Device_model;
 use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Get;
 use Illuminate\Support\Collection;
 
 class CamerasDVRResource extends Resource
 {
     protected static ?string $model = Device::class;
+
     protected static ?string $navigationGroup = 'Dispositivos';
+
     protected static ?string $modelLabel = 'Cámara o DVR';
+
     protected static ?string $pluralModelLabel = "Cámaras y DVR'S";
+
     protected static ?string $navigationIcon = 'heroicon-o-video-camera';
+
     protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
@@ -66,7 +71,7 @@ class CamerasDVRResource extends Resource
                     }),
                 // Campo Programa
                 Forms\Components\Select::make('dvr_program')
-                    ->options(['IVMS-4200' => 'IVMS-4200', 'CMS3.0' => 'CMS3.0', 'VI MonitorPlus' => 'VI MonitorPlus',])
+                    ->options(['IVMS-4200' => 'IVMS-4200', 'CMS3.0' => 'CMS3.0', 'VI MonitorPlus' => 'VI MonitorPlus'])
                     ->searchable()
                     ->preload()
                     ->translateLabel(),

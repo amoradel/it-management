@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Type extends Model
 {
-    use HasFactory, SoftDeletes, LogsActivity;
+    use HasFactory, LogsActivity, SoftDeletes;
+
     protected $guarded = [];
 
     // Relaciones uno a muchos (inversa)
@@ -46,7 +47,7 @@ class Type extends Model
                 'brand->name',
                 'model->id',
                 'model->name',
-                'name'
+                'name',
             ]);
     }
 }

@@ -3,25 +3,30 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PrinterResource\Pages;
-use Filament\Forms;
 use App\Models\Device;
 use App\Models\Device_model;
 use App\Models\Type;
+use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Get;
 use Illuminate\Support\Collection;
 
 class PrinterResource extends Resource
 {
     protected static ?string $model = Device::class;
+
     protected static ?string $navigationGroup = 'Dispositivos';
+
     protected static ?string $modelLabel = 'Impresora';
+
     protected static ?string $pluralModelLabel = 'Impresoras';
+
     protected static ?string $navigationIcon = 'heroicon-o-printer';
+
     protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form

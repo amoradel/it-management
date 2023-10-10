@@ -33,11 +33,11 @@ return new class extends Migration
             $table->string('condition');
             $table->date('entry_date')->nullable();
             $table->boolean('status');
-    
+
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');
             $table->foreign('model_id')->references('id')->on('device_models')->onDelete('set null');
             $table->foreign('type_id')->references('id')->on('types')->onDelete('set null');
-            
+
             $table->timestamps();
             $table->softDeletes();
         });

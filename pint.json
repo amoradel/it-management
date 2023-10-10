@@ -1,0 +1,12 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "simplified_null_return": true,
+        "concat_space": { "spacing": "one" },
+        "explicit_string_variable": true,
+        "fully_qualified_strict_types": true,
+        "array_indentation": true,
+        "blank_line_after_namespace": true,
+        "blank_line_after_opening_tag": true
+    }
+}

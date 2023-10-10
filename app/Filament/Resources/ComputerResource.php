@@ -8,20 +8,25 @@ use App\Models\Device_model;
 use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Get;
 use Illuminate\Support\Collection;
 
 class ComputerResource extends Resource
 {
     protected static ?string $model = Device::class;
+
     protected static ?string $navigationGroup = 'Dispositivos';
+
     protected static ?string $modelLabel = 'Computadora';
+
     protected static ?string $pluralModelLabel = 'Computadoras';
+
     protected static ?string $navigationIcon = 'heroicon-o-cpu-chip';
+
     protected static ?int $navigationSort = 0;
 
     public static function form(Form $form): Form
@@ -288,7 +293,7 @@ class ComputerResource extends Resource
     public static function getRelations(): array
     {
         return [
-            // 
+            //
         ];
     }
 

@@ -3,25 +3,29 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\DeviceChangeResource\Pages;
+use App\Models\Device_model;
 use App\Models\DeviceChange;
+use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Forms\Get;
 use Illuminate\Support\Collection;
-use App\Models\Device_model;
-use App\Models\Type;
-
 
 class DeviceChangeResource extends Resource
 {
     protected static ?string $model = DeviceChange::class;
+
     protected static ?string $navigationGroup = 'Dispositivos';
+
     protected static ?string $modelLabel = 'Equipo o Pieza';
+
     protected static ?string $pluralModelLabel = 'Equipos o Piezas';
+
     protected static ?string $navigationIcon = 'heroicon-m-cog';
+
     protected static ?int $navigationSort = 6;
 
     public static function form(Form $form): Form

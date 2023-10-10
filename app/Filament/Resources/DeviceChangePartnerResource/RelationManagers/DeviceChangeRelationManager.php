@@ -2,15 +2,15 @@
 
 namespace App\Filament\Resources\DeviceChangePartnerResource\RelationManagers;
 
+use App\Models\Device_model;
+use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Collection;
-use Filament\Forms\Get;
-use App\Models\Type;
-use App\Models\Device_model;
 
 class DeviceChangeRelationManager extends RelationManager
 {

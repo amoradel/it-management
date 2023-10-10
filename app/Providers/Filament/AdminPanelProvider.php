@@ -2,10 +2,10 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Widgets\StatsOverview;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -17,11 +17,9 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
-use Illuminate\Validation\Rules\Password;
-use Filament\Navigation\NavigationGroup;
-
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -96,9 +94,8 @@ class AdminPanelProvider extends PanelProvider
                     ->enableSanctumTokens(
                         permissions: ['aqui', 'lo', 'que', 'necesiten'], // optional, customize the permissions (default = ["create", "view", "update", "delete"])
                     ),
-                    \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
-                    
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
+
             ]);
     }
-
 }
