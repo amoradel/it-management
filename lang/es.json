@@ -284,7 +284,7 @@
     "Condition": "Condición",
     "Entry date": "Fecha de Ingreso",
     "Partners": "Usuarios",
-    "Partner" : "Usuario",
+    "Partner": "Usuario",
     "Dvr program": "Programa de Dvr",
     "Observation": "Observación",
     "Ip number": "Número de Equipo",
@@ -293,7 +293,7 @@
     "Replenishment": "Reabastecimiento",
     "Device change": "Equipo o Pieza",
     "device change": "Equipo o Pieza",
-    "Disponibility": "Disponibilidad",
+    "Availability": "Disponibilidad",
     "Attachment": "Subir Reporte Autorizado",
     "Activities": "Historial",
     "Sorry, your session has expired. Please click \"Go \" and try again.": "Lo sentimos, su sesión ha expirado. Haga clic en \"Ir a inicio\" e intente nuevamente."

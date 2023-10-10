@@ -20,8 +20,8 @@ class StatsOverview extends BaseWidget
         $monitors = Device::where('device_type', 'monitor')->count();
         $printers = Device::where('device_type', 'printer')->count();
         $pos = Device::where('device_type', 'pos')->count();
-        $available_ips = Ip::where('disponibility', 'Disponible')->count();
-        $taked_ips = Ip::where('disponibility', 'Ocupado')->count();
+        $available_ips = Ip::where('availability', 'Disponible')->count();
+        $taken_ips = Ip::where('availability', 'Ocupado')->count();
         $partners = Partner::where('status', 1)->count();
 
         return [
@@ -56,14 +56,14 @@ class StatsOverview extends BaseWidget
                 ->descriptionIcon('heroicon-s-arrow-trending-up')
                 // ->chart([$available_ips, $taked_ips])
                 ->color('success')
-                ->url('ips?tableFilters[disponibility][value]=Disponible'),
+                ->url('ips?tableFilters[availability][value]=Disponible'),
             // Suma Ips Ocupadas
-            Stat::make("Ip's", $taked_ips)
+            Stat::make("Ip's", $taken_ips)
                 ->icon('heroicon-o-wifi')
                 ->description('Recuento de Ips Ocupadas')
                 ->descriptionIcon('heroicon-s-arrow-trending-down')
                 ->color('danger')
-                ->url('ips?tableFilters[disponibility][value]=Ocupado'),
+                ->url('ips?tableFilters[availability][value]=Ocupado'),
             // Suma Personal
             Stat::make("Personal", $partners)
                 ->description('Usuarios Activos')

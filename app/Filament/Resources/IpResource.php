@@ -42,15 +42,15 @@ class IpResource extends Resource
                         return $device->whereDoesntHave('ip')->pluck('name', 'id');
                     })
                     ->afterStateUpdated(function (callable $set, callable $get, $state) {
-                        $set('disponibility', setDisponibility($state, $get('description')));
+                        $set('availability', setAvailability($state, $get('description')));
                     }),
-                // Campo Descripcion
+                // Campo Descripción
                 Forms\Components\Textarea::make('description')
                     ->translateLabel()
                     ->reactive()
                     ->maxLength(150)
                     ->afterStateUpdated(function (callable $set, callable $get, $state) {
-                        $set('disponibility', setDisponibility($state, $get('device_id')));
+                        $set('availability', setAvailability($state, $get('device_id')));
                     }),
                 // Campo Tipo de Ip
                 Forms\Components\Select::make('ip_type')
@@ -62,7 +62,7 @@ class IpResource extends Resource
                 Forms\Components\TextInput::make('segment')
                     ->required()
                     ->translateLabel(),
-                Forms\Components\TextInput::make('disponibility')
+                Forms\Components\TextInput::make('availability')
                     ->readOnly(),
                 // ->fill(fn (callable $get) => $get('description') !== "" ? "Ocupado" : "Disponible")   ,                 
                 // Campo Estado
@@ -94,14 +94,14 @@ class IpResource extends Resource
                     ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
-                // Columna Descripcion
+                // Columna Descripción
                 Tables\Columns\TextColumn::make('description')
                     ->wrap()
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),
                 // Columna Disponibilidad
-                Tables\Columns\TextColumn::make('disponibility')
+                Tables\Columns\TextColumn::make('availability')
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),
@@ -117,7 +117,7 @@ class IpResource extends Resource
                     ->onColor('success'),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('disponibility')
+                Tables\Filters\SelectFilter::make('availability')
                     ->options([
                         'Ocupado' => 'Ocupado',
                         'Disponible' => 'Disponible',

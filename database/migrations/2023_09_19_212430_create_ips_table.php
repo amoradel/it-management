@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('ip_number', 15);
             $table->unsignedBigInteger('device_id')->nullable();
-            $table->string('disponibility')->nullable();
+            $table->string('availability')->nullable();
             $table->text('description')->nullable();
             $table->string('ip_type');
             $table->string('segment');

@@ -28,7 +28,7 @@ class Ip extends Model
             ->logOnly([
                 'ip_number',
                 'device_id',
-                'disponibility',
+                'availability',
                 'description',
                 'ip_type',
                 'segment',

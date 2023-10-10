@@ -18,7 +18,7 @@ class IpSeeder extends Seeder
                     'ip_number' => '192.168.' . $i . '.' . $j,
                     'ip_type' => 'Estática',
                     'segment' => '192.168.' . $i . '.1 - 192.168.' . $i . '.127',
-                    'disponibility' => 'Disponible',
+                    'availability' => 'Disponible',
                     'status' => 1,
                 ]);
             }
