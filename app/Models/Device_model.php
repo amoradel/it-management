@@ -21,12 +21,6 @@ class Device_model extends Model
     }
     // Fin Relacion uno a muchos (inversa)
 
-    // Relaciones uno a muchos
-    public function types()
-    {
-        return $this->hasMany('App\Models\Type');
-    }
-
     public function devices()
     {
         return $this->hasMany('App\Models\Device');

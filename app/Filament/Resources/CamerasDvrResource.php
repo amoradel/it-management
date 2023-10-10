@@ -48,7 +48,6 @@ class CamerasDVRResource extends Resource
                     ->translateLabel()
                     ->afterStateUpdated(function (callable $set) {
                         $set('model_id', null);
-                        $set('type_id', null);
                     }),
                 // Campo Ubicacion
                 Forms\Components\TextInput::make('location')
@@ -65,20 +64,24 @@ class CamerasDVRResource extends Resource
                     ->preload()
                     ->live()
                     ->required()
-                    ->translateLabel()
-                    ->afterStateUpdated(function (callable $set) {
-                        $set('type_id', null);
-                    }),
+                    ->translateLabel(),
                 // Campo Programa
                 Forms\Components\Select::make('dvr_program')
                     ->options(['IVMS-4200' => 'IVMS-4200', 'CMS3.0' => 'CMS3.0', 'VI MonitorPlus' => 'VI MonitorPlus'])
                     ->searchable()
                     ->preload()
                     ->translateLabel(),
+                // Campo Tipo de Equipo
+                Forms\Components\Select::make('device_type')
+                    ->label('Camara/Dvr')
+                    ->options(['camera' => 'Camara', 'dvr' => 'Dvr'])
+                    ->required()
+                    ->searchable()
+                    ->live(),
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
                     ->label('Type')
-                    ->options(fn (Get $get): Collection => Type::query()->where('model_id', $get('model_id'))->pluck('name', 'id'))
+                    ->options(fn (Get $get): Collection => Type::query()->where('device_type', $get('device_type'))->pluck('name', 'id'))
                     ->searchable()
                     ->required()
                     ->preload()
@@ -114,9 +117,6 @@ class CamerasDVRResource extends Resource
                     ->onColor('success')
                     ->default('true')
                     ->translateLabel(),
-                // Columna que envia el tipo de equipo igual a computer
-                Forms\Components\Hidden::make('device_type')
-                    ->default('camera_dvr'),
 
             ]);
     }

@@ -33,7 +33,6 @@ class DeviceChangeRelationManager extends RelationManager
                     ->translateLabel()
                     ->afterStateUpdated(function (callable $set) {
                         $set('model_id', null);
-                        $set('type_id', null);
                     }),
                 // Campo Modelo
                 Forms\Components\Select::make('model_id')
@@ -43,14 +42,11 @@ class DeviceChangeRelationManager extends RelationManager
                     ->preload()
                     ->live()
                     ->required()
-                    ->translateLabel()
-                    ->afterStateUpdated(function (callable $set) {
-                        $set('type_id', null);
-                    }),
+                    ->translateLabel(),
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
                     ->label('Type')
-                    ->options(fn (Get $get): Collection => Type::query()->where('model_id', $get('model_id'))->pluck('name', 'id'))
+                    ->options(fn (): Collection => Type::query()->where('device_type', 'others')->pluck('name', 'id'))
                     ->searchable()
                     ->required()
                     ->preload()

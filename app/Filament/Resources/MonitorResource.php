@@ -48,7 +48,6 @@ class MonitorResource extends Resource
                     ->translateLabel()
                     ->afterStateUpdated(function (callable $set) {
                         $set('model_id', null);
-                        $set('type_id', null);
                     }),
                 // Campo Ubicacion
                 Forms\Components\TextInput::make('location')
@@ -63,10 +62,7 @@ class MonitorResource extends Resource
                     ->preload()
                     ->live()
                     ->required()
-                    ->translateLabel()
-                    ->afterStateUpdated(function (callable $set) {
-                        $set('type_id', null);
-                    }),
+                    ->translateLabel(),
                 // Campo Numero de Serie
                 Forms\Components\TextInput::make('serial_number')
                     ->required()
@@ -75,7 +71,7 @@ class MonitorResource extends Resource
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
                     ->label('Type')
-                    ->options(fn (Get $get): Collection => Type::query()->where('model_id', $get('model_id'))->pluck('name', 'id'))
+                    ->options(fn (): Collection => Type::query()->where('device_type', 'monitor')->pluck('name', 'id'))
                     ->searchable()
                     ->required()
                     ->preload()

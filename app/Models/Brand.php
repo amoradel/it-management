@@ -33,11 +33,6 @@ class Brand extends Model
         return $this->hasMany(Device::class);
     }
 
-    public function types()
-    {
-        return $this->hasMany(Type::class);
-    }
-
     public function device_changes()
     {
         return $this->hasMany(DeviceChange::class);

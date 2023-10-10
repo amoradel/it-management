@@ -14,17 +14,6 @@ class Type extends Model
 
     protected $guarded = [];
 
-    // Relaciones uno a muchos (inversa)
-    public function model()
-    {
-        return $this->belongsTo('App\Models\Device_model');
-    }
-
-    public function brand()
-    {
-        return $this->belongsTo('App\Models\Brand');
-    }
-    // Fin Relaciones uno a muchos (inversa)
 
     // Relaciones uno a muchos
     public function devices()

@@ -91,6 +91,7 @@ class PartnerResource extends Resource
                 // Campo Estado
                 Forms\Components\Toggle::make('status')
                     ->onColor('success')
+                    ->default('true')
                     ->translateLabel(),
             ]);
     }
@@ -145,8 +146,7 @@ class PartnerResource extends Resource
                 Tables\Columns\ToggleColumn::make('status')
                     ->onColor('success')
                     ->default('true')
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->translateLabel(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
