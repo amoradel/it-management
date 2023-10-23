@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\User;
-use Livewire\Livewire;
 
 beforeEach(function () {
     $this->actingAs(
@@ -15,4 +14,4 @@ it('See the brand list', function () {
     $response->assertStatus(200);
 });
 
-// logearse, ver, editar, eliminar, crear, usar filtros 
+// logearse, ver, editar, eliminar, crear, usar filtros

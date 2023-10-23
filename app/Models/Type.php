@@ -14,7 +14,6 @@ class Type extends Model
 
     protected $guarded = [];
 
-
     // Relaciones uno a muchos
     public function devices()
     {
