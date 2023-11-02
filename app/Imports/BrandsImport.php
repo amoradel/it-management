@@ -20,15 +20,6 @@ class BrandsImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-        // dd($this->data);
-
-        // return new Brand([
-        //     'name' => $row[$this->data['name']],
-        // ]);
-
-        // return new Brand([
-        //     'name' => $row['Name'] ?? $row['name'],
-        // ]);
         $brandData = [];
 
         // Recorrer el array $this->data y construir el array $brandData
@@ -38,6 +29,5 @@ class BrandsImport implements ToModel, WithHeadingRow
 
         // Crear un nuevo objeto Brand con los datos construidos
         return new Brand($brandData);
-
     }
 }
