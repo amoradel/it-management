@@ -33,7 +33,9 @@ class ListBrands extends ListRecords
                         ->acceptedFileTypes(['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']),
                     Select::make('name')
                         ->default('name')
-                        ->options(function (callable $get) {
+                        ->required()
+                        ->searchable()
+                        ->options(function (callable $get): array {
                             if ($get('excel_file')) {
                                 $file = $get('excel_file');
                                 // dd($file);
@@ -42,6 +44,9 @@ class ListBrands extends ListRecords
                                 $headings = (new HeadingRowImport)->toArray($file_path);
                                 $headings = reset($headings);
                                 $headings = reset($headings);
+
+                                $headings = array_combine($headings, $headings);
+                                // dd($headings);
 
                                 return $headings;
                             } else {
@@ -55,8 +60,15 @@ class ListBrands extends ListRecords
                 ->action(function (array $data): void {
                     if ($data) {
                         $excel_file = $data['excel_file'];
+                        // dd($data['name']);
+
+                        // $filteredData ahora contiene todos los datos excepto 'excel_file'
+                        $filteredData = array_filter($data, function ($key) {
+                            return $key !== 'excel_file';
+                        }, ARRAY_FILTER_USE_KEY);
+
                         $file = $excel_file->path();
-                        Excel::import(import: new BrandsImport, filePath: $file);
+                        Excel::import(import: new BrandsImport($filteredData), filePath: $file);
                     }
                 }),
             // ]),
