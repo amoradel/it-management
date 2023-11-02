@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CamerasDVRResource\Pages;
 use App\Models\Device;
-use App\Models\Device_model;
+use App\Models\DeviceModel;
 use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -57,7 +57,7 @@ class CamerasDvrResource extends Resource
                 // Campo Modelo
                 Forms\Components\Select::make('model_id')
                     ->label('Model')
-                    ->options(fn (Get $get): Collection => Device_model::query()
+                    ->options(fn (Get $get): Collection => DeviceModel::query()
                         ->where('brand_id', $get('brand_id'))
                         ->pluck('name', 'id'))
                     ->searchable()

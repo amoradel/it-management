@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Device_model extends Model
+class DeviceModel extends Model
 {
     use HasFactory, LogsActivity, SoftDeletes;
 

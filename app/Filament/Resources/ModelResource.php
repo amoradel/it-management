@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ModelResource\Pages;
-use App\Models\Device_model;
+use App\Models\DeviceModel;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,7 +12,7 @@ use Filament\Tables\Table;
 
 class ModelResource extends Resource
 {
-    protected static ?string $model = Device_model::class;
+    protected static ?string $model = DeviceModel::class;
 
     protected static ?string $navigationGroup = 'Marcas y Más';
 
