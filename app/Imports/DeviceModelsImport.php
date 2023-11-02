@@ -2,11 +2,11 @@
 
 namespace App\Imports;
 
-use App\Models\Brand;
+use App\Models\DeviceModel;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class BrandsImport implements ToModel, WithHeadingRow
+class DeviceModelsImport implements ToModel, WithHeadingRow
 {
     private $data = [];
 
@@ -27,7 +27,6 @@ class BrandsImport implements ToModel, WithHeadingRow
             $modelData[$key] = $row[$value] ?? null;
         }
 
-        // Crear un nuevo objeto Brand con los datos construidos
-        return new Brand($modelData);
+        return new DeviceModel($modelData);
     }
 }

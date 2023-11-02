@@ -11,7 +11,6 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Pages\ListRecords;
 use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\HeadingRowImport;
 
 class ListBrands extends ListRecords
 {
@@ -46,24 +45,7 @@ class ListBrands extends ListRecords
                                     ->default('name')
                                     ->required()
                                     ->searchable()
-                                    ->options(function (callable $get): array {
-                                        if ($get('excel_file')) {
-                                            $file = $get('excel_file');
-                                            // dd($file);
-                                            $uploadedFile = reset($file); // Obtener el primer elemento del array
-                                            $file_path = $uploadedFile->path();
-                                            $headings = (new HeadingRowImport)->toArray($file_path);
-                                            $headings = reset($headings);
-                                            $headings = reset($headings);
-
-                                            $headings = array_combine($headings, $headings);
-                                            // dd($headings);
-
-                                            return $headings;
-                                        } else {
-                                            return [];
-                                        }
-                                    }),
+                                    ->options(fn (callable $get) => getHeadingRows($get)),
 
                             ]),
                     ])
