@@ -3,8 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\DeviceChangeResource\Pages;
-use App\Models\DeviceModel;
 use App\Models\DeviceChange;
+use App\Models\DeviceModel;
 use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Form;

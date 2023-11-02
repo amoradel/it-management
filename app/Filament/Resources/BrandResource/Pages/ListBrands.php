@@ -6,6 +6,7 @@ use App\Filament\Resources\BrandResource;
 use App\Imports\BrandsImport;
 use Filament\Actions;
 use Filament\Actions\ActionGroup;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Pages\ListRecords;
@@ -22,41 +23,50 @@ class ListBrands extends ListRecords
             Actions\CreateAction::make(),
             // ActionGroup::make([
             Actions\Action::make('Import')
-                ->icon('heroicon-o-document-arrow-up')
                 ->requiresConfirmation()
+                ->icon('heroicon-o-document-arrow-up')
+                ->modalIcon('heroicon-o-document-arrow-up')
+                ->modalDescription(__('Do you want to import data from an excel file?'))
                 ->translateLabel()
-                ->form([
-                    FileUpload::make('excel_file')
-                        ->beforeStateDehydrated(null)
-                        ->translateLabel()
-                        ->required()
-                        ->acceptedFileTypes(['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']),
-                    Select::make('name')
-                        ->default('name')
-                        ->required()
-                        ->searchable()
-                        ->options(function (callable $get): array {
-                            if ($get('excel_file')) {
-                                $file = $get('excel_file');
-                                // dd($file);
-                                $uploadedFile = reset($file); // Obtener el primer elemento del array
-                                $file_path = $uploadedFile->path();
-                                $headings = (new HeadingRowImport)->toArray($file_path);
-                                $headings = reset($headings);
-                                $headings = reset($headings);
+                ->form(
+                    [
+                        FileUpload::make('excel_file')
+                            ->beforeStateDehydrated(null)
+                            ->translateLabel()
+                            ->required()
+                            ->acceptedFileTypes(['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']),
+                        Fieldset::make('Match data to column')
+                            ->translateLabel()
+                            ->columns(1)
+                            ->hidden(
+                                fn (callable $get) => $get('excel_file') ? false : true
+                            )
+                            ->schema([
+                                Select::make('name')
+                                    ->default('name')
+                                    ->required()
+                                    ->searchable()
+                                    ->options(function (callable $get): array {
+                                        if ($get('excel_file')) {
+                                            $file = $get('excel_file');
+                                            // dd($file);
+                                            $uploadedFile = reset($file); // Obtener el primer elemento del array
+                                            $file_path = $uploadedFile->path();
+                                            $headings = (new HeadingRowImport)->toArray($file_path);
+                                            $headings = reset($headings);
+                                            $headings = reset($headings);
 
-                                $headings = array_combine($headings, $headings);
-                                // dd($headings);
+                                            $headings = array_combine($headings, $headings);
+                                            // dd($headings);
 
-                                return $headings;
-                            } else {
-                                return [];
-                            }
-                        })
-                        ->hidden(
-                            fn (callable $get) => $get('excel_file') ? false : true
-                        ),
-                ])
+                                            return $headings;
+                                        } else {
+                                            return [];
+                                        }
+                                    }),
+
+                            ]),
+                    ])
                 ->action(function (array $data): void {
                     if ($data) {
                         $excel_file = $data['excel_file'];
