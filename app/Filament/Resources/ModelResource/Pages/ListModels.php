@@ -40,12 +40,12 @@ class ListModels extends ListRecords
                             )
                             ->schema([
                                 Select::make('name')
-                                    ->default('name')
+                                    // ->default('name')
                                     ->required()
                                     ->searchable()
                                     ->options(fn (callable $get) => getHeadingRows($get)),
                                 Select::make('brand_id')
-                                    ->default('brand_id')
+                                    // ->default('brand_id')
                                     ->required()
                                     ->searchable()
                                     ->options(fn (callable $get) => getHeadingRows($get)),

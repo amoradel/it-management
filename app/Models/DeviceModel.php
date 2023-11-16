@@ -14,12 +14,12 @@ class DeviceModel extends Model
 
     protected $guarded = [];
 
-    // Relacion uno a muchos (inversa)
+    // Relación uno a muchos (inversa)
     public function brand()
     {
         return $this->belongsTo('App\Models\Brand');
     }
-    // Fin Relacion uno a muchos (inversa)
+    // Fin Relación uno a muchos (inversa)
 
     public function devices()
     {
@@ -32,7 +32,7 @@ class DeviceModel extends Model
     }
     // Fin Relaciones uno a muchos
 
-    // Funcion para genera el log de la tabla
+    // Función para genera el log de la tabla
     public function getActivitylogOptions(): LogOptions
     {
 
