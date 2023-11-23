@@ -304,5 +304,7 @@
     "Do you want to import data from an excel file?": "¿Deseas importar datos desde un archivo excel?",
     "Columns": "Columnas",
     "Match data to column": "Hacer coincidir los datos con la columna",
+    "Start date": "Fecha de Inicio",
+    "End date": "Fecha de Finalización",
     "Sorry, your session has expired. Please click \"Go \" and try again.": "Lo sentimos, su sesión ha expirado. Haga clic en \"Ir a inicio\" e intente nuevamente."
 }

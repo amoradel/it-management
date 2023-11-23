@@ -72,7 +72,17 @@ class ActivityResource extends Resource
                     ->searchable()
                     ->required()
                     ->translateLabel(),
-                // Campo Para Subir Reportes(PDF) Firmados
+                // Campo Fecha de Inicio
+                Forms\Components\DatePicker::make('start_date')
+                    ->required()
+                    ->native(false)
+                    ->default(now())
+                    ->translateLabel(),
+                // Campo Fecha de Finalización
+                Forms\Components\DatePicker::make('end_date')
+                    ->native(false)
+                    ->translateLabel(),
+                // Campo para subir una imagen
                 FileUpload::make('attached_img')
                     ->translateLabel()
                     ->columnSpan(2)
@@ -127,14 +137,14 @@ class ActivityResource extends Resource
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
                 Tables\Filters\SelectFilter::make('state')
-                ->options([
-                    'new' => 'New',
-                    'waiting' => 'Waiting',
-                    'in progress' => 'In Progress',
-                    'close' => 'Close',
-                    'abort' => 'Abort',
-                ])->multiple()
-                ->translateLabel(),
+                    ->options([
+                        'new' => 'New',
+                        'waiting' => 'Waiting',
+                        'in progress' => 'In Progress',
+                        'close' => 'Close',
+                        'abort' => 'Abort',
+                    ])->multiple()
+                    ->translateLabel(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

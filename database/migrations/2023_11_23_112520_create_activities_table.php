@@ -17,6 +17,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('state', 30);
             $table->text('attached_img')->nullable();
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
 
             $table->unsignedBigInteger('partner_id');
             $table->unsignedBigInteger('device_id');
