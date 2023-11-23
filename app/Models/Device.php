@@ -53,7 +53,7 @@ class Device extends Model
 
     public function model()
     {
-        return $this->belongsTo(Device_model::class);
+        return $this->belongsTo(DeviceModel::class);
     }
 
     public function type()

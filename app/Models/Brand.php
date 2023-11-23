@@ -25,7 +25,7 @@ class Brand extends Model
     //Relaciones unos a muchos
     public function models()
     {
-        return $this->hasMany(Device_model::class);
+        return $this->hasMany(DeviceModel::class);
     }
 
     public function devices()
