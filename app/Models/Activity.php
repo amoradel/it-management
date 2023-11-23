@@ -14,7 +14,11 @@ class Activity extends Model
 
     protected $guarded = [];
 
-    // Funcion para genera el log de la tabla
+    protected $casts = [
+        'attached_img' => 'array',
+    ];
+
+    // Función para genera el log de la tabla
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

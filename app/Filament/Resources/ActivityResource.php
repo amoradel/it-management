@@ -36,32 +36,21 @@ class ActivityResource extends Resource
                     ->required()
                     ->maxLength(60)
                     ->translateLabel(),
-                // Campo Descripcion
+                // Campo Descripción
                 Forms\Components\Textarea::make('description')
                     ->maxLength(150)
                     ->translateLabel(),
-                // Campo Seleccion Usuarios
+                // Campo Selección Usuarios
                 Forms\Components\Select::make('partner_id')
                     ->relationship('partner', 'name')
                     ->searchable()
                     ->required()
                     ->preload()
                     ->translateLabel(),
-                // Campo Seleccion Dispositivos
+                // Campo Selección Dispositivos
                 Forms\Components\Select::make('device_id')
                     ->label('Dispositivo')
-                    ->options(function (Get $get) {
-                        $partner = Partner::find($get('partner_id'));
-
-                        if ($partner) {
-                            $devices = $partner->devices;
-                            $options = $devices->pluck('name', 'id');
-
-                            return $options;
-                        } else {
-                            return collect();
-                        }
-                    })
+                    ->relationship('device', 'name')
                     ->searchable()
                     ->required()
                     ->preload()
@@ -85,11 +74,17 @@ class ActivityResource extends Resource
                 // Campo para subir una imagen
                 FileUpload::make('attached_img')
                     ->translateLabel()
-                    ->columnSpan(2)
-                    ->AcceptedFileTypes(['image/jpeg', 'image/png'])
-                    ->downloadable()
-                    ->preserveFilenames()
-                    ->maxFiles(1),
+                    ->image()
+                    ->directory('activity-resource-files')
+                    ->reorderable()
+                    ->multiple()
+                    // ->AcceptedFileTypes(['image/jpeg', 'image/png'])
+                    // ->downloadable()
+                    // ->imageEditor()
+                    // ->columnSpan(2)
+                    // ->preserveFilenames()
+                    // ->maxFiles(1)
+                    ,
             ]);
     }
 
