@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Department;
+use App\Models\Activity;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class DepartmentPolicy
+class ActivityPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class DepartmentPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_department');
+        return $user->can('view_any_activity');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Department  $department
+     * @param  \App\Models\Activity  $activity
      * @return bool
      */
-    public function view(User $user, Department $department): bool
+    public function view(User $user, Activity $activity): bool
     {
-        return $user->can('view_department');
+        return $user->can('view_activity');
     }
 
     /**
@@ -41,31 +41,31 @@ class DepartmentPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_department');
+        return $user->can('create_activity');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Department  $department
+     * @param  \App\Models\Activity  $activity
      * @return bool
      */
-    public function update(User $user, Department $department): bool
+    public function update(User $user, Activity $activity): bool
     {
-        return $user->can('update_department');
+        return $user->can('update_activity');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Department  $department
+     * @param  \App\Models\Activity  $activity
      * @return bool
      */
-    public function delete(User $user, Department $department): bool
+    public function delete(User $user, Activity $activity): bool
     {
-        return $user->can('delete_department');
+        return $user->can('delete_activity');
     }
 
     /**
@@ -76,19 +76,19 @@ class DepartmentPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_department');
+        return $user->can('delete_any_activity');
     }
 
     /**
      * Determine whether the user can permanently delete.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Department  $department
+     * @param  \App\Models\Activity  $activity
      * @return bool
      */
-    public function forceDelete(User $user, Department $department): bool
+    public function forceDelete(User $user, Activity $activity): bool
     {
-        return $user->can('force_delete_department');
+        return $user->can('force_delete_activity');
     }
 
     /**
@@ -99,19 +99,19 @@ class DepartmentPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_department');
+        return $user->can('force_delete_any_activity');
     }
 
     /**
      * Determine whether the user can restore.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Department  $department
+     * @param  \App\Models\Activity  $activity
      * @return bool
      */
-    public function restore(User $user, Department $department): bool
+    public function restore(User $user, Activity $activity): bool
     {
-        return $user->can('restore_department');
+        return $user->can('restore_activity');
     }
 
     /**
@@ -122,17 +122,17 @@ class DepartmentPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_department');
+        return $user->can('restore_any_activity');
     }
 
     /**
      * Determine whether the user can replicate.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Department  $department
+     * @param  \App\Models\Activity  $activity
      * @return bool
      */
-    public function replicate(User $user, Department $department): bool
+    public function replicate(User $user, Activity $activity): bool
     {
         return $user->can('{{ Replicate }}');
     }
