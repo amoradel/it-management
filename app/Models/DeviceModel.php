@@ -17,13 +17,13 @@ class DeviceModel extends Model
     // Relación uno a muchos (inversa)
     public function brand()
     {
-        return $this->belongsTo('App\Models\Brand');
+        return $this->belongsTo(Brand::class);
     }
     // Fin Relación uno a muchos (inversa)
 
     public function devices()
     {
-        return $this->hasMany('App\Models\Device');
+        return $this->hasMany(Device::class);
     }
 
     public function device_changes()

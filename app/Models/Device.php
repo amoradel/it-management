@@ -82,7 +82,7 @@ class Device extends Model
     // Relaciones uno a uno
     public function ip()
     {
-        return $this->hasOne('App\Models\Ip');
+        return $this->hasOne(Ip::class);
     }
     // Fin Relaciones uno a uno
 

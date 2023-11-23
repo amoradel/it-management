@@ -67,6 +67,8 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make()
                     ->label('Dispositivos')->collapsed(),
                 NavigationGroup::make()
+                ->label('Procesos')->collapsed(),
+                NavigationGroup::make()
                     ->label('Personal')->collapsed(),
                 NavigationGroup::make()
                     ->label('Marcas y Más')->collapsed(),

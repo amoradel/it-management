@@ -17,7 +17,7 @@ class DeviceChangePartnerResource extends Resource
 {
     protected static ?string $model = DeviceChangePartner::class;
 
-    protected static ?string $navigationGroup = 'Personal';
+    protected static ?string $navigationGroup = 'Procesos';
 
     protected static ?string $modelLabel = 'Entrega o Mejora';
 
@@ -171,11 +171,9 @@ class DeviceChangePartnerResource extends Resource
                 Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\ForceDeleteBulkAction::make(),
+                Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
 
