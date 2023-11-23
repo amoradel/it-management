@@ -51,10 +51,12 @@ class RoleResource extends Resource implements HasShieldPermissions
                                 Forms\Components\TextInput::make('name')
                                     ->label(__('filament-shield::filament-shield.field.name'))
                                     ->required()
+                                    ->unique(ignorable: fn ($record) => $record)
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('guard_name')
                                     ->label(__('filament-shield::filament-shield.field.guard_name'))
                                     ->default(Utils::getFilamentAuthGuard())
+                                    ->disabled(true)
                                     ->nullable()
                                     ->maxLength(255),
                                 Forms\Components\Toggle::make('select_all')
@@ -245,7 +247,7 @@ class RoleResource extends Resource implements HasShieldPermissions
                     }),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+                // 
             ]);
     }
 

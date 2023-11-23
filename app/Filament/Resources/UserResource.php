@@ -4,12 +4,16 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
+use Filament\Actions\ForceDeleteAction;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Collection;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\ForceDeleteAction as ActionsForceDeleteAction;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Hash;
 
@@ -106,12 +110,23 @@ class UserResource extends Resource
                 Tables\Actions\Action::make('activities')->url(fn ($record) => UserResource::getUrl('activities', ['record' => $record]))
                     ->icon('heroicon-m-information-circle')
                     ->translateLabel(),
-                Tables\Actions\ForceDeleteAction::make(),
+                Tables\Actions\ForceDeleteAction::make()
+                    ->before(function (ActionsForceDeleteAction $action, User $record) {
+                        if ($record->hasRole('super_admin')) {
+                            Notification::make()
+                                ->warning()
+                                ->title('Advertencia')
+                                ->body('Este usuario no se puede eliminar.')
+                                ->send();
+
+                            $action->cancel();
+                        }
+                    }),
                 Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
                 ]),
