@@ -6,7 +6,7 @@ use App\Models\DeviceModel;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class Device_modelPolicy
+class DeviceModelPolicy
 {
     use HandlesAuthorization;
 
