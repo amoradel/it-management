@@ -95,6 +95,7 @@ class MonitorResource extends Resource
                 // Campo Fecha de Ingreso
                 Forms\Components\DatePicker::make('entry_date')
                     ->required()
+                    ->native(false)
                     ->maxDate(now())
                     ->translateLabel(),
                 // Campo Estado

@@ -94,6 +94,7 @@ class PrinterResource extends Resource
                     ->required()
                     ->translateLabel(),
                 Forms\Components\DatePicker::make('entry_date')
+                    ->native(false)
                     ->required()
                     ->maxDate(now())
                     ->translateLabel(),
