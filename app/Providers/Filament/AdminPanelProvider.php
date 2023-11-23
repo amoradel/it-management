@@ -86,13 +86,13 @@ class AdminPanelProvider extends PanelProvider
                     )
                     ->passwordUpdateRules(
                         rules: [Password::default()->letters()->numbers()->mixedCase()->uncompromised(3)], // you may pass an array of validation rules as well. (default = ['min:8'])
-                        requiresCurrentPassword: true, // cuando se coloca "false", el usuario puede actualizar su contraseña sin necesidad de intrdocir la actual. 
+                        requiresCurrentPassword: true, // cuando se coloca "false", el usuario puede actualizar su contraseña sin necesidad de introducir la actual.
                     )
                     ->enableTwoFactorAuthentication(
                         force: false, // force the user to enable 2FA before they can use the application (default = false)
                     )
                     ->enableSanctumTokens(
-                        permissions: ['aqui', 'lo', 'que', 'necesiten'], // optional, customize the permissions (default = ["create", "view", "update", "delete"])
+                        permissions: ['aquí', 'lo', 'que', 'necesiten'], // optional, customize the permissions (default = ["create", "view", "update", "delete"])
                     ),
 
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
