@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ActivityResource\Pages;
-use App\Models\Activity;
+use App\Filament\Resources\TaskResource\Pages;
+use App\Models\Task;
 use App\Models\Partner;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
@@ -13,17 +13,17 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class ActivityResource extends Resource
+class TaskResource extends Resource
 {
-    protected static ?string $model = Activity::class;
+    protected static ?string $model = Task::class;
 
     protected static ?string $navigationGroup = 'Procesos';
 
-    protected static ?string $modelLabel = 'Actividad';
+    protected static ?string $modelLabel = 'Tarea';
 
-    protected static ?string $pluralModelLabel = 'Actividades';
+    protected static ?string $pluralModelLabel = 'Tareas';
 
-    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
+    protected static ?string $navigationIcon = 'heroicon-o-document-check';
 
     protected static ?int $navigationSort = 2;
 
@@ -141,7 +141,7 @@ class ActivityResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\ForceDeleteAction::make(),
-                Tables\Actions\Action::make('activities')->url(fn ($record) => ActivityResource::getUrl('activities', ['record' => $record]))
+                Tables\Actions\Action::make('activities')->url(fn ($record) => TaskResource::getUrl('activities', ['record' => $record]))
                     ->icon('heroicon-m-information-circle')
                     ->translateLabel(),
                 Tables\Actions\RestoreAction::make(),
@@ -163,10 +163,10 @@ class ActivityResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListActivities::route('/'),
-            'create' => Pages\CreateActivity::route('/create'),
-            'edit' => Pages\EditActivity::route('/{record}/edit'),
-            'activities' => Pages\ListActivityActivities::route('/{record}/activities'),
+            'index' => Pages\ListTasks::route('/'),
+            'create' => Pages\CreateTask::route('/create'),
+            'edit' => Pages\EditTask::route('/{record}/edit'),
+            'activities' => Pages\ListTaskActivities::route('/{record}/activities'),
         ];
     }
 }

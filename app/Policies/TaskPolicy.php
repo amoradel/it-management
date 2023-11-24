@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Activity;
+use App\Models\Task;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ActivityPolicy
+class TaskPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class ActivityPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_activity');
+        return $user->can('view_any_task');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Activity  $activity
+     * @param  \App\Models\Task  $task
      * @return bool
      */
-    public function view(User $user, Activity $activity): bool
+    public function view(User $user, Task $task): bool
     {
-        return $user->can('view_activity');
+        return $user->can('view_task');
     }
 
     /**
@@ -41,31 +41,31 @@ class ActivityPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_activity');
+        return $user->can('create_task');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Activity  $activity
+     * @param  \App\Models\Task  $task
      * @return bool
      */
-    public function update(User $user, Activity $activity): bool
+    public function update(User $user, Task $task): bool
     {
-        return $user->can('update_activity');
+        return $user->can('update_task');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Activity  $activity
+     * @param  \App\Models\Task  $task
      * @return bool
      */
-    public function delete(User $user, Activity $activity): bool
+    public function delete(User $user, Task $task): bool
     {
-        return $user->can('delete_activity');
+        return $user->can('delete_task');
     }
 
     /**
@@ -76,19 +76,19 @@ class ActivityPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_activity');
+        return $user->can('delete_any_task');
     }
 
     /**
      * Determine whether the user can permanently delete.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Activity  $activity
+     * @param  \App\Models\Task  $task
      * @return bool
      */
-    public function forceDelete(User $user, Activity $activity): bool
+    public function forceDelete(User $user, Task $task): bool
     {
-        return $user->can('force_delete_activity');
+        return $user->can('force_delete_task');
     }
 
     /**
@@ -99,19 +99,19 @@ class ActivityPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_activity');
+        return $user->can('force_delete_any_task');
     }
 
     /**
      * Determine whether the user can restore.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Activity  $activity
+     * @param  \App\Models\Task  $task
      * @return bool
      */
-    public function restore(User $user, Activity $activity): bool
+    public function restore(User $user, Task $task): bool
     {
-        return $user->can('restore_activity');
+        return $user->can('restore_task');
     }
 
     /**
@@ -122,17 +122,17 @@ class ActivityPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_activity');
+        return $user->can('restore_any_task');
     }
 
     /**
      * Determine whether the user can replicate.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Activity  $activity
+     * @param  \App\Models\Task  $task
      * @return bool
      */
-    public function replicate(User $user, Activity $activity): bool
+    public function replicate(User $user, Task $task): bool
     {
         return $user->can('{{ Replicate }}');
     }
