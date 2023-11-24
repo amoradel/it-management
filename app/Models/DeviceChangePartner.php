@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DeviceChangePartner extends Model
@@ -12,6 +12,7 @@ class DeviceChangePartner extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
+
     protected $table = 'device_change_partner';
 
     // Relaciones muchos a muchos

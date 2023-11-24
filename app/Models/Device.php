@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Device extends Model
 {
-    use HasFactory, SoftDeletes, LogsActivity;
+    use HasFactory, LogsActivity, SoftDeletes;
 
     protected $guarded = [];
 
@@ -20,7 +20,7 @@ class Device extends Model
         return LogOptions::defaults()
             ->logOnly([
                 'name',
-                'ubication',
+                'location',
                 'brand->id',
                 'brand->name',
                 'model->id',
@@ -41,7 +41,7 @@ class Device extends Model
                 'observation',
                 'condition',
                 'entry_date',
-                'status'
+                'status',
             ]);
     }
 
@@ -53,7 +53,7 @@ class Device extends Model
 
     public function model()
     {
-        return $this->belongsTo(Device_model::class);
+        return $this->belongsTo(DeviceModel::class);
     }
 
     public function type()
@@ -82,7 +82,7 @@ class Device extends Model
     // Relaciones uno a uno
     public function ip()
     {
-        return $this->hasOne('App\Models\Ip');
+        return $this->hasOne(Ip::class);
     }
     // Fin Relaciones uno a uno
 
@@ -91,6 +91,4 @@ class Device extends Model
     {
         return $this->belongsToMany(DeviceChangePartner::class, 'device_change_partner_details');
     }
-
-
 }

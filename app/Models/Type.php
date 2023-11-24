@@ -5,25 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Type extends Model
 {
-    use HasFactory, SoftDeletes, LogsActivity;
+    use HasFactory, LogsActivity, SoftDeletes;
+
     protected $guarded = [];
-
-    // Relaciones uno a muchos (inversa)
-    public function model()
-    {
-        return $this->belongsTo('App\Models\Device_model');
-    }
-
-    public function brand()
-    {
-        return $this->belongsTo('App\Models\Brand');
-    }
-    // Fin Relaciones uno a muchos (inversa)
 
     // Relaciones uno a muchos
     public function devices()
@@ -46,7 +35,7 @@ class Type extends Model
                 'brand->name',
                 'model->id',
                 'model->name',
-                'name'
+                'name',
             ]);
     }
 }

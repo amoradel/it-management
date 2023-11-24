@@ -4,20 +4,20 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TypeResource\Pages;
 use App\Models\Type;
-use App\Models\Device_model;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Forms\Get;
-use Illuminate\Support\Collection;
 
 class TypeResource extends Resource
 {
     protected static ?string $model = Type::class;
+
     protected static ?string $navigationGroup = 'Marcas y Más';
+
     protected static ?string $modelLabel = 'Tipo';
+
     protected static ?string $pluralModelLabel = 'Tipos';
 
     protected static ?string $navigationIcon = 'heroicon-o-swatch';
@@ -27,20 +27,17 @@ class TypeResource extends Resource
         return $form
 
             ->schema([
-                // Campo Marca
-                Forms\Components\Select::make('brand_id')
-                    ->relationship('brand', 'name')
-                    ->required()
-                    ->searchable()
-                    ->preload()
-                    ->translateLabel()
-                    ->afterStateUpdated(function (callable $set) {
-                        $set('model_id', null);
-                    }),
-                // Campo Modelo
-                Forms\Components\Select::make('model_id')
-                    ->label('Model')
-                    ->options(fn (Get $get): Collection => Device_model::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
+                // Campo Tipo de Equipo
+                Forms\Components\Select::make('device_type')
+                    ->options([
+                        'computer' => 'Computadora',
+                        'printer' => 'Impresora',
+                        'camera' => 'Camara',
+                        'monitor' => 'Monitor',
+                        'pos' => 'Pos',
+                        'dvr' => 'Dvr',
+                        'others' => 'Accesorios y Otros',
+                    ])
                     ->searchable()
                     ->preload()
                     ->live()
@@ -48,11 +45,15 @@ class TypeResource extends Resource
                     ->translateLabel(),
                 // Campo Nombre Tipo
                 Forms\Components\TextInput::make('name')
+                    ->label('Tipo')
                     ->required()
                     ->maxLength(50)
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
-
+                // Campo Descripcion
+                Forms\Components\Textarea::make('description')
+                    ->maxLength(150)
+                    ->translateLabel(),
             ]);
     }
 
@@ -60,21 +61,26 @@ class TypeResource extends Resource
     {
         return $table
             ->columns([
-                // Columna Marca
-                Tables\Columns\TextColumn::make('brand.name')
-                    ->translateLabel()
-                    ->searchable()
-                    ->sortable(),
-                // Columna Modelo
-                Tables\Columns\TextColumn::make('model.name')
+                // Columna Dispositivo
+                Tables\Columns\TextColumn::make('device_type')
+                    ->wrap()
+                    ->badge()
                     ->translateLabel()
                     ->searchable()
                     ->sortable(),
                 // Columna Tipo
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Tipo')
+                    ->wrap()
                     ->translateLabel()
                     ->searchable()
                     ->sortable(),
+                // Columna Descripcion
+                Tables\Columns\TextColumn::make('description')
+                    ->wrap()
+                    ->searchable()
+                    ->sortable()
+                    ->translateLabel(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\CamerasDVRResource\Pages;
+namespace App\Filament\Resources\CamerasDvrResource\Pages;
 
-use App\Filament\Resources\CamerasDVRResource;
+use App\Filament\Resources\CamerasDvrResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditCamerasDVR extends EditRecord
+class EditCamerasDvr extends EditRecord
 {
-    protected static string $resource = CamerasDVRResource::class;
+    protected static string $resource = CamerasDvrResource::class;
 
     protected function getHeaderActions(): array
     {

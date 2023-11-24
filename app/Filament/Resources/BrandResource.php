@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\BrandResource\Pages;
-use App\Filament\Resources\BrandResource\RelationManagers;
 use App\Models\Brand;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -14,9 +13,13 @@ use Filament\Tables\Table;
 class BrandResource extends Resource
 {
     protected static ?string $model = Brand::class;
+
     protected static ?string $navigationGroup = 'Marcas y Más';
+
     protected static ?string $modelLabel = 'Marca';
+
     protected static ?string $pluralModelLabel = 'Marcas';
+
     protected static ?string $navigationIcon = 'heroicon-o-tag';
 
     public static function form(Form $form): Form
@@ -28,7 +31,7 @@ class BrandResource extends Resource
                     ->required()
                     ->maxLength(50)
                     ->unique(ignorable: fn ($record) => $record)
-                    ->translateLabel()
+                    ->translateLabel(),
             ]);
     }
 
@@ -40,7 +43,7 @@ class BrandResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->translateLabel()
                     ->searchable()
-                    ->sortable()
+                    ->sortable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

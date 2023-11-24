@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Brand extends Model
 {
@@ -25,17 +25,12 @@ class Brand extends Model
     //Relaciones unos a muchos
     public function models()
     {
-        return $this->hasMany(Device_model::class);
+        return $this->hasMany(DeviceModel::class);
     }
 
     public function devices()
     {
         return $this->hasMany(Device::class);
-    }
-
-    public function types()
-    {
-        return $this->hasMany(Type::class);
     }
 
     public function device_changes()

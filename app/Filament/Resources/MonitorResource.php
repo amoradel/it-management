@@ -4,25 +4,29 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MonitorResource\Pages;
 use App\Models\Device;
-use App\Models\Device_model;
+use App\Models\DeviceModel;
 use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Get;
-use Illuminate\Contracts\Queue\Monitor;
 use Illuminate\Support\Collection;
 
 class MonitorResource extends Resource
 {
     protected static ?string $model = Device::class;
+
     protected static ?string $navigationGroup = 'Dispositivos';
+
     protected static ?string $modelLabel = 'Monitor';
-    protected static ?string $pluralModelLabel = "Monitores";
+
+    protected static ?string $pluralModelLabel = 'Monitores';
+
     protected static ?string $navigationIcon = 'heroicon-o-tv';
+
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
@@ -44,25 +48,21 @@ class MonitorResource extends Resource
                     ->translateLabel()
                     ->afterStateUpdated(function (callable $set) {
                         $set('model_id', null);
-                        $set('type_id', null);
                     }),
                 // Campo Ubicacion
-                Forms\Components\TextInput::make('ubication')
+                Forms\Components\TextInput::make('location')
                     ->required()
                     ->maxLength(50)
                     ->translateLabel(),
                 // Campo Modelo
                 Forms\Components\Select::make('model_id')
                     ->label('Model')
-                    ->options(fn (Get $get): Collection => Device_model::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
+                    ->options(fn (Get $get): Collection => DeviceModel::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
                     ->searchable()
                     ->preload()
                     ->live()
                     ->required()
-                    ->translateLabel()
-                    ->afterStateUpdated(function (callable $set) {
-                        $set('type_id', null);
-                    }),
+                    ->translateLabel(),
                 // Campo Numero de Serie
                 Forms\Components\TextInput::make('serial_number')
                     ->required()
@@ -71,7 +71,7 @@ class MonitorResource extends Resource
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
                     ->label('Type')
-                    ->options(fn (Get $get): Collection => Type::query()->where('model_id', $get('model_id'))->pluck('name', 'id'))
+                    ->options(fn (): Collection => Type::query()->where('device_type', 'monitor')->pluck('name', 'id'))
                     ->searchable()
                     ->required()
                     ->preload()
@@ -95,6 +95,7 @@ class MonitorResource extends Resource
                 // Campo Fecha de Ingreso
                 Forms\Components\DatePicker::make('entry_date')
                     ->required()
+                    ->native(false)
                     ->maxDate(now())
                     ->translateLabel(),
                 // Campo Estado
@@ -123,7 +124,7 @@ class MonitorResource extends Resource
                     ->sortable()
                     ->translateLabel(),
                 // Columna Ubicacion
-                Tables\Columns\TextColumn::make('ubication')
+                Tables\Columns\TextColumn::make('location')
                     ->translateLabel(),
                 // Columna Marca
                 Tables\Columns\TextColumn::make('brand.name')
@@ -176,8 +177,8 @@ class MonitorResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\Action::make('activities')->url(fn ($record) => MonitorResource::getUrl('activities', ['record' => $record]))
-                ->icon('heroicon-m-information-circle')
-                ->translateLabel(),
+                    ->icon('heroicon-m-information-circle')
+                    ->translateLabel(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
             ])

@@ -4,24 +4,29 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CamerasDVRResource\Pages;
 use App\Models\Device;
-use App\Models\Device_model;
+use App\Models\DeviceModel;
 use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Get;
 use Illuminate\Support\Collection;
 
-class CamerasDVRResource extends Resource
+class CamerasDvrResource extends Resource
 {
     protected static ?string $model = Device::class;
+
     protected static ?string $navigationGroup = 'Dispositivos';
+
     protected static ?string $modelLabel = 'Cámara o DVR';
+
     protected static ?string $pluralModelLabel = "Cámaras y DVR'S";
+
     protected static ?string $navigationIcon = 'heroicon-o-video-camera';
+
     protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
@@ -43,37 +48,40 @@ class CamerasDVRResource extends Resource
                     ->translateLabel()
                     ->afterStateUpdated(function (callable $set) {
                         $set('model_id', null);
-                        $set('type_id', null);
                     }),
                 // Campo Ubicacion
-                Forms\Components\TextInput::make('ubication')
+                Forms\Components\TextInput::make('location')
                     ->required()
                     ->maxLength(50)
                     ->translateLabel(),
                 // Campo Modelo
                 Forms\Components\Select::make('model_id')
                     ->label('Model')
-                    ->options(fn (Get $get): Collection => Device_model::query()
+                    ->options(fn (Get $get): Collection => DeviceModel::query()
                         ->where('brand_id', $get('brand_id'))
                         ->pluck('name', 'id'))
                     ->searchable()
                     ->preload()
                     ->live()
                     ->required()
-                    ->translateLabel()
-                    ->afterStateUpdated(function (callable $set) {
-                        $set('type_id', null);
-                    }),
+                    ->translateLabel(),
                 // Campo Programa
                 Forms\Components\Select::make('dvr_program')
-                    ->options(['IVMS-4200' => 'IVMS-4200', 'CMS3.0' => 'CMS3.0', 'VI MonitorPlus' => 'VI MonitorPlus',])
+                    ->options(['IVMS-4200' => 'IVMS-4200', 'CMS3.0' => 'CMS3.0', 'VI MonitorPlus' => 'VI MonitorPlus'])
                     ->searchable()
                     ->preload()
                     ->translateLabel(),
+                // Campo Tipo de Equipo
+                Forms\Components\Select::make('device_type')
+                    ->label('Camara/Dvr')
+                    ->options(['camera' => 'Camara', 'dvr' => 'Dvr'])
+                    ->required()
+                    ->searchable()
+                    ->live(),
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
                     ->label('Type')
-                    ->options(fn (Get $get): Collection => Type::query()->where('model_id', $get('model_id'))->pluck('name', 'id'))
+                    ->options(fn (Get $get): Collection => Type::query()->where('device_type', $get('device_type'))->pluck('name', 'id'))
                     ->searchable()
                     ->required()
                     ->preload()
@@ -98,20 +106,17 @@ class CamerasDVRResource extends Resource
                 // Campo Fecha de Ingreso
                 Forms\Components\DatePicker::make('entry_date')
                     ->required()
+                    ->native(false)
                     ->maxDate(now())
                     ->translateLabel(),
                 // Campo Observacion
                 Forms\Components\TextInput::make('observation')
-                    ->required()
                     ->translateLabel(),
                 // Campo Estado
                 Forms\Components\Toggle::make('status')
                     ->onColor('success')
                     ->default('true')
                     ->translateLabel(),
-                // Columna que envia el tipo de equipo igual a computer
-                Forms\Components\Hidden::make('device_type')
-                    ->default('camera_dvr'),
 
             ]);
     }
@@ -131,7 +136,7 @@ class CamerasDVRResource extends Resource
                     ->sortable()
                     ->translateLabel(),
                 // Columna Ubicacion
-                Tables\Columns\TextColumn::make('ubication')
+                Tables\Columns\TextColumn::make('location')
                     ->translateLabel(),
                 // Columna Marca
                 Tables\Columns\TextColumn::make('brand.name')

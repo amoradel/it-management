@@ -2,10 +2,10 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Widgets\StatsOverview;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -17,11 +17,9 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
-use Illuminate\Validation\Rules\Password;
-use Filament\Navigation\NavigationGroup;
-
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -69,6 +67,8 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make()
                     ->label('Dispositivos')->collapsed(),
                 NavigationGroup::make()
+                ->label('Procesos')->collapsed(),
+                NavigationGroup::make()
                     ->label('Personal')->collapsed(),
                 NavigationGroup::make()
                     ->label('Marcas y Más')->collapsed(),
@@ -83,12 +83,12 @@ class AdminPanelProvider extends PanelProvider
             ->plugins([
                 BreezyCore::make()
                     ->myProfile(
-                        shouldRegisterUserMenu: true, // Sets the 'account' link in the panel User Menu (default = true)
-                        slug: 'my-profile' // Sets the slug for the profile page (default = 'my-profile')
+                        shouldRegisterUserMenu: true, // Coloca el enlace 'account'en el panel del menu de usuario (default = true)
+                        slug: 'my-profile'
                     )
                     ->passwordUpdateRules(
                         rules: [Password::default()->letters()->numbers()->mixedCase()->uncompromised(3)], // you may pass an array of validation rules as well. (default = ['min:8'])
-                        requiresCurrentPassword: true, // when false, the user can update their password without entering their current password. (default = true)
+                        requiresCurrentPassword: true, // cuando se coloca "false", el usuario puede actualizar su contraseña sin necesidad de intrdocir la actual. 
                     )
                     ->enableTwoFactorAuthentication(
                         force: false, // force the user to enable 2FA before they can use the application (default = false)
@@ -96,9 +96,9 @@ class AdminPanelProvider extends PanelProvider
                     ->enableSanctumTokens(
                         permissions: ['aqui', 'lo', 'que', 'necesiten'], // optional, customize the permissions (default = ["create", "view", "update", "delete"])
                     ),
-                    \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
-                    
+
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
+
             ]);
     }
-
 }

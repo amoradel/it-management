@@ -3,10 +3,9 @@
 namespace App\Filament\Resources\DeviceChangePartnerResource\Pages;
 
 use App\Filament\Resources\DeviceChangePartnerResource;
-use Filament\Actions;
-use Filament\Actions\Modal\Actions\Action;
-use Filament\Resources\Pages\EditRecord;
 use App\Models\DeviceChangePartner;
+use Filament\Actions;
+use Filament\Resources\Pages\EditRecord;
 
 class EditDeviceChangePartner extends EditRecord
 {

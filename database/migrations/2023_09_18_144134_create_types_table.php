@@ -14,12 +14,10 @@ return new class extends Migration
         Schema::create('types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('brand_id');
-            $table->unsignedBigInteger('model_id');
 
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
-            $table->foreign('model_id')->references('id')->on('device_models')->onDelete('cascade');
-            
+            $table->string('device_type');
+            $table->text('description')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

@@ -3,24 +3,28 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\DeviceChangePartnerResource\Pages;
+use App\Filament\Resources\DeviceChangePartnerResource\RelationManagers\DeviceChangeRelationManager;
+use App\Filament\Resources\DeviceChangePartnerResource\RelationManagers\DeviceRelationManager;
 use App\Models\DeviceChangePartner;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use App\Filament\Resources\DeviceChangePartnerResource\RelationManagers\DeviceChangeRelationManager;
-use App\Filament\Resources\DeviceChangePartnerResource\RelationManagers\DeviceRelationManager;
-
-use Filament\Forms\Components\FileUpload;
 
 class DeviceChangePartnerResource extends Resource
 {
     protected static ?string $model = DeviceChangePartner::class;
-    protected static ?string $navigationGroup = 'Personal';
+
+    protected static ?string $navigationGroup = 'Procesos';
+
     protected static ?string $modelLabel = 'Entrega o Mejora';
+
     protected static ?string $pluralModelLabel = 'Entregas o Mejoras';
+
     protected static ?string $navigationIcon = 'heroicon-m-arrows-up-down';
+
     protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
@@ -80,7 +84,7 @@ class DeviceChangePartnerResource extends Resource
                     ->preload()
                     ->searchable()
                     ->disabled(),
-                // Campo Devices 
+                // Campo Devices
                 Forms\Components\Select::make('device_id')
                     ->label('Equipo Entregado o Mejorado')
                     ->relationship('devices', 'name')
@@ -96,7 +100,7 @@ class DeviceChangePartnerResource extends Resource
                     ->AcceptedFileTypes(['application/pdf'])
                     ->downloadable()
                     ->preserveFilenames()
-                    ->maxFiles(1)
+                    ->maxFiles(1),
 
             ]);
     }
@@ -167,11 +171,9 @@ class DeviceChangePartnerResource extends Resource
                 Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\ForceDeleteBulkAction::make(),
+                Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
 

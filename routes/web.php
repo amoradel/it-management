@@ -3,8 +3,7 @@
 use App\Models\DeviceChangePartner;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Route;
-use Symfony\Component\CssSelector\Node\FunctionNode;
-use Illuminate\Support\Facades\App;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

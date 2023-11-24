@@ -4,24 +4,28 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\DeviceChangeResource\Pages;
 use App\Models\DeviceChange;
+use App\Models\DeviceModel;
+use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Forms\Get;
 use Illuminate\Support\Collection;
-use App\Models\Device_model;
-use App\Models\Type;
-
 
 class DeviceChangeResource extends Resource
 {
     protected static ?string $model = DeviceChange::class;
+
     protected static ?string $navigationGroup = 'Dispositivos';
+
     protected static ?string $modelLabel = 'Equipo o Pieza';
+
     protected static ?string $pluralModelLabel = 'Equipos o Piezas';
+
     protected static ?string $navigationIcon = 'heroicon-m-cog';
+
     protected static ?int $navigationSort = 6;
 
     public static function form(Form $form): Form
@@ -42,24 +46,20 @@ class DeviceChangeResource extends Resource
                     ->translateLabel()
                     ->afterStateUpdated(function (callable $set) {
                         $set('model_id', null);
-                        $set('type_id', null);
                     }),
                 // Campo Modelo
                 Forms\Components\Select::make('model_id')
                     ->label('Model')
-                    ->options(fn (Get $get): Collection => Device_model::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
+                    ->options(fn (Get $get): Collection => DeviceModel::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
                     ->searchable()
                     ->preload()
                     ->live()
                     ->required()
-                    ->translateLabel()
-                    ->afterStateUpdated(function (callable $set) {
-                        $set('type_id', null);
-                    }),
+                    ->translateLabel(),
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
                     ->label('Type')
-                    ->options(fn (Get $get): Collection => Type::query()->where('model_id', $get('model_id'))->pluck('name', 'id'))
+                    ->options(fn (): Collection => Type::query()->where('device_type', 'others')->pluck('name', 'id'))
                     ->searchable()
                     ->required()
                     ->preload()

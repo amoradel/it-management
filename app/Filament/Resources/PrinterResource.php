@@ -3,25 +3,30 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PrinterResource\Pages;
-use Filament\Forms;
 use App\Models\Device;
-use App\Models\Device_model;
+use App\Models\DeviceModel;
 use App\Models\Type;
+use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Get;
 use Illuminate\Support\Collection;
 
 class PrinterResource extends Resource
 {
     protected static ?string $model = Device::class;
+
     protected static ?string $navigationGroup = 'Dispositivos';
+
     protected static ?string $modelLabel = 'Impresora';
+
     protected static ?string $pluralModelLabel = 'Impresoras';
+
     protected static ?string $navigationIcon = 'heroicon-o-printer';
+
     protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
@@ -43,25 +48,21 @@ class PrinterResource extends Resource
                     ->translateLabel()
                     ->afterStateUpdated(function (callable $set) {
                         $set('model_id', null);
-                        $set('type_id', null);
                     }),
                 // Campo Ubicacion
-                Forms\Components\TextInput::make('ubication')
+                Forms\Components\TextInput::make('location')
                     ->required()
                     ->maxLength(50)
                     ->translateLabel(),
                 // Campo Modelo
                 Forms\Components\Select::make('model_id')
                     ->label('Model')
-                    ->options(fn (Get $get): Collection => Device_model::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
+                    ->options(fn (Get $get): Collection => DeviceModel::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
                     ->searchable()
                     ->preload()
                     ->live()
                     ->required()
-                    ->translateLabel()
-                    ->afterStateUpdated(function (callable $set) {
-                        $set('type_id', null);
-                    }),
+                    ->translateLabel(),
                 // Campo Descripcion
                 Forms\Components\Textarea::make('description')
                     ->maxLength(150)
@@ -69,12 +70,11 @@ class PrinterResource extends Resource
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
                     ->label('Type')
-                    ->options(fn (Get $get): Collection => Type::query()->where('model_id', $get('model_id'))->pluck('name', 'id'))
+                    ->options(fn (): Collection => Type::query()->where('device_type', 'printer')->pluck('name', 'id'))
                     ->searchable()
                     ->required()
                     ->preload()
                     ->translateLabel(),
-
                 // Campo Numero de Activo
                 Forms\Components\TextInput::make('asset_number')
                     ->required()
@@ -94,6 +94,7 @@ class PrinterResource extends Resource
                     ->required()
                     ->translateLabel(),
                 Forms\Components\DatePicker::make('entry_date')
+                    ->native(false)
                     ->required()
                     ->maxDate(now())
                     ->translateLabel(),
@@ -125,7 +126,7 @@ class PrinterResource extends Resource
                     ->sortable()
                     ->translateLabel(),
                 // Columna Ubicacion
-                Tables\Columns\TextColumn::make('ubication')
+                Tables\Columns\TextColumn::make('location')
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),

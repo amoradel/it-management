@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\DeviceChangePartnerResource\RelationManagers;
 
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
@@ -16,7 +15,7 @@ class DeviceRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                // 
+                //
             ]);
     }
 
@@ -31,7 +30,7 @@ class DeviceRelationManager extends RelationManager
                     ->sortable()
                     ->translateLabel(),
                 // Columna Ubicacion
-                Tables\Columns\TextColumn::make('ubication')
+                Tables\Columns\TextColumn::make('location')
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),

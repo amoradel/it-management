@@ -15,9 +15,13 @@ class PartnerResource extends Resource
     protected static ?string $model = Partner::class;
 
     protected static ?string $modelLabel = 'Empleado';
+
     protected static ?string $pluralModelLabel = 'Empleados';
+
     protected static ?string $navigationGroup = 'Personal';
+
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
+
     protected static ?int $navigationSort = 0;
 
     public static function form(Form $form): Form
@@ -87,6 +91,7 @@ class PartnerResource extends Resource
                 // Campo Estado
                 Forms\Components\Toggle::make('status')
                     ->onColor('success')
+                    ->default('true')
                     ->translateLabel(),
             ]);
     }
@@ -141,8 +146,7 @@ class PartnerResource extends Resource
                 Tables\Columns\ToggleColumn::make('status')
                     ->onColor('success')
                     ->default('true')
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->translateLabel(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -153,8 +157,8 @@ class PartnerResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\Action::make('activities')->url(fn ($record) => PartnerResource::getUrl('activities', ['record' => $record]))
-                ->icon('heroicon-m-information-circle')
-                ->translateLabel(),
+                    ->icon('heroicon-m-information-circle')
+                    ->translateLabel(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
             ])

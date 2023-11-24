@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Filament\Resources\CamerasDVRResource\Pages;
+namespace App\Filament\Resources\CamerasDvrResource\Pages;
 
-use App\Filament\Resources\CamerasDVRResource;
-use Filament\Actions;
+use App\Filament\Resources\CamerasDvrResource;
 use Filament\Resources\Pages\CreateRecord;
 
-class CreateCamerasDVR extends CreateRecord
+class CreateCamerasDvr extends CreateRecord
 {
-    protected static string $resource = CamerasDVRResource::class;
+    protected static string $resource = CamerasDvrResource::class;
 }
