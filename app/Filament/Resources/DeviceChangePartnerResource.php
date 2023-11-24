@@ -25,7 +25,7 @@ class DeviceChangePartnerResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-m-arrows-up-down';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
