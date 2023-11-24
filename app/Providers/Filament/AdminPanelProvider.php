@@ -67,7 +67,7 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make()
                     ->label('Dispositivos')->collapsed(),
                 NavigationGroup::make()
-                ->label('Procesos')->collapsed(),
+                    ->label('Procesos')->collapsed(),
                 NavigationGroup::make()
                     ->label('Personal')->collapsed(),
                 NavigationGroup::make()
@@ -88,7 +88,7 @@ class AdminPanelProvider extends PanelProvider
                     )
                     ->passwordUpdateRules(
                         rules: [Password::default()->letters()->numbers()->mixedCase()->uncompromised(3)], // you may pass an array of validation rules as well. (default = ['min:8'])
-                        requiresCurrentPassword: true, // cuando se coloca "false", el usuario puede actualizar su contraseña sin necesidad de intrdocir la actual. 
+                        requiresCurrentPassword: true, // cuando se coloca "false", el usuario puede actualizar su contraseña sin necesidad de intrdocir la actual.
                     )
                     ->enableTwoFactorAuthentication(
                         force: false, // force the user to enable 2FA before they can use the application (default = false)

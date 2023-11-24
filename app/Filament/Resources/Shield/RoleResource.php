@@ -247,7 +247,7 @@ class RoleResource extends Resource implements HasShieldPermissions
                     }),
             ])
             ->bulkActions([
-                // 
+                //
             ]);
     }
 

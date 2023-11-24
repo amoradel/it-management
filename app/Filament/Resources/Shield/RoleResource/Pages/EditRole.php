@@ -4,7 +4,6 @@ namespace App\Filament\Resources\Shield\RoleResource\Pages;
 
 use App\Filament\Resources\Shield\RoleResource;
 use BezhanSalleh\FilamentShield\Support\Utils;
-use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -18,7 +17,7 @@ class EditRole extends EditRecord
     protected function getActions(): array
     {
         return [
-            // 
+            //
         ];
     }
 
