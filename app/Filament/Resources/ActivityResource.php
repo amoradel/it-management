@@ -78,12 +78,7 @@ class ActivityResource extends Resource
                     ->directory('activity-resource-files')
                     ->reorderable()
                     ->multiple()
-                    // ->AcceptedFileTypes(['image/jpeg', 'image/png'])
-                    // ->downloadable()
-                    // ->imageEditor()
-                    // ->columnSpan(2)
-                    // ->preserveFilenames()
-                    // ->maxFiles(1)
+                    ->downloadable()
                     ,
             ]);
     }
