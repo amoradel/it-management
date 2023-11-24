@@ -24,11 +24,15 @@ class ListTypes extends ListRecords
                 ->uniqueField('name')
                 ->fields([
                     ImportField::make('device_type')
-                        ->label('Device name')
+                        ->label('Device type')
+                        ->translateLabel()
                         ->required(),
                     ImportField::make('name')
+                        ->translateLabel()
+                        ->helperText(__('Type name'))
                         ->required(),
-                    ImportField::make('description'),
+                    ImportField::make('description')
+                        ->translateLabel(),
                 ])->handleRecordCreation(function (array $data) {
                     $options = [
                         'computer',
@@ -38,28 +42,21 @@ class ListTypes extends ListRecords
                         'pos',
                         'dvr',
                         'others',
-                        'Computadora',
-                        'Impresora',
-                        'Camara',
-                        'Monitor',
-                        'Pos',
-                        'Dvr',
-                        'Accesorios y Otros',
                     ];
 
                     if (in_array($data['device_type'], $options)) {
                         $documentData = [
                             'device_type' => $data['device_type'],
                             'name' => $data['name'],
+                            'description' => isset($data['description']) ? $data['description'] : '',
                         ];
-    
-                        if (isset($data['description'])) {
-                            $documentData['description'] = $data['description'];
-                        }
-    
+
+                        // if (isset($data['description'])) {
+                        //     $documentData['description'] = $data['description'];
+                        // }
+
                         return Type::create($documentData);
                     }
-
 
                     return new Type();
                 }),
