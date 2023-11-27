@@ -26,6 +26,8 @@ class ListTasks extends ListRecords
                         ->withWriterType(\Maatwebsite\Excel\Excel::XLSX)
                         ->withColumns([
                             Column::make('description')->heading('Descripción'),
+                            Column::make('start_date')->heading('Fecha de Inicio'),
+                            Column::make('end_date')->heading('Fecha de Finalización'),
                         ]),
                 ]),
         ];

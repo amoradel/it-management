@@ -104,7 +104,7 @@ class TaskResource extends Resource
                     ->color(fn (string $state): string => match ($state) {
                         'approved' => 'info',
                         'not approved' => 'danger',
-                        'waiting' => 'waiting',
+                        'waiting' => 'warning',
                         'in progress' => 'gray',
                         'done' => 'success',
                     })
@@ -120,6 +120,22 @@ class TaskResource extends Resource
                     ->translateLabel()
                     ->searchable()
                     ->sortable(),
+                // Columna Fecha Inicio
+                Tables\Columns\TextColumn::make('start_date')
+                    ->searchable()
+                    ->sortable()
+                    ->color('warning')
+                    ->wrap()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
+                // Columna Fecha Finalización
+                Tables\Columns\TextColumn::make('end_date')
+                    ->searchable()
+                    ->sortable()
+                    ->color('info')
+                    ->wrap()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
