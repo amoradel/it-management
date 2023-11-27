@@ -2,17 +2,16 @@
 
 namespace App\Filament\Resources\CamerasDvrResource\Pages;
 
-use App\Filament\Resources\CamerasDvrResource;
-use App\Models\Device;
 use App\Filament\Resources\BrandResource;
+use App\Filament\Resources\CamerasDvrResource;
 use App\Filament\Resources\ModelResource;
 use App\Filament\Resources\TypeResource;
+use App\Models\Device;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Support\Carbon;
 use Konnco\FilamentImport\Actions\ImportAction;
 use Konnco\FilamentImport\Actions\ImportField;
-use PhpParser\Node\Stmt\Label;
-use Illuminate\Support\Carbon;
 
 class ListCamerasDvrs extends ListRecords
 {
@@ -94,6 +93,7 @@ class ListCamerasDvrs extends ListRecords
 
                         return Device::create($documentData);
                     }
+
                     // AUN NO FUNCIONA LA VALIDACION DE DATOS
                     return new Device();
                 }),

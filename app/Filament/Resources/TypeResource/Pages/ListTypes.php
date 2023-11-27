@@ -26,6 +26,7 @@ class ListTypes extends ListRecords
                     ImportField::make('device_type')
                         ->label('Device type')
                         ->translateLabel()
+                        ->rules('in:computer,printer,camera,monitor,pos,dvr,others', ['El Tipo de dispositivo importado es invalido.'])
                         ->required(),
                     ImportField::make('name')
                         ->translateLabel()
@@ -34,31 +35,25 @@ class ListTypes extends ListRecords
                     ImportField::make('description')
                         ->translateLabel(),
                 ])->handleRecordCreation(function (array $data) {
-                    $options = [
-                        'computer',
-                        'printer',
-                        'camera',
-                        'monitor',
-                        'pos',
-                        'dvr',
-                        'others',
-                    ];
+                    // $options = [
+                    //     'computer',
+                    //     'printer',
+                    //     'camera',
+                    //     'monitor',
+                    //     'pos',
+                    //     'dvr',
+                    //     'others',
+                    // ];
 
-                    if (in_array($data['device_type'], $options)) {
-                        $documentData = [
-                            'device_type' => $data['device_type'],
-                            'name' => $data['name'],
-                            'description' => isset($data['description']) ? $data['description'] : '',
-                        ];
+                    // if (in_array($data['device_type'], $options)) {
+                    return Type::create([
+                        'device_type' => $data['device_type'],
+                        'name' => $data['name'],
+                        'description' => isset($data['description']) ? $data['description'] : '',
+                    ]);
+                    // }
 
-                        // if (isset($data['description'])) {
-                        //     $documentData['description'] = $data['description'];
-                        // }
-
-                        return Type::create($documentData);
-                    }
-
-                    return new Type();
+                    // return new Type();
                 }),
         ];
     }
