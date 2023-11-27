@@ -5,6 +5,8 @@ namespace App\Filament\Resources\ModelResource\Pages;
 use App\Filament\Resources\ModelResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use pxlrbt\FilamentExcel\Actions\Pages\ExportAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class ListModels extends ListRecords
 {
@@ -15,6 +17,13 @@ class ListModels extends ListRecords
         return [
             Actions\CreateAction::make(),
 
+            ExportAction::make()
+            ->exports([
+                ExcelExport::make()
+                    ->fromTable()
+                    ->withFilename('Modelos' . '-' . date('Y-m-d'))
+                    ->withWriterType(\Maatwebsite\Excel\Excel::XLSX),
+            ]),
         ];
     }
 }
