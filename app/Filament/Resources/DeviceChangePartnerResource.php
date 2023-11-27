@@ -116,7 +116,7 @@ class DeviceChangePartnerResource extends Resource
                     ->sortable(),
                 // Columna Cambio en el Equipo
                 Tables\Columns\TextColumn::make('device_change.name')
-                    ->label('Entregas o Mejoras')
+                    ->label('Equipos o Piezas')
                     ->translateLabel()
                     ->wrap()
                     ->searchable()
