@@ -21,7 +21,7 @@ class ListDeviceChanges extends ListRecords
                 ->exports([
                     ExcelExport::make()
                         ->fromTable()
-                        ->withFilename('Marcas' . '-' . date('Y-m-d'))
+                        ->withFilename('Equipos o Piezas' . '-' . date('Y-m-d'))
                         ->withWriterType(\Maatwebsite\Excel\Excel::XLSX),
                 ]),
         ];
