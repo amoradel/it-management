@@ -5,6 +5,8 @@ namespace App\Filament\Resources\TypeResource\Pages;
 use App\Filament\Resources\TypeResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use pxlrbt\FilamentExcel\Actions\Pages\ExportAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class ListTypes extends ListRecords
 {
@@ -14,6 +16,14 @@ class ListTypes extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+
+            ExportAction::make()
+                ->exports([
+                    ExcelExport::make()
+                        ->fromTable()
+                        ->withFilename("Tipos" . '-' . date('Y-m-d'))
+                        ->withWriterType(\Maatwebsite\Excel\Excel::XLSX),
+                ]),
         ];
     }
 }
