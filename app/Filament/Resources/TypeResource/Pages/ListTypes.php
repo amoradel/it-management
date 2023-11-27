@@ -21,7 +21,7 @@ class ListTypes extends ListRecords
                 ->exports([
                     ExcelExport::make()
                         ->fromTable()
-                        ->withFilename("Tipos" . '-' . date('Y-m-d'))
+                        ->withFilename("Tipos" . '-' . date('Y-m-d H:i:s'))
                         ->withWriterType(\Maatwebsite\Excel\Excel::XLSX),
                 ]),
         ];

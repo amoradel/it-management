@@ -22,7 +22,7 @@ class ListMonitors extends ListRecords
             ->exports([
                 ExcelExport::make()
                     ->fromTable()
-                    ->withFilename("Monitores" . '-' . date('Y-m-d'))
+                    ->withFilename("Monitores" . '-' . date('Y-m-d H:i:s'))
                     ->withWriterType(\Maatwebsite\Excel\Excel::XLSX)
                     ->withColumns([
                         Column::make('condition')->heading('Condición'),

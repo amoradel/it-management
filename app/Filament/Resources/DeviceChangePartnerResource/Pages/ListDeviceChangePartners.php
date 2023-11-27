@@ -22,7 +22,7 @@ class ListDeviceChangePartners extends ListRecords
             ->exports([
                 ExcelExport::make()
                     ->fromTable()
-                    ->withFilename('Entregas o Mejoras' . '-' . date('Y-m-d'))
+                    ->withFilename('Entregas o Mejoras' . '-' . date('Y-m-d H:i:s'))
                     ->withWriterType(\Maatwebsite\Excel\Excel::XLSX)
                     ->withColumns([
                         Column::make('description')->heading('Descripción'),

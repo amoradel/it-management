@@ -23,7 +23,7 @@ class ListComputers extends ListRecords
             ->exports([
                 ExcelExport::make()
                     ->fromTable()
-                    ->withFilename("Computadoras" . '-' . date('Y-m-d'))
+                    ->withFilename("Computadoras" . '-' . date('Y-m-d H:i:s'))
                     ->withWriterType(\Maatwebsite\Excel\Excel::XLSX)
                     ->withColumns([
                         Column::make('brand.name')->heading('Marca'),

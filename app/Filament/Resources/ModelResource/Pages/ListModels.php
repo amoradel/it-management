@@ -21,7 +21,7 @@ class ListModels extends ListRecords
             ->exports([
                 ExcelExport::make()
                     ->fromTable()
-                    ->withFilename('Modelos' . '-' . date('Y-m-d'))
+                    ->withFilename('Modelos' . '-' . date('Y-m-d H:i:s'))
                     ->withWriterType(\Maatwebsite\Excel\Excel::XLSX),
             ]),
         ];

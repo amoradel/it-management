@@ -22,7 +22,7 @@ class ListIps extends ListRecords
                 ->exports([
                     ExcelExport::make()
                         ->fromTable()
-                        ->withFilename("Ip's" . '-' . date('Y-m-d'))
+                        ->withFilename("Ip's" . '-' . date('Y-m-d H:i:s'))
                         ->withWriterType(\Maatwebsite\Excel\Excel::XLSX)
                         ->withColumns([
                             Column::make('ip_type')->heading('Tipo de Ip'),

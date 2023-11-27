@@ -22,7 +22,7 @@ class ListPrinters extends ListRecords
                 ->exports([
                     ExcelExport::make()
                         ->fromTable()
-                        ->withFilename("Impresoras" . '-' . date('Y-m-d'))
+                        ->withFilename("Impresoras" . '-' . date('Y-m-d H:i:s'))
                         ->withWriterType(\Maatwebsite\Excel\Excel::XLSX)
                         ->withColumns([
                             Column::make('brand.name')->heading('Marca'),

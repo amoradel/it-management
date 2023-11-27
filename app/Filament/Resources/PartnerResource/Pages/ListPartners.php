@@ -22,7 +22,7 @@ class ListPartners extends ListRecords
             ->exports([
                 ExcelExport::make()
                     ->fromTable()
-                    ->withFilename("Empleados" . '-' . date('Y-m-d'))
+                    ->withFilename("Empleados" . '-' . date('Y-m-d H:i:s'))
                     ->withWriterType(\Maatwebsite\Excel\Excel::XLSX)
                     ->withColumns([
                         Column::make('email')->heading('Correo Electrónico'),

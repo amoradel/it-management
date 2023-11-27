@@ -21,7 +21,7 @@ class ListBrands extends ListRecords
                 ->exports([
                     ExcelExport::make()
                         ->fromTable()
-                        ->withFilename('Marcas' . '-' . date('Y-m-d'))
+                        ->withFilename('Marcas' . '-' . date('Y-m-d H:i:s'))
                         ->withWriterType(\Maatwebsite\Excel\Excel::XLSX),
                 ]),
         ];
