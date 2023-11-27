@@ -191,10 +191,11 @@ class CamerasDvrResource extends Resource
 
             ])
             ->filters([
-                Tables\Filters\BaseFilter::make('device_type')
-                    ->query(fn (Builder $query): Builder => $query->where('device_type', 'camera_dvr')),
-
                 Tables\Filters\TrashedFilter::make(),
+
+                Tables\Filters\BaseFilter::make('device_type')
+                    ->query(fn (Builder $query): Builder => $query->where('device_type', 'camera')
+                        ->orWhere('device_type', 'dvr')),
 
             ])
             ->actions([
