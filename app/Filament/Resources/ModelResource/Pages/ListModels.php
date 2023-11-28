@@ -27,7 +27,7 @@ class ListModels extends ListRecords
                         ->required(),
                     ImportField::make('brand.name')
                         ->label('Brand name')
-                        ->rules('exists:App\Brand,name')
+                        ->rules('exists:App\Models\Brand,name', ['The brand name is not registered.'])
                         ->required(),
                 ])->handleRecordCreation(function (array $data) {
                     if ($brand = BrandResource::getEloquentQuery()->where('name', $data['brand']['name'])->first()) {

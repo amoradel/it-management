@@ -26,7 +26,7 @@ class ListTypes extends ListRecords
                     ImportField::make('device_type')
                         ->label('Device type')
                         ->translateLabel()
-                        ->rules('in:computer,printer,camera,monitor,pos,dvr,others', ['El Tipo de dispositivo importado es invalido.'])
+                        ->rules('in:computer,printer,camera,monitor,pos,dvr,others', ['The imported device type is invalid.'])
                         ->required(),
                     ImportField::make('name')
                         ->translateLabel()

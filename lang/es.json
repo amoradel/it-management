@@ -302,6 +302,8 @@
     "Columns": "Columnas",
     "Type name": "Nombre del tipo",
     "Do you want to import data from an excel file?": "¿Deseas importar datos desde un archivo excel?",
+    "The brand name is not registered.": "El nombre de la marca no se encuentra registrado.",
+    "The imported device type is invalid.": "El tipo de dispositivo importado no es válido.",
     "Match data to column": "Hacer coincidir los datos con la columna",
     "Sorry, your session has expired. Please click \"Go \" and try again.": "Lo sentimos, su sesión ha expirado. Haga clic en \"Ir a inicio\" e intente nuevamente."
 }
