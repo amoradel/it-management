@@ -22,6 +22,7 @@ class ListBrands extends ListRecords
                 ->uniqueField('name')
                 ->fields([
                     ImportField::make('name')
+                        ->translateLabel()
                         ->required(),
                 ]),
         ];

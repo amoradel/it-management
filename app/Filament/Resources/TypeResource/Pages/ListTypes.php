@@ -35,25 +35,11 @@ class ListTypes extends ListRecords
                     ImportField::make('description')
                         ->translateLabel(),
                 ])->handleRecordCreation(function (array $data) {
-                    // $options = [
-                    //     'computer',
-                    //     'printer',
-                    //     'camera',
-                    //     'monitor',
-                    //     'pos',
-                    //     'dvr',
-                    //     'others',
-                    // ];
-
-                    // if (in_array($data['device_type'], $options)) {
                     return Type::create([
                         'device_type' => $data['device_type'],
                         'name' => $data['name'],
                         'description' => isset($data['description']) ? $data['description'] : '',
                     ]);
-                    // }
-
-                    // return new Type();
                 }),
         ];
     }

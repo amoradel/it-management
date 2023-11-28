@@ -24,9 +24,11 @@ class ListModels extends ListRecords
                 ->uniqueField('name')
                 ->fields([
                     ImportField::make('name')
+                        ->translateLabel()
                         ->required(),
                     ImportField::make('brand.name')
                         ->label('Brand name')
+                        ->translateLabel()
                         ->rules('exists:App\Models\Brand,name', ['The brand name is not registered.'])
                         ->required(),
                 ])->handleRecordCreation(function (array $data) {
