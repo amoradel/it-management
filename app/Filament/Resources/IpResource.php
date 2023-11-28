@@ -43,7 +43,7 @@ class IpResource extends Resource
                     ->translateLabel()
                     ->reactive()
                     ->options(function (Device $device) {
-                        return $device->whereDoesntHave('ip')->pluck('name', 'id');
+                        return $device->whereDoesntHave('ip')->where('device_type', '!=', 'monitor')->pluck('name', 'id');
                     })
                     ->afterStateUpdated(function (callable $set, callable $get, $state) {
                         $set('availability', setAvailability($state, $get('description')));
