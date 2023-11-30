@@ -7,6 +7,12 @@
         "framework"
     ],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/amoradel/filament-import"
+        }
+    ],
     "require": {
         "php": "^8.1",
         "barryvdh/laravel-dompdf": "*",
@@ -16,7 +22,7 @@
         "filament/tables": "^3.0-stable",
         "guzzlehttp/guzzle": "^7.2",
         "jeffgreco13/filament-breezy": "^2.1",
-        "konnco/filament-import": "^2.0",
+        "konnco/filament-import": "dev-filament3",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
