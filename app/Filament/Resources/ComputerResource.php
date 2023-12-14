@@ -39,33 +39,25 @@ class ComputerResource extends Resource
                     ->maxLength(15)
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
+                // Campo Ubicación
+                Forms\Components\TextInput::make('location')
+                    ->required()
+                    ->maxLength(50)
+                    ->translateLabel(),
                 // Campo Marca
                 Forms\Components\Select::make('brand_id')
                     ->relationship('brand', 'name')
                     ->searchable()
                     ->preload()
                     ->required()
-                    ->translateLabel()
-                    ->afterStateUpdated(function (callable $set) {
-                        $set('model_id', null);
-                    }),
-                // Campo Ubicacion
-                Forms\Components\TextInput::make('location')
-                    ->required()
-                    ->maxLength(50)
+                    ->reactive()
                     ->translateLabel(),
                 // Campo Modelo
                 Forms\Components\Select::make('model_id')
                     ->label('Model')
                     ->options(fn (Get $get): Collection => DeviceModel::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
                     ->searchable()
-                    ->preload()
-                    ->live()
                     ->required()
-                    ->translateLabel(),
-                // Campo Descripcion
-                Forms\Components\Textarea::make('description')
-                    ->maxLength(150)
                     ->translateLabel(),
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
@@ -79,11 +71,13 @@ class ComputerResource extends Resource
                 Forms\Components\TextInput::make('storage')
                     ->required()
                     ->maxLength(30)
+                    ->suffix('GB')
                     ->translateLabel(),
                 // Campo RAM
                 Forms\Components\TextInput::make('ram_memory')
                     ->required()
                     ->maxLength(10)
+                    ->suffix('GB')
                     ->translateLabel(),
                 // Campo Procesador
                 Forms\Components\TextInput::make('processor')
@@ -120,29 +114,29 @@ class ComputerResource extends Resource
                     ->searchable()
                     ->required()
                     ->translateLabel(),
-                // Campo Condicion
+                // Campo Condición
                 Forms\Components\Select::make('condition')
-                    ->options((['Viejo' => 'Viejo', 'Nuevo' => 'Nuevo']))
+                    ->options((['used' => 'En uso', 'new' => 'Nuevo']))
                     ->searchable()
                     ->required()
+                    ->reactive()
                     ->translateLabel(),
                 // Campo Fecha de Ingreso
                 Forms\Components\DatePicker::make('entry_date')
-                    ->required()
+                    ->required(fn ($get) => $get('condition') == 'new' ? true : false)
                     ->maxDate(now())
                     ->translateLabel(),
-                // Campo Seleccion Usuarios
+                // Campo Selección Usuarios
                 Forms\Components\Select::make('partner_id')
                     ->relationship('partners', 'name')
                     ->preload()
                     ->multiple()
                     ->translateLabel(),
-                // Campo Estado
-                Forms\Components\Toggle::make('status')
-                    ->onColor('success')
-                    ->default('true')
+                // Campo Descripción
+                Forms\Components\Textarea::make('description')
+                    ->maxLength(150)
                     ->translateLabel(),
-                // Campo que envia el tipo de equipo igual a computer
+                // Campo que envía el tipo de equipo igual a computer
                 Forms\Components\Hidden::make('device_type')
                     ->default('computer'),
             ]);
