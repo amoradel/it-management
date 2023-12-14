@@ -9,6 +9,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TypeResource extends Resource
 {
@@ -119,5 +121,13 @@ class TypeResource extends Resource
             'edit' => Pages\EditType::route('/{record}/edit'),
             'activities' => Pages\ListTypeActivities::route('/{record}/activities'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 }
