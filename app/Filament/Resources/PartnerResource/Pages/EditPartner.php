@@ -13,6 +13,7 @@ class EditPartner extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            Actions\RestoreAction::make(),
             Actions\DeleteAction::make(),
         ];
     }

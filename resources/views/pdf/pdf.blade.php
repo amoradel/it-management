@@ -119,7 +119,7 @@
                 <th>Nombre</th>
                 <td>{{ $record->partner->name }}</td>
                 <th>Cargo</th>
-                <td>{{ $record->partner->company_position }}</td>
+                <td>{{ $record->partner->job_position }}</td>
                 <th>Usuario de red</th>
                 <td>{{ $record->partner->username_network }}</td>
             </tr>

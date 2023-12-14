@@ -21,7 +21,7 @@ class StatsOverview extends BaseWidget
         $pos = Device::where('device_type', 'pos')->count();
         $available_ips = Ip::where('availability', 'Disponible')->count();
         $taken_ips = Ip::where('availability', 'Ocupado')->count();
-        $partners = Partner::where('status', 1)->count();
+        $partners = Partner::count();
 
         return [
             // Suma Computadoras

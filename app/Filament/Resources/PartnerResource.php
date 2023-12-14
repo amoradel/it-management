@@ -9,6 +9,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PartnerResource extends Resource
 {
@@ -31,8 +33,18 @@ class PartnerResource extends Resource
                 // Campo Nombre
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(50)
+                    ->maxLength(100)
                     ->unique(ignorable: fn ($record) => $record)
+                    ->translateLabel(),
+                // Campo Numero de empleado
+                Forms\Components\TextInput::make('employee_number')
+                    ->required()
+                    ->maxLength(30)
+                    ->translateLabel(),
+                // Campo Cargo
+                Forms\Components\TextInput::make('job_position')
+                    ->required()
+                    ->maxLength(50)
                     ->translateLabel(),
                 // Campo Departamento
                 Forms\Components\Select::make('department_id')
@@ -49,49 +61,38 @@ class PartnerResource extends Resource
                     ->translateLabel(),
                 // Campo username_network
                 Forms\Components\TextInput::make('username_network')
-                    ->required()
-                    ->maxLength(20)
+                    ->maxLength(15)
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo username_odoo
                 Forms\Components\TextInput::make('username_odoo')
-                    ->required()
-                    ->maxLength(20)
+                    ->maxLength(15)
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo username_odoo
-                Forms\Components\TextInput::make('username_AS400')
-                    ->required()
-                    ->maxLength(20)
+                Forms\Components\TextInput::make('username_jde')
+                    ->maxLength(15)
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo email
                 Forms\Components\TextInput::make('email')
+                    ->maxLength(50)
                     ->email()
-                    ->required()
                     ->regex('/^.+@.+$/i')
+                    ->prefixIcon('heroicon-m-envelope')
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Extension
                 Forms\Components\TextInput::make('extension')
-                    ->required()
+                    ->prefixIcon('heroicon-m-phone')
                     ->maxLength(4)
                     ->translateLabel(),
-                // Campo email
-                Forms\Components\TextInput::make('company_position')
-                    ->required()
-                    ->maxLength(40)
-                    ->translateLabel(),
-                // Campo Seleccion Equipos
+                // Campo Selección Equipos
                 Forms\Components\Select::make('device_id')
                     ->relationship('devices', 'name')
+                    ->prefixIcon('heroicon-m-computer-desktop')
                     ->preload()
                     ->multiple()
-                    ->translateLabel(),
-                // Campo Estado
-                Forms\Components\Toggle::make('status')
-                    ->onColor('success')
-                    ->default('true')
                     ->translateLabel(),
             ]);
     }
@@ -120,11 +121,6 @@ class PartnerResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),
-                // Columna Usuario AS400
-                Tables\Columns\TextColumn::make('username_AS400')
-                    ->searchable()
-                    ->sortable()
-                    ->translateLabel(),
                 // Columna Extension
                 Tables\Columns\TextColumn::make('extension')
                     ->searchable()
@@ -137,16 +133,11 @@ class PartnerResource extends Resource
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
                 // Columna Puesto
-                Tables\Columns\TextColumn::make('company_position')
+                Tables\Columns\TextColumn::make('job_position')
                     ->searchable()
                     ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
-                // Columna Estado
-                Tables\Columns\ToggleColumn::make('status')
-                    ->onColor('success')
-                    ->default('true')
-                    ->translateLabel(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -184,5 +175,13 @@ class PartnerResource extends Resource
             'edit' => Pages\EditPartner::route('/{record}/edit'),
             'activities' => Pages\ListPartnerActivities::route('/{record}/activities'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 }

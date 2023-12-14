@@ -21,6 +21,6 @@ class DatabaseSeeder extends Seeder
             // 'profile_photo_path' => 'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg',
         ]);
 
-        $this->call(IpSeeder::class);
+        // $this->call(IpSeeder::class);
     }
 }

@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('partners', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 100);
+            $table->string('employee_number', 20);
+            $table->string('job_position', 50);
             $table->unsignedBigInteger('department_id')->nullable();
             $table->string('username_network', 15);
             $table->string('username_odoo', 15);
-            $table->string('username_AS400', 15);
-            $table->string('extension', 4);
-            $table->string('email');
-            $table->string('company_position');
-            $table->boolean('status');
+            $table->string('username_jde', 15);
+            $table->string('extension', 10);
+            $table->string('email', 50);
 
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('set null');
             $table->timestamps();
