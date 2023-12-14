@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Filament\Resources\ModelResource\Pages;
+namespace App\Filament\Resources\DeviceModelResource\Pages;
 
 use App\Filament\Resources\BrandResource;
-use App\Filament\Resources\ModelResource;
+use App\Filament\Resources\DeviceModelResource;
 use App\Models\DeviceModel;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Konnco\FilamentImport\Actions\ImportAction;
 use Konnco\FilamentImport\Actions\ImportField;
 
-class ListModels extends ListRecords
+class ListDeviceModels extends ListRecords
 {
-    protected static string $resource = ModelResource::class;
+    protected static string $resource = DeviceModelResource::class;
 
     protected function getHeaderActions(): array
     {

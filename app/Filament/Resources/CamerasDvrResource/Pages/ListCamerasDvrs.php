@@ -4,7 +4,7 @@ namespace App\Filament\Resources\CamerasDvrResource\Pages;
 
 use App\Filament\Resources\BrandResource;
 use App\Filament\Resources\CamerasDvrResource;
-use App\Filament\Resources\ModelResource;
+use App\Filament\Resources\DeviceModelResource;
 use App\Filament\Resources\TypeResource;
 use App\Models\Device;
 use Filament\Actions;
@@ -65,7 +65,7 @@ class ListCamerasDvrs extends ListRecords
                     ];
 
                     $brand = BrandResource::getEloquentQuery()->where('name', $data['brand']['name'])->first();
-                    $model = ModelResource::getEloquentQuery()->where('name', $data['model']['name'])->first();
+                    $model = DeviceModelResource::getEloquentQuery()->where('name', $data['model']['name'])->first();
                     $type = TypeResource::getEloquentQuery()->where('name', $data['type']['name'])->first();
 
                     if ($brand && $model && $type) {

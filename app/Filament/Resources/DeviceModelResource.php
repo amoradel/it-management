@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ModelResource\Pages;
+use App\Filament\Resources\DeviceModelResource\Pages;
 use App\Models\DeviceModel;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -12,7 +12,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ModelResource extends Resource
+class DeviceModelResource extends Resource
 {
     protected static ?string $model = DeviceModel::class;
 
@@ -72,7 +72,7 @@ class ModelResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
-                Tables\Actions\Action::make('activities')->url(fn ($record) => ModelResource::getUrl('activities', ['record' => $record]))
+                Tables\Actions\Action::make('activities')->url(fn ($record) => DeviceModelResource::getUrl('activities', ['record' => $record]))
                     ->icon('heroicon-m-information-circle')
                     ->translateLabel(),
                 Tables\Actions\ForceDeleteAction::make(),
@@ -97,10 +97,10 @@ class ModelResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListModels::route('/'),
-            'create' => Pages\CreateModel::route('/create'),
-            'edit' => Pages\EditModel::route('/{record}/edit'),
-            'activities' => Pages\ListModelActivities::route('/{record}/activities'),
+            'index' => Pages\ListDeviceModels::route('/'),
+            'create' => Pages\CreateDeviceModel::route('/create'),
+            'edit' => Pages\EditDeviceModel::route('/{record}/edit'),
+            'activities' => Pages\ListDeviceModelActivities::route('/{record}/activities'),
         ];
     }
 
