@@ -25,17 +25,17 @@ class Brand extends Model
     //Relaciones unos a muchos
     public function models()
     {
-        return $this->hasMany(DeviceModel::class);
+        return $this->hasMany('App\Models\DeviceModel');
     }
 
     public function devices()
     {
-        return $this->hasMany(Device::class);
+        return $this->hasMany('App\Models\Device');
     }
 
     public function device_changes()
     {
-        return $this->hasMany(DeviceChange::class);
+        return $this->hasMany('App\Models\DeviceChange');
     }
     //Fin Relaciones unos a muchos
 

@@ -28,6 +28,12 @@ class DeviceModelResource extends Resource
     {
         return $form
             ->schema([
+                // Campo Nombre
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(50)
+                    ->unique(ignorable: fn ($record) => $record)
+                    ->translateLabel(),
                 // Campo Marca
                 Forms\Components\Select::make('brand_id')
                     ->relationship('brand', 'name')
@@ -40,14 +46,8 @@ class DeviceModelResource extends Resource
                             ->translateLabel(),
                     ])
                     ->required()
+                    ->prefixIcon('heroicon-m-tag')
                     ->translateLabel(),
-                // Campo Nombre
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(50)
-                    ->unique(ignorable: fn ($record) => $record)
-                    ->translateLabel(),
-
             ]);
     }
 
@@ -55,13 +55,13 @@ class DeviceModelResource extends Resource
     {
         return $table
             ->columns([
-                // Columna Marca
-                Tables\Columns\TextColumn::make('brand.name')
+                // Columna nombre de modelo
+                Tables\Columns\TextColumn::make('name')
                     ->translateLabel()
                     ->searchable()
                     ->sortable(),
-                // Columna Modelo
-                Tables\Columns\TextColumn::make('name')
+                // Columna Marca
+                Tables\Columns\TextColumn::make('brand.name')
                     ->translateLabel()
                     ->searchable()
                     ->sortable(),

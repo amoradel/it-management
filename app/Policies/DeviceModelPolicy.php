@@ -15,7 +15,7 @@ class DeviceModelPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_model');
+        return $user->can('view_any_device::model');
     }
 
     /**
@@ -23,7 +23,7 @@ class DeviceModelPolicy
      */
     public function view(User $user, DeviceModel $deviceModel): bool
     {
-        return $user->can('view_model');
+        return $user->can('view_device::model');
     }
 
     /**
@@ -31,7 +31,7 @@ class DeviceModelPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_model');
+        return $user->can('create_device::model');
     }
 
     /**
@@ -39,7 +39,7 @@ class DeviceModelPolicy
      */
     public function update(User $user, DeviceModel $deviceModel): bool
     {
-        return $user->can('update_model');
+        return $user->can('update_device::model');
     }
 
     /**
@@ -47,7 +47,7 @@ class DeviceModelPolicy
      */
     public function delete(User $user, DeviceModel $deviceModel): bool
     {
-        return $user->can('delete_model');
+        return $user->can('delete_device::model');
     }
 
     /**
@@ -55,7 +55,7 @@ class DeviceModelPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_model');
+        return $user->can('delete_any_device::model');
     }
 
     /**
@@ -63,7 +63,7 @@ class DeviceModelPolicy
      */
     public function forceDelete(User $user, DeviceModel $deviceModel): bool
     {
-        return $user->can('force_delete_model');
+        return $user->can('force_delete_device::model');
     }
 
     /**
@@ -71,7 +71,7 @@ class DeviceModelPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_model');
+        return $user->can('force_delete_any_device::model');
     }
 
     /**
@@ -79,7 +79,7 @@ class DeviceModelPolicy
      */
     public function restore(User $user, DeviceModel $deviceModel): bool
     {
-        return $user->can('restore_model');
+        return $user->can('restore_device::model');
     }
 
     /**
@@ -87,7 +87,7 @@ class DeviceModelPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_model');
+        return $user->can('restore_any_device::model');
     }
 
     /**
