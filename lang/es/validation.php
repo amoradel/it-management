@@ -156,6 +156,7 @@ return [
         'description' => 'Descripción',
         'device_type' => 'Tipo de dispositivo',
         'brand.name' => 'Marca',
+        'employee_number' => 'Número de empleado',
     ],
 
 ];

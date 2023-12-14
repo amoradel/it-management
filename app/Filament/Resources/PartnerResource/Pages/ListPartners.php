@@ -29,7 +29,7 @@ class ListPartners extends ListRecords
                         ->required(),
                     ImportField::make('employee_number')
                         ->translateLabel()
-                        ->rules('max:20')
+                        ->rules('max:20|unique:partners')
                         ->required(),
                     ImportField::make('job_position')
                         ->translateLabel()

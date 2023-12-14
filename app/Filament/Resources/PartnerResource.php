@@ -40,6 +40,7 @@ class PartnerResource extends Resource
                 Forms\Components\TextInput::make('employee_number')
                     ->required()
                     ->maxLength(30)
+                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Cargo
                 Forms\Components\TextInput::make('job_position')
