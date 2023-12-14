@@ -106,10 +106,17 @@ class PartnerResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),
+                // Columna Puesto
+                Tables\Columns\TextColumn::make('job_position')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 // Columna Departamento
                 Tables\Columns\TextColumn::make('department.name')
                     ->searchable()
                     ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->translateLabel(),
                 // Columna Usuario de Red
                 Tables\Columns\TextColumn::make('username_network')
@@ -120,6 +127,13 @@ class PartnerResource extends Resource
                 Tables\Columns\TextColumn::make('username_odoo')
                     ->searchable()
                     ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
+                // Columna Usuario de Odoo
+                Tables\Columns\TextColumn::make('username_jde')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->translateLabel(),
                 // Columna Extension
                 Tables\Columns\TextColumn::make('extension')
@@ -130,14 +144,9 @@ class PartnerResource extends Resource
                 Tables\Columns\TextColumn::make('email')
                     ->searchable()
                     ->sortable()
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                // Columna Puesto
-                Tables\Columns\TextColumn::make('job_position')
-                    ->searchable()
-                    ->sortable()
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
+
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
