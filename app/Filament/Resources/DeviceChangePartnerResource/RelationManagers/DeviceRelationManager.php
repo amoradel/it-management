@@ -40,7 +40,7 @@ class DeviceRelationManager extends RelationManager
                     ->sortable()
                     ->translateLabel(),
                 // Columna Any Desk
-                Tables\Columns\TextColumn::make('any_desk')
+                Tables\Columns\TextColumn::make('anydesk')
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),

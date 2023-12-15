@@ -7,12 +7,14 @@ use App\Models\Device;
 use App\Models\DeviceModel;
 use App\Models\Type;
 use Filament\Forms;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Collection;
 
 class ComputerResource extends Resource
@@ -41,47 +43,78 @@ class ComputerResource extends Resource
                     ->translateLabel(),
                 // Campo Ubicación
                 Forms\Components\TextInput::make('location')
+                    ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'location'))
                     ->required()
                     ->maxLength(50)
                     ->translateLabel(),
-                // Campo Marca
-                Forms\Components\Select::make('brand_id')
-                    ->relationship('brand', 'name')
-                    ->searchable()
-                    ->preload()
-                    ->required()
-                    ->reactive()
-                    ->translateLabel(),
-                // Campo Modelo
-                Forms\Components\Select::make('model_id')
-                    ->label('Model')
-                    ->options(fn (Get $get): Collection => DeviceModel::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
-                    ->searchable()
-                    ->required()
-                    ->translateLabel(),
-                // Campo Tipo
-                Forms\Components\Select::make('type_id')
-                    ->label('Type')
-                    ->options(fn (): Collection => Type::query()->where('device_type', 'computer')->pluck('name', 'id'))
-                    ->searchable()
-                    ->required()
-                    ->preload()
-                    ->translateLabel(),
-                // Campo Almacenamiento
-                Forms\Components\TextInput::make('storage')
-                    ->required()
-                    ->maxLength(30)
-                    ->suffix('GB')
-                    ->translateLabel(),
-                // Campo RAM
-                Forms\Components\TextInput::make('ram_memory')
-                    ->required()
-                    ->maxLength(10)
-                    ->suffix('GB')
-                    ->translateLabel(),
+
+                Grid::make([
+                    'default' => 2,
+                    'sm' => 2,
+                    'md' => 2,
+                    'lg' => 4,
+                    'xl' => 4,
+                    '2xl' => 4])
+                    ->schema([
+                        // Campo Tipo
+                        Forms\Components\Select::make('type_id')
+                            ->label('Type')
+                            ->options(fn (): Collection => Type::query()->where('device_type', 'computer')->pluck('name', 'id'))
+                            ->searchable()
+                            ->required()
+                            ->preload()
+                            ->columnSpan(2)
+                            ->prefixIcon('heroicon-m-swatch')
+                            ->translateLabel(),
+                        // Campo Marca
+                        Forms\Components\Select::make('brand_id')
+                            ->relationship('brand', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->reactive()
+                            ->prefixIcon('heroicon-m-tag')
+                            ->translateLabel(),
+                        // Campo Modelo
+                        Forms\Components\Select::make('model_id')
+                            ->label('Model')
+                            ->options(fn (Get $get): Collection => DeviceModel::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
+                            ->searchable()
+                            ->prefixIcon('heroicon-m-hashtag')
+                            ->required()
+                            ->translateLabel(),
+                        // Campo Tipo de Almacenamiento
+                        Forms\Components\Select::make('storage_type')
+                            ->options(['SSD', 'HDD'])
+                            ->searchable()
+                            ->required()
+                            ->translateLabel(),
+                        // Campo Almacenamiento
+                        Forms\Components\TextInput::make('storage')
+                            ->required()
+                            ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'storage'))
+                            ->maxLength(30)
+                            ->suffix('GB')
+                            ->translateLabel(),
+                        // Campo Tipo de RAM
+                        Forms\Components\Select::make('ram_memory_type')
+                            ->options(['DDR5', 'DDR4', 'DDR3'])
+                            ->searchable()
+                            ->required()
+                            ->translateLabel(),
+                        // Campo RAM
+                        Forms\Components\TextInput::make('ram_memory')
+                            ->required()
+                            ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'ram_memory'))
+                            ->maxLength(10)
+                            ->suffix('GB')
+                            ->translateLabel(),
+                    ]),
+
                 // Campo Procesador
                 Forms\Components\TextInput::make('processor')
                     ->maxLength(30)
+                    ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'processor'))
                     ->required()
                     ->translateLabel(),
                 // Campo Numero de Activo
@@ -97,20 +130,23 @@ class ComputerResource extends Resource
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Any Desk
-                Forms\Components\TextInput::make('any_desk')
+                Forms\Components\TextInput::make('ip')
+                    ->translateLabel(),
+                // Campo Any Desk
+                Forms\Components\TextInput::make('anydesk')
                     ->required()
                     ->maxLength(13)
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Version Office
                 Forms\Components\Select::make('office_version')
-                    ->options(['2013' => '2013', '2016' => '2016', '2019' => '2019', '2021' => '2021', '365' => '365'])
+                    ->options(['Office 365', 'Office 2016', 'Office 2013'])
                     ->searchable()
                     ->required()
                     ->translateLabel(),
                 // Campo Version Windows
                 Forms\Components\Select::make('windows_version')
-                    ->options(['Windows 7' => 'Windows 7', 'Windows 8' => 'Windows 8', 'Windows 10' => 'Windows 10', 'Windows 11' => 'Windows 11'])
+                    ->options(['Windows 11', 'Windows 10',  'Windows 8', 'Windows 7'])
                     ->searchable()
                     ->required()
                     ->translateLabel(),
@@ -168,7 +204,7 @@ class ComputerResource extends Resource
                     ->sortable()
                     ->translateLabel(),
                 // Columna Any Desk
-                Tables\Columns\TextColumn::make('any_desk')
+                Tables\Columns\TextColumn::make('anydesk')
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),
@@ -294,5 +330,13 @@ class ComputerResource extends Resource
             'edit' => Pages\EditComputer::route('/{record}/edit'),
             'activities' => Pages\ListComputerActivities::route('/{record}/activities'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 }

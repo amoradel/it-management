@@ -39,3 +39,16 @@ function getHeadingRows(callable $get): array
         return [];
     }
 }
+
+function getGroupedColumnValues(string $table, string $column): array
+{
+    $data = DB::table($table)
+        ->select(DB::raw($column . ' as data'))
+        ->groupBy(DB::raw($column))
+        ->pluck('data');
+
+    $data = $data->flip()->combine($data)->toArray();
+    $data = array_combine($data, $data);
+
+    return $data;
+}

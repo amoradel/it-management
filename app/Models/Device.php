@@ -14,7 +14,7 @@ class Device extends Model
 
     protected $guarded = [];
 
-    // Funcion para genera el log de la tabla
+    // Función para genera el log de la tabla
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -34,7 +34,7 @@ class Device extends Model
                 'processor',
                 'asset_number',
                 'serial_number',
-                'any_desk',
+                'anydesk',
                 'office_version',
                 'windows_version',
                 'dvr_program',
@@ -86,7 +86,7 @@ class Device extends Model
     }
     // Fin Relaciones uno a uno
 
-    // Relacion de los dispositivos (devices) con device_change_partner para el relation manager
+    // Relación de los dispositivos (devices) con device_change_partner para el relation manager
     public function deviceChangePartners()
     {
         return $this->belongsToMany(DeviceChangePartner::class, 'device_change_partner_details');

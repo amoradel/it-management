@@ -15,28 +15,29 @@ return new class extends Migration
             $table->id();
             $table->string('name', 50);
             $table->string('location');
-            $table->unsignedBigInteger('brand_id')->nullable();
-            $table->unsignedBigInteger('model_id')->nullable();
-            $table->unsignedBigInteger('type_id')->nullable();
+            $table->foreignId('brand_id')->nullable();
+            $table->foreignId('model_id')->nullable();
+            $table->foreignId('type_id')->nullable();
             $table->string('device_type');
             $table->text('description')->nullable();
             $table->string('storage')->nullable();
+            $table->string('storage_type')->nullable();
+            $table->string('ram_memory_type')->nullable();
             $table->string('ram_memory')->nullable();
             $table->string('processor')->nullable();
             $table->string('asset_number')->nullable();
             $table->string('serial_number');
-            $table->string('any_desk')->nullable();
+            $table->string('anydesk')->nullable();
             $table->string('office_version')->nullable();
             $table->string('windows_version')->nullable();
             $table->string('dvr_program')->nullable();
             $table->string('observation')->nullable();
             $table->string('condition');
             $table->date('entry_date')->nullable();
-            $table->boolean('status');
 
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');
-            $table->foreign('model_id')->references('id')->on('device_models')->onDelete('set null');
-            $table->foreign('type_id')->references('id')->on('types')->onDelete('set null');
+            $table->foreign('brand_id')->references('id')->on('brands')->restrictOnDelete();
+            $table->foreign('model_id')->references('id')->on('device_models')->restrictOnDelete();
+            $table->foreign('type_id')->references('id')->on('types')->restrictOnDelete();
 
             $table->timestamps();
             $table->softDeletes();
@@ -48,6 +49,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('devices');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 };
