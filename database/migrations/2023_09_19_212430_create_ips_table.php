@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('segment');
             $table->boolean('status');
 
-            $table->foreign('device_id')->references('id')->on('devices')->onDelete('set null');
+            $table->foreign('device_id')->references('id')->on('devices')->restrictOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +32,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('ips');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 };
