@@ -129,8 +129,11 @@ class ComputerResource extends Resource
                     ->maxLength(50)
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
-                // Campo Any Desk
-                Forms\Components\TextInput::make('ip')
+                // Campo Dirección IP
+                Forms\Components\Select::make('ip_address')
+                    ->relationship('ip', 'ip_address')
+                    ->searchable()
+                    ->preload()
                     ->translateLabel(),
                 // Campo Any Desk
                 Forms\Components\TextInput::make('anydesk')

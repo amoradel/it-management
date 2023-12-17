@@ -10,6 +10,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class IpResource extends Resource
 {
@@ -30,9 +32,12 @@ class IpResource extends Resource
         return $form
             ->schema([
                 // Campo Ip Number
-                Forms\Components\TextInput::make('ip_number')
+                Forms\Components\TextInput::make('ip_address')
                     ->required()
                     ->maxLength(15)
+                    ->placeholder('127.0.0.1')
+                    ->ipv4()
+                    ->mask('999.999.999.999')
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Equipo
@@ -64,6 +69,7 @@ class IpResource extends Resource
                     ->translateLabel(),
                 // Campo Segmento
                 Forms\Components\TextInput::make('segment')
+                    ->placeholder('127.0.0.1 - 127.0.0.255')
                     ->required()
                     ->translateLabel(),
                 Forms\Components\TextInput::make('availability')
@@ -169,5 +175,13 @@ class IpResource extends Resource
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 }
