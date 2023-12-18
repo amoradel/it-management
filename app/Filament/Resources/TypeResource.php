@@ -22,7 +22,7 @@ class TypeResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Tipos';
 
-    protected static ?string $navigationIcon = 'heroicon-o-swatch';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {

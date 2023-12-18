@@ -21,12 +21,12 @@ class Ip extends Model
     }
     // Fin Relaciones uno a uno
 
-    // Funcion para genera el log de la tabla
+    // Función para genera el log de la tabla
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
             ->logOnly([
-                'ip_number',
+                'ip_address',
                 'device_id',
                 'availability',
                 'description',

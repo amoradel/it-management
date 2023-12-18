@@ -88,7 +88,7 @@ class IpResource extends Resource
         return $table
             ->columns([
                 // Columna Nombre
-                Tables\Columns\TextColumn::make('ip_number')
+                Tables\Columns\TextColumn::make('ip_address')
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),

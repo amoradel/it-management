@@ -64,7 +64,7 @@ class ComputerResource extends Resource
                             ->required()
                             ->preload()
                             ->columnSpan(2)
-                            ->prefixIcon('heroicon-m-swatch')
+                            ->prefixIcon('heroicon-m-rectangle-stack')
                             ->translateLabel(),
                         // Campo Marca
                         Forms\Components\Select::make('brand_id')
@@ -80,34 +80,36 @@ class ComputerResource extends Resource
                             ->label('Model')
                             ->options(fn (Get $get): Collection => DeviceModel::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
                             ->searchable()
-                            ->prefixIcon('heroicon-m-hashtag')
-                            ->required()
-                            ->translateLabel(),
-                        // Campo Tipo de Almacenamiento
-                        Forms\Components\Select::make('storage_type')
-                            ->options(['SSD', 'HDD'])
-                            ->searchable()
+                            ->prefixIcon('heroicon-m-swatch')
                             ->required()
                             ->translateLabel(),
                         // Campo Almacenamiento
                         Forms\Components\TextInput::make('storage')
                             ->required()
                             ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'storage'))
-                            ->maxLength(30)
-                            ->suffix('GB')
+                            ->maxLength(10)
+                            ->prefixIcon('heroicon-m-circle-stack')
+                            // ->suffix('GB')
                             ->translateLabel(),
-                        // Campo Tipo de RAM
-                        Forms\Components\Select::make('ram_memory_type')
-                            ->options(['DDR5', 'DDR4', 'DDR3'])
-                            ->searchable()
+                        // Campo Tipo de Almacenamiento
+                        Forms\Components\TextInput::make('storage_type')
                             ->required()
+                            ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'storage_type'))
+                            ->maxLength(20)
                             ->translateLabel(),
                         // Campo RAM
                         Forms\Components\TextInput::make('ram_memory')
                             ->required()
                             ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'ram_memory'))
                             ->maxLength(10)
-                            ->suffix('GB')
+                            ->prefixIcon('heroicon-m-queue-list')
+                            // ->suffix('GB')
+                            ->translateLabel(),
+                        // Campo Tipo de RAM
+                        Forms\Components\TextInput::make('ram_memory_type')
+                            ->required()
+                            ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'ram_memory_type'))
+                            ->maxLength(20)
                             ->translateLabel(),
                     ]),
 
@@ -115,6 +117,7 @@ class ComputerResource extends Resource
                 Forms\Components\TextInput::make('processor')
                     ->maxLength(30)
                     ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'processor'))
+                    ->prefixIcon('heroicon-m-cpu-chip')
                     ->required()
                     ->translateLabel(),
                 // Campo Numero de Activo
@@ -122,12 +125,14 @@ class ComputerResource extends Resource
                     ->required()
                     ->maxLength(20)
                     ->unique(ignorable: fn ($record) => $record)
+                    ->prefixIcon('heroicon-m-hashtag')
                     ->translateLabel(),
                 // Campo Numero de Serie
                 Forms\Components\TextInput::make('serial_number')
                     ->required()
                     ->maxLength(50)
                     ->unique(ignorable: fn ($record) => $record)
+                    ->prefixIcon('heroicon-m-hashtag')
                     ->translateLabel(),
                 // Campo Dirección IP
                 Forms\Components\Select::make('ip_address')
@@ -143,13 +148,13 @@ class ComputerResource extends Resource
                     ->translateLabel(),
                 // Campo Version Office
                 Forms\Components\Select::make('office_version')
-                    ->options(['Office 365', 'Office 2016', 'Office 2013'])
+                    ->options(['Office_365' => 'Office 365', 'Office_2016' => 'Office 2016', 'Office_2013' => 'Office 2013'])
                     ->searchable()
                     ->required()
                     ->translateLabel(),
                 // Campo Version Windows
                 Forms\Components\Select::make('windows_version')
-                    ->options(['Windows 11', 'Windows 10',  'Windows 8', 'Windows 7'])
+                    ->options(['Windows_11' => 'Windows 11', 'Windows_10' => 'Windows 10', 'Windows_8' => 'Windows 8', 'Windows_7' => 'Windows 7'])
                     ->searchable()
                     ->required()
                     ->translateLabel(),
@@ -170,6 +175,7 @@ class ComputerResource extends Resource
                     ->relationship('partners', 'name')
                     ->preload()
                     ->multiple()
+                    ->prefixIcon('heroicon-m-user')
                     ->translateLabel(),
                 // Campo Descripción
                 Forms\Components\Textarea::make('description')
@@ -217,7 +223,7 @@ class ComputerResource extends Resource
                     ->sortable()
                     ->translateLabel(),
                 // Columna Ip
-                Tables\Columns\TextColumn::make('ip.ip_number')
+                Tables\Columns\TextColumn::make('ip.ip_address')
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),

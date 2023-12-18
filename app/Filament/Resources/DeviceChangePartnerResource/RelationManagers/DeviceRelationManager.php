@@ -45,7 +45,7 @@ class DeviceRelationManager extends RelationManager
                     ->sortable()
                     ->translateLabel(),
                 // Columna Ip
-                Tables\Columns\TextColumn::make('ip.ip_number')
+                Tables\Columns\TextColumn::make('ip.ip_address')
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),

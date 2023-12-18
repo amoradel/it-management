@@ -22,7 +22,7 @@ class DeviceModelResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Modelos';
 
-    protected static ?string $navigationIcon = 'heroicon-o-hashtag';
+    protected static ?string $navigationIcon = 'heroicon-o-swatch';
 
     public static function form(Form $form): Form
     {
