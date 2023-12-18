@@ -1,8 +1,8 @@
 <?php
 
-function setAvailability($value, $value2)
+function getAvailability($value, $value2)
 {
-    if (trim($value) == '' and trim($value2) == '') {
+    if (trim($value) == '' && trim($value2) == '') {
         return 'Disponible';
     } else {
         return 'Ocupado';
@@ -47,6 +47,7 @@ function getGroupedColumnValues(string $table, string $column): array
         ->groupBy(DB::raw($column))
         ->pluck('data');
 
+    // dd($data);
     $data = $data->flip()->combine($data)->toArray();
     $data = array_combine($data, $data);
 

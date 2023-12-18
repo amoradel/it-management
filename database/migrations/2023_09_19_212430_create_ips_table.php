@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('ips', function (Blueprint $table) {
             $table->id();
             $table->string('ip_address', 15);
-            $table->unsignedBigInteger('device_id')->nullable();
+            $table->foreignId('device_id')->nullable();
             $table->string('availability')->nullable();
             $table->text('description')->nullable();
             $table->string('ip_type');
+            $table->string('assignment_type')->nullable();
             $table->string('segment');
-            $table->boolean('status');
 
             $table->foreign('device_id')->references('id')->on('devices')->restrictOnDelete();
             $table->timestamps();

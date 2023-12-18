@@ -51,7 +51,7 @@ class IpResource extends Resource
                         return $device->whereDoesntHave('ip')->pluck('name', 'id');
                     })
                     ->afterStateUpdated(function (callable $set, callable $get, $state) {
-                        $set('availability', setAvailability($state, $get('description')));
+                        $set('availability', getAvailability($state, $get('description')));
                     }),
                 // Campo Descripción
                 Forms\Components\Textarea::make('description')
@@ -59,27 +59,30 @@ class IpResource extends Resource
                     ->reactive()
                     ->maxLength(150)
                     ->afterStateUpdated(function (callable $set, callable $get, $state) {
-                        $set('availability', setAvailability($state, $get('device_id')));
+                        $set('availability', getAvailability($state, $get('device_id')));
                     }),
                 // Campo Tipo de Ip
                 Forms\Components\Select::make('ip_type')
-                    ->options(['Estática' => 'Estática', 'Dinámica' => 'Dinámica'])
+                    ->options(['static' => 'Estática', 'dynamic' => 'Dinámica'])
                     ->searchable()
+                    ->required()
+                    ->translateLabel(),
+                // Campo Tipo de Ip
+                Forms\Components\TextInput::make('assignment_type')
+                    ->datalist(fn () => getGroupedColumnValues(table: 'ips', column: 'assignment_type'))
+                    ->maxLength(30)
                     ->required()
                     ->translateLabel(),
                 // Campo Segmento
                 Forms\Components\TextInput::make('segment')
                     ->placeholder('127.0.0.1 - 127.0.0.255')
+                    ->maxLength(40)
                     ->required()
                     ->translateLabel(),
                 Forms\Components\TextInput::make('availability')
+                    // ->fill(fn (callable $get) => $get('description') !== '' ? 'Ocupado' : 'Disponible')
                     ->readOnly(),
-                // ->fill(fn (callable $get) => $get('description') !== "" ? "Ocupado" : "Disponible")   ,
                 // Campo Estado
-                Forms\Components\Toggle::make('status')
-                    ->onColor('success')
-                    ->default('true')
-                    ->translateLabel(),
             ]);
     }
 
