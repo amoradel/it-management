@@ -41,6 +41,10 @@ class ListIps extends ListRecords
                         ->translateLabel()
                         ->rules('required|max:40')
                         ->required(),
+                    ImportField::make('status')
+                        ->translateLabel()
+                        ->rules('max:40')
+                        ->required(),
 
                 ])
                 ->handleRecordCreation(function (array $data) {
@@ -50,6 +54,7 @@ class ListIps extends ListRecords
                         'ip_type' => trim($data['ip_type']),
                         'assignment_type' => trim($data['assignment_type']) ?? '',
                         'segment' => trim($data['segment']),
+                        'status' => trim($data['status']),
 
                     ]);
                 }),

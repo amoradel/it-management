@@ -37,7 +37,6 @@ class IpResource extends Resource
                     ->maxLength(15)
                     ->placeholder('127.0.0.1')
                     ->ipv4()
-                    ->mask('999.999.999.999')
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Equipo
@@ -78,6 +77,10 @@ class IpResource extends Resource
                     ->placeholder('127.0.0.1 - 127.0.0.255')
                     ->maxLength(40)
                     ->required()
+                    ->translateLabel(),
+                Forms\Components\Select::make('status')
+                    ->options(['configured' => 'Configurado', 'not configured' => 'No Configurado', 'pending' => 'Pendiente'])
+                    ->searchable()
                     ->translateLabel(),
                 Forms\Components\TextInput::make('availability')
                     // ->fill(fn (callable $get) => $get('description') !== '' ? 'Ocupado' : 'Disponible')
