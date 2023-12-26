@@ -45,11 +45,12 @@ function getGroupedColumnValues(string $table, string $column): array
     $data = DB::table($table)
         ->select(DB::raw($column . ' as data'))
         ->groupBy(DB::raw($column))
-        ->pluck('data');
+        ->pluck('data')
+        ->toArray();
 
-    // dd($data);
-    $data = $data->flip()->combine($data)->toArray();
+    sort($data);
     $data = array_combine($data, $data);
+    // dd($data);
 
     return $data;
 }

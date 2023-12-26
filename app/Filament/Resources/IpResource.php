@@ -83,7 +83,6 @@ class IpResource extends Resource
                     ->searchable()
                     ->translateLabel(),
                 Forms\Components\TextInput::make('availability')
-                    // ->fill(fn (callable $get) => $get('description') !== '' ? 'Ocupado' : 'Disponible')
                     ->readOnly(),
                 // Campo Estado
             ]);
