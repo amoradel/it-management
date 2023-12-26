@@ -120,11 +120,17 @@ class IpResource extends Resource
                 Tables\Columns\TextColumn::make('availability')
                     ->searchable()
                     ->sortable()
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'Disponible' => 'success',
+                        'Ocupado' => 'danger',
+                    })
                     ->translateLabel(),
                 // Columna Segmento
                 Tables\Columns\TextColumn::make('segment')
                     ->searchable()
                     ->sortable()
+                    ->badge()
                     ->translateLabel(),
                 // Columna Estado
                 Tables\Columns\ToggleColumn::make('status')

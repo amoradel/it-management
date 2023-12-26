@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ComputerResource\Pages;
 use App\Models\Device;
 use App\Models\DeviceModel;
+use App\Models\Ip;
 use App\Models\Type;
 use Filament\Forms;
 use Filament\Forms\Components\Grid;
@@ -135,10 +136,18 @@ class ComputerResource extends Resource
                     ->prefixIcon('heroicon-m-hashtag')
                     ->translateLabel(),
                 // Campo Dirección IP
+                // Forms\Components\Select::make('')
+                //     ->relationship('ip', 'ip_address')
+                //     ->searchable()
+                //     ->preload()
+                //     ->translateLabel(),
+
                 Forms\Components\Select::make('ip_address')
-                    ->relationship('ip', 'ip_address')
+                    ->options(Ip::all()->pluck('ip_address', 'id'))
                     ->searchable()
                     ->preload()
+                    ->default(100)
+                    ->selectablePlaceholder(false)
                     ->translateLabel(),
                 // Campo Any Desk
                 Forms\Components\TextInput::make('anydesk')
@@ -196,7 +205,7 @@ class ComputerResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),
-                // Columna Ubicacion
+                // Columna Ubicación
                 Tables\Columns\TextColumn::make('location')
                     ->searchable()
                     ->sortable()
@@ -245,7 +254,7 @@ class ComputerResource extends Resource
                     ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
-                // Columna Descripcion
+                // Columna Descripción
                 Tables\Columns\TextColumn::make('description')
                     ->wrap()
                     ->searchable()
@@ -282,7 +291,7 @@ class ComputerResource extends Resource
                     ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
-                // Columna Condicion
+                // Columna Condición
                 Tables\Columns\TextColumn::make('condition')
                     ->searchable()
                     ->sortable()
