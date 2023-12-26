@@ -3,7 +3,9 @@
 namespace App\Filament\Resources\IpResource\Pages;
 
 use App\Filament\Resources\IpResource;
+use App\Models\Ip;
 use Filament\Actions;
+use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
 use Konnco\FilamentImport\Actions\ImportAction;
 use Konnco\FilamentImport\Actions\ImportField;
@@ -48,7 +50,7 @@ class ListIps extends ListRecords
 
                 ])
                 ->handleRecordCreation(function (array $data) {
-                    return \App\Models\Ip::create([
+                    return Ip::create([
                         'ip_address' => trim($data['ip_address']),
                         'description' => trim($data['description']) ?? '',
                         'ip_type' => trim($data['ip_type']),
@@ -59,5 +61,24 @@ class ListIps extends ListRecords
                     ]);
                 }),
         ];
+    }
+
+    public function getTabs(): array
+    {
+        $tabs = ['all' => Tab::make('All')->badge($this->getModel()::count())];
+
+        $segments = getGroupedColumnValues(table: 'ips', column: 'segment');
+
+        foreach ($segments as $segment) {
+            $slug = str($segment)->slug()->toString();
+
+            $tabs[$slug] = Tab::make($segment)
+                ->badge(Ip::where('segment', $segment)->count())
+                ->modifyQueryUsing(function ($query) use ($segment) {
+                    return $query->where('segment', $segment);
+                });
+        }
+
+        return $tabs;
     }
 }

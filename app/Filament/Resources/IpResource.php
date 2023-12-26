@@ -75,6 +75,7 @@ class IpResource extends Resource
                 // Campo Segmento
                 Forms\Components\TextInput::make('segment')
                     ->placeholder('127.0.0.1 - 127.0.0.255')
+                    ->datalist(fn () => getGroupedColumnValues(table: 'ips', column: 'segment'))
                     ->maxLength(40)
                     ->required()
                     ->translateLabel(),
