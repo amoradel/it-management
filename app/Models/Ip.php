@@ -18,7 +18,8 @@ class Ip extends Model
     public function device()
     {
         // return $this->belongsTo('App\Models\Device', 'device_id', 'id');
-        return $this->belongsTo('App\Models\Device');
+        // return $this->belongsTo('App\Models\Device');
+        return $this->hasOne('App\Models\Device');
     }
     // Fin Relaciones uno a uno
 

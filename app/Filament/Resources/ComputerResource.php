@@ -114,47 +114,59 @@ class ComputerResource extends Resource
                             ->translateLabel(),
                     ]),
 
-                // Campo Procesador
-                Forms\Components\TextInput::make('processor')
-                    ->maxLength(30)
-                    ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'processor'))
-                    ->prefixIcon('heroicon-m-cpu-chip')
-                    ->required()
-                    ->translateLabel(),
-                // Campo Numero de Activo
-                Forms\Components\TextInput::make('asset_number')
-                    ->required()
-                    ->maxLength(20)
-                    ->unique(ignorable: fn ($record) => $record)
-                    ->prefixIcon('heroicon-m-hashtag')
-                    ->translateLabel(),
-                // Campo Numero de Serie
-                Forms\Components\TextInput::make('serial_number')
-                    ->required()
-                    ->maxLength(50)
-                    ->unique(ignorable: fn ($record) => $record)
-                    ->prefixIcon('heroicon-m-hashtag')
-                    ->translateLabel(),
-                // Campo Dirección IP
-                // Forms\Components\Select::make('')
-                //     ->relationship('ip', 'ip_address')
-                //     ->searchable()
-                //     ->preload()
-                //     ->translateLabel(),
+                Grid::make([
+                    'default' => 2,
+                    'sm' => 2,
+                    'md' => 2,
+                    'lg' => 2,
+                    'xl' => 2,
+                    '2xl' => 2])
+                    ->schema([
+                        // Campo Procesador
+                        Forms\Components\TextInput::make('processor')
+                            ->maxLength(30)
+                            ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'processor'))
+                            ->prefixIcon('heroicon-m-cpu-chip')
+                            ->required()
+                            ->columnSpan(2)
+                            ->translateLabel(),
+                        // Campo Dirección IP
+                        Forms\Components\Select::make('ip_id')
+                            ->relationship('ip', 'ip_address')
+                            ->unique(ignorable: fn ($record) => $record)
+                            ->searchable()
+                            ->preload()
+                            ->translateLabel(),
+                        // Campo Any Desk
+                        Forms\Components\TextInput::make('anydesk')
+                            ->required()
+                            ->maxLength(13)
+                            ->unique(ignorable: fn ($record) => $record)
+                            ->translateLabel(),
+                        // Campo Numero de Activo
+                        Forms\Components\TextInput::make('asset_number')
+                            ->required()
+                            ->maxLength(20)
+                            ->unique(ignorable: fn ($record) => $record)
+                            ->prefixIcon('heroicon-m-hashtag')
+                            ->translateLabel(),
+                        // Campo Numero de Serie
+                        Forms\Components\TextInput::make('serial_number')
+                            ->required()
+                            ->maxLength(50)
+                            ->unique(ignorable: fn ($record) => $record)
+                            ->prefixIcon('heroicon-m-hashtag')
+                            ->translateLabel(),
+                        // Campo Selección Usuarios
+                        Forms\Components\Select::make('partner_id')
+                            ->relationship('partners', 'name')
+                            ->preload()
+                            ->multiple()
+                            ->prefixIcon('heroicon-m-user')
+                            ->columnSpan(2)
+                            ->translateLabel(),
+                    ]),
 
-                Forms\Components\Select::make('ip_address')
-                    ->options(Ip::all()->pluck('ip_address', 'id'))
-                    ->searchable()
-                    ->preload()
-                    ->default(100)
-                    ->selectablePlaceholder(false)
-                    ->translateLabel(),
-                // Campo Any Desk
-                Forms\Components\TextInput::make('anydesk')
-                    ->required()
-                    ->maxLength(13)
-                    ->unique(ignorable: fn ($record) => $record)
-                    ->translateLabel(),
                 // Campo Version Office
                 Forms\Components\Select::make('office_version')
                     ->options(['Office_365' => 'Office 365', 'Office_2016' => 'Office 2016', 'Office_2013' => 'Office 2013'])
@@ -179,16 +191,11 @@ class ComputerResource extends Resource
                     ->required(fn ($get) => $get('condition') == 'new' ? true : false)
                     ->maxDate(now())
                     ->translateLabel(),
-                // Campo Selección Usuarios
-                Forms\Components\Select::make('partner_id')
-                    ->relationship('partners', 'name')
-                    ->preload()
-                    ->multiple()
-                    ->prefixIcon('heroicon-m-user')
-                    ->translateLabel(),
+
                 // Campo Descripción
                 Forms\Components\Textarea::make('description')
                     ->maxLength(150)
+                    ->default(fn ($get) => print_r(Device::select('ip')->where('id', '=', $get('id')->get())))
                     ->translateLabel(),
                 // Campo que envía el tipo de equipo igual a computer
                 Forms\Components\Hidden::make('device_type')

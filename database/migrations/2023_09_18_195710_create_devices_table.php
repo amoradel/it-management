@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('processor')->nullable();
             $table->string('asset_number')->nullable();
             $table->string('serial_number');
+            $table->foreignId('ip_id')->nullable();
             $table->string('anydesk')->nullable();
             $table->string('office_version')->nullable();
             $table->string('windows_version')->nullable();
@@ -38,6 +39,7 @@ return new class extends Migration
             $table->foreign('brand_id')->references('id')->on('brands')->restrictOnDelete();
             $table->foreign('model_id')->references('id')->on('device_models')->restrictOnDelete();
             $table->foreign('type_id')->references('id')->on('types')->restrictOnDelete();
+            $table->foreign('ip_id')->references('id')->on('ips')->restrictOnDelete();
 
             $table->timestamps();
             $table->softDeletes();

@@ -40,18 +40,18 @@ class IpResource extends Resource
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Equipo
-                Forms\Components\Select::make('device_id')
-                    ->relationship('device', 'name')
-                    ->searchable()
-                    ->preload()
-                    ->translateLabel()
-                    ->reactive()
-                    ->options(function (Device $device) {
-                        return $device->whereDoesntHave('ip')->pluck('name', 'id');
-                    })
-                    ->afterStateUpdated(function (callable $set, callable $get, $state) {
-                        $set('availability', getAvailability($state, $get('description')));
-                    }),
+                // Forms\Components\Select::make('device_id')
+                //     ->relationship('device', 'name')
+                //     ->searchable()
+                //     ->preload()
+                //     ->translateLabel()
+                //     ->reactive()
+                //     ->options(function (Device $device) {
+                //         return $device->whereDoesntHave('ip')->pluck('name', 'id');
+                //     })
+                //     ->afterStateUpdated(function (callable $set, callable $get, $state) {
+                //         $set('availability', getAvailability($state, $get('description')));
+                //     }),
                 // Campo Descripción
                 Forms\Components\Textarea::make('description')
                     ->translateLabel()
