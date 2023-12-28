@@ -125,12 +125,21 @@ class ComputerResource extends Resource
                     ->unique(ignorable: fn ($record) => $record)
                     ->searchable()
                     ->preload()
+                    ->prefixIcon('heroicon-m-wifi')
                     ->translateLabel(),
                 // Campo Any Desk
                 Forms\Components\TextInput::make('anydesk')
                     ->required()
                     ->maxLength(13)
                     ->unique(ignorable: fn ($record) => $record)
+                    ->prefix('')
+                    ->suffixAction(
+                        Forms\Components\Actions\Action::make('Open Anydesk')
+                            ->icon('si-anydesk')
+                            ->color('danger')
+                            ->translateLabel()
+                            ->url(fn ($state) => 'anydesk:' . str_replace(' ', '', $state))
+                    )
                     ->translateLabel(),
                 // Campo Numero de Activo
                 Forms\Components\TextInput::make('asset_number')
