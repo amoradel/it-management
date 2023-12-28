@@ -33,6 +33,11 @@ class ListComputers extends ListRecords
                         ->translateLabel()
                         ->rules('required|max:50')
                         ->required(),
+                    ImportField::make('type.name')
+                        ->label('Brand name')
+                        ->translateLabel()
+                        ->rules('exists:App\Models\Type,name', ['The type name is not registered.'])
+                        ->required(),
                     ImportField::make('brand.name')
                         ->label('Brand name')
                         ->translateLabel()
@@ -42,11 +47,6 @@ class ListComputers extends ListRecords
                         ->label('Brand name')
                         ->translateLabel()
                         ->rules('exists:App\Models\DeviceModel,name', ['The device model name is not registered.'])
-                        ->required(),
-                    ImportField::make('type.name')
-                        ->label('Brand name')
-                        ->translateLabel()
-                        ->rules('exists:App\Models\Type,name', ['The type name is not registered.'])
                         ->required(),
                     ImportField::make('storage')
                         ->translateLabel()

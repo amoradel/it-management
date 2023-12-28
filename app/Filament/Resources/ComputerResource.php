@@ -217,103 +217,104 @@ class ComputerResource extends Resource
                 Tables\Columns\TextColumn::make('location')
                     ->searchable()
                     ->sortable()
+                    ->toggleable()
                     ->translateLabel(),
                 // Columna Usuarios
                 Tables\Columns\TextColumn::make('partners.name')
                     ->searchable()
                     ->sortable()
                     ->wrap()
-                    ->translateLabel(),
-                // Columna Numero de Serie
-                Tables\Columns\TextColumn::make('serial_number')
-                    ->searchable()
-                    ->sortable()
+                    ->toggleable()
                     ->translateLabel(),
                 // Columna Any Desk
                 Tables\Columns\TextColumn::make('anydesk')
                     ->searchable()
                     ->sortable()
-                    ->translateLabel(),
-                // Columna Numero de activo
-                Tables\Columns\TextColumn::make('asset_number')
-                    ->searchable()
-                    ->sortable()
+                    ->url(fn ($state) => 'anydesk:' . str_replace(' ', '', $state))
                     ->translateLabel(),
                 // Columna Ip
                 Tables\Columns\TextColumn::make('ip.ip_address')
                     ->searchable()
                     ->sortable()
+                    ->toggleable()
+                    ->translateLabel(),
+                // Columna Numero de Serie
+                Tables\Columns\TextColumn::make('serial_number')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
+                // Columna Numero de activo
+                Tables\Columns\TextColumn::make('asset_number')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->translateLabel(),
                 // Columna Marca
                 Tables\Columns\TextColumn::make('brand.name')
                     ->searchable()
                     ->sortable()
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 // Columna Modelo
                 Tables\Columns\TextColumn::make('model.name')
                     ->searchable()
                     ->sortable()
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 // Columna Tipo
                 Tables\Columns\TextColumn::make('type.name')
                     ->searchable()
                     ->sortable()
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 // Columna Descripción
                 Tables\Columns\TextColumn::make('description')
                     ->wrap()
                     ->searchable()
                     ->sortable()
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 // Columna Almacenamiento
                 Tables\Columns\TextColumn::make('storage')
                     ->searchable()
                     ->sortable()
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 // Columna Memoria RAM
                 Tables\Columns\TextColumn::make('ram_memory')
                     ->searchable()
                     ->sortable()
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 // Columna Procesador
                 Tables\Columns\TextColumn::make('processor')
                     ->searchable()
                     ->sortable()
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 // Columna Version de Office
                 Tables\Columns\TextColumn::make('office_version')
                     ->searchable()
                     ->sortable()
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 // Columna Version de Windows
                 Tables\Columns\TextColumn::make('windows_version')
                     ->searchable()
                     ->sortable()
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 // Columna Condición
                 Tables\Columns\TextColumn::make('condition')
                     ->searchable()
                     ->sortable()
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 // Columna Fecha de Entrada
                 Tables\Columns\TextColumn::make('entry_date')
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                // Columna Estado
-                Tables\Columns\ToggleColumn::make('status')
-                    ->translateLabel()
-                    ->onColor('success')
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
             ])
             ->filters([
                 Tables\Filters\BaseFilter::make('device_type')

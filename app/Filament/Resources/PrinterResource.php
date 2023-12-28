@@ -79,6 +79,17 @@ class PrinterResource extends Resource
                     ->prefixIcon('heroicon-m-swatch')
                     ->required()
                     ->translateLabel(),
+                // Campo Dirección IP
+                Forms\Components\Select::make('ip_id')
+                    ->relationship('ip', 'ip_address')
+                    ->unique(ignorable: fn ($record) => $record)
+                    ->searchable()
+                    ->preload()
+                    ->prefixIcon('heroicon-m-wifi')
+                    ->columnSpan([
+                        'xl' => '2',
+                    ])
+                    ->translateLabel(),
                 // Campo Numero de Activo
                 Forms\Components\TextInput::make('asset_number')
                     ->required()
@@ -97,13 +108,12 @@ class PrinterResource extends Resource
                     ->relationship('partners', 'name')
                     ->searchable()
                     ->preload()
-                    // ->multiple()
+                    ->multiple()
                     ->prefixIcon('heroicon-m-user')
                     ->columnSpan([
                         'xl' => '2',
                     ])
                     ->translateLabel(),
-
                 // Campo Condición
                 Forms\Components\Select::make('condition')
                     ->options((['used' => 'En uso', 'new' => 'Nuevo']))
