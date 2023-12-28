@@ -51,8 +51,8 @@ class ComputerResource extends Resource
 
                 Grid::make([
                     'default' => 2,
-                    'sm' => 2,
-                    'md' => 2,
+                    'sm' => 1,
+                    'md' => 1,
                     'lg' => 4,
                     'xl' => 4,
                     '2xl' => 4])
@@ -120,7 +120,8 @@ class ComputerResource extends Resource
                     'md' => 2,
                     'lg' => 2,
                     'xl' => 2,
-                    '2xl' => 2])
+                    '2xl' => 2,
+                ])
                     ->schema([
                         // Campo Procesador
                         Forms\Components\TextInput::make('processor')

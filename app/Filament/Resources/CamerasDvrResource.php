@@ -21,9 +21,9 @@ class CamerasDvrResource extends Resource
 
     protected static ?string $navigationGroup = 'Dispositivos';
 
-    protected static ?string $modelLabel = 'Cámara o DVR';
+    protected static ?string $modelLabel = 'Cámara / DVR';
 
-    protected static ?string $pluralModelLabel = "Cámaras y DVR'S";
+    protected static ?string $pluralModelLabel = "Cámaras / DVR'S";
 
     protected static ?string $navigationIcon = 'heroicon-o-video-camera';
 

@@ -40,6 +40,13 @@ class IpResource extends Resource
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Equipo
+                Forms\Components\Fieldset::make('devices')
+                    ->relationship('device')
+                    ->hidden(),
+                Forms\Components\TextInput::make('device.name')
+                    ->label('Dispositivo')
+                    ->readOnly()
+                    ->translateLabel(),
                 // Forms\Components\Select::make('device_id')
                 //     ->relationship('device', 'name')
                 //     ->searchable()
