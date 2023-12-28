@@ -27,7 +27,6 @@ class Device extends Model
                 'model->name',
                 'type->id',
                 'type->name',
-                'department_id',
                 'description',
                 'storage',
                 'ram_memory',

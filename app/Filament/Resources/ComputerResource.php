@@ -5,10 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ComputerResource\Pages;
 use App\Models\Device;
 use App\Models\DeviceModel;
-use App\Models\Ip;
 use App\Models\Type;
 use Filament\Forms;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Resource;
@@ -41,133 +39,124 @@ class ComputerResource extends Resource
                     ->required()
                     ->maxLength(15)
                     ->unique(ignorable: fn ($record) => $record)
+                    ->columnSpan([
+                        'xl' => '2',
+                    ])
                     ->translateLabel(),
                 // Campo Ubicación
                 Forms\Components\TextInput::make('location')
                     ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'location'))
                     ->required()
                     ->maxLength(50)
+                    ->columnSpan([
+                        'xl' => '2',
+                    ])
                     ->translateLabel(),
-
-                Grid::make([
-                    'default' => 2,
-                    'sm' => 1,
-                    'md' => 1,
-                    'lg' => 4,
-                    'xl' => 4,
-                    '2xl' => 4])
-                    ->schema([
-                        // Campo Tipo
-                        Forms\Components\Select::make('type_id')
-                            ->label('Type')
-                            ->options(fn (): Collection => Type::query()->where('device_type', 'computer')->pluck('name', 'id'))
-                            ->searchable()
-                            ->required()
-                            ->preload()
-                            ->columnSpan(2)
-                            ->prefixIcon('heroicon-m-rectangle-stack')
-                            ->translateLabel(),
-                        // Campo Marca
-                        Forms\Components\Select::make('brand_id')
-                            ->relationship('brand', 'name')
-                            ->searchable()
-                            ->preload()
-                            ->required()
-                            ->reactive()
-                            ->prefixIcon('heroicon-m-tag')
-                            ->translateLabel(),
-                        // Campo Modelo
-                        Forms\Components\Select::make('model_id')
-                            ->label('Model')
-                            ->options(fn (Get $get): Collection => DeviceModel::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
-                            ->searchable()
-                            ->prefixIcon('heroicon-m-swatch')
-                            ->required()
-                            ->translateLabel(),
-                        // Campo Almacenamiento
-                        Forms\Components\TextInput::make('storage')
-                            ->required()
-                            ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'storage'))
-                            ->maxLength(10)
-                            ->prefixIcon('heroicon-m-circle-stack')
-                            // ->suffix('GB')
-                            ->translateLabel(),
-                        // Campo Tipo de Almacenamiento
-                        Forms\Components\TextInput::make('storage_type')
-                            ->required()
-                            ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'storage_type'))
-                            ->maxLength(20)
-                            ->translateLabel(),
-                        // Campo RAM
-                        Forms\Components\TextInput::make('ram_memory')
-                            ->required()
-                            ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'ram_memory'))
-                            ->maxLength(10)
-                            ->prefixIcon('heroicon-m-queue-list')
-                            // ->suffix('GB')
-                            ->translateLabel(),
-                        // Campo Tipo de RAM
-                        Forms\Components\TextInput::make('ram_memory_type')
-                            ->required()
-                            ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'ram_memory_type'))
-                            ->maxLength(20)
-                            ->translateLabel(),
-                    ]),
-
-                Grid::make([
-                    'default' => 2,
-                    'sm' => 2,
-                    'md' => 2,
-                    'lg' => 2,
-                    'xl' => 2,
-                    '2xl' => 2,
-                ])
-                    ->schema([
-                        // Campo Procesador
-                        Forms\Components\TextInput::make('processor')
-                            ->maxLength(30)
-                            ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'processor'))
-                            ->prefixIcon('heroicon-m-cpu-chip')
-                            ->required()
-                            ->columnSpan(2)
-                            ->translateLabel(),
-                        // Campo Dirección IP
-                        Forms\Components\Select::make('ip_id')
-                            ->relationship('ip', 'ip_address')
-                            ->unique(ignorable: fn ($record) => $record)
-                            ->searchable()
-                            ->preload()
-                            ->translateLabel(),
-                        // Campo Any Desk
-                        Forms\Components\TextInput::make('anydesk')
-                            ->required()
-                            ->maxLength(13)
-                            ->unique(ignorable: fn ($record) => $record)
-                            ->translateLabel(),
-                        // Campo Numero de Activo
-                        Forms\Components\TextInput::make('asset_number')
-                            ->required()
-                            ->maxLength(20)
-                            ->unique(ignorable: fn ($record) => $record)
-                            ->prefixIcon('heroicon-m-hashtag')
-                            ->translateLabel(),
-                        // Campo Numero de Serie
-                        Forms\Components\TextInput::make('serial_number')
-                            ->required()
-                            ->maxLength(50)
-                            ->unique(ignorable: fn ($record) => $record)
-                            ->prefixIcon('heroicon-m-hashtag')
-                            ->translateLabel(),
-                        // Campo Selección Usuarios
-                        Forms\Components\Select::make('partner_id')
-                            ->relationship('partners', 'name')
-                            ->preload()
-                            ->multiple()
-                            ->prefixIcon('heroicon-m-user')
-                            ->columnSpan(2)
-                            ->translateLabel(),
-                    ]),
-
+                // Campo Tipo
+                Forms\Components\Select::make('type_id')
+                    ->label('Type')
+                    ->options(fn (): Collection => Type::query()->where('device_type', 'computer')->pluck('name', 'id'))
+                    ->searchable()
+                    ->required()
+                    ->preload()
+                    ->prefixIcon('heroicon-m-rectangle-stack')
+                    ->columnSpan([
+                        'xl' => '2',
+                    ])
+                    ->translateLabel(),
+                // Campo Marca
+                Forms\Components\Select::make('brand_id')
+                    ->relationship('brand', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->required()
+                    ->reactive()
+                    ->prefixIcon('heroicon-m-tag')
+                    ->translateLabel(),
+                // Campo Modelo
+                Forms\Components\Select::make('model_id')
+                    ->label('Model')
+                    ->options(fn (Get $get): Collection => DeviceModel::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
+                    ->searchable()
+                    ->prefixIcon('heroicon-m-swatch')
+                    ->required()
+                    ->translateLabel(),
+                // Campo Almacenamiento
+                Forms\Components\TextInput::make('storage')
+                    ->required()
+                    ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'storage'))
+                    ->maxLength(10)
+                    ->prefixIcon('heroicon-m-circle-stack')
+                    // ->suffix('GB')
+                    ->translateLabel(),
+                // Campo Tipo de Almacenamiento
+                Forms\Components\TextInput::make('storage_type')
+                    ->required()
+                    ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'storage_type'))
+                    ->maxLength(20)
+                    ->translateLabel(),
+                // Campo RAM
+                Forms\Components\TextInput::make('ram_memory')
+                    ->required()
+                    ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'ram_memory'))
+                    ->maxLength(10)
+                    ->prefixIcon('heroicon-m-queue-list')
+                    // ->suffix('GB')
+                    ->translateLabel(),
+                // Campo Tipo de RAM
+                Forms\Components\TextInput::make('ram_memory_type')
+                    ->required()
+                    ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'ram_memory_type'))
+                    ->maxLength(20)
+                    ->translateLabel(),
+                // Campo Procesador
+                Forms\Components\TextInput::make('processor')
+                    ->maxLength(30)
+                    ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'processor'))
+                    ->prefixIcon('heroicon-m-cpu-chip')
+                    ->required()
+                    ->columnSpan([
+                        'xl' => '2',
+                    ])
+                    ->translateLabel(),
+                // Campo Dirección IP
+                Forms\Components\Select::make('ip_id')
+                    ->relationship('ip', 'ip_address')
+                    ->unique(ignorable: fn ($record) => $record)
+                    ->searchable()
+                    ->preload()
+                    ->translateLabel(),
+                // Campo Any Desk
+                Forms\Components\TextInput::make('anydesk')
+                    ->required()
+                    ->maxLength(13)
+                    ->unique(ignorable: fn ($record) => $record)
+                    ->translateLabel(),
+                // Campo Numero de Activo
+                Forms\Components\TextInput::make('asset_number')
+                    ->required()
+                    ->maxLength(20)
+                    ->unique(ignorable: fn ($record) => $record)
+                    ->prefixIcon('heroicon-m-hashtag')
+                    ->translateLabel(),
+                // Campo Numero de Serie
+                Forms\Components\TextInput::make('serial_number')
+                    ->required()
+                    ->maxLength(50)
+                    ->unique(ignorable: fn ($record) => $record)
+                    ->prefixIcon('heroicon-m-hashtag')
+                    ->translateLabel(),
+                // Campo Selección Usuarios
+                Forms\Components\Select::make('partner_id')
+                    ->relationship('partners', 'name')
+                    ->preload()
+                    ->searchable()
+                    ->multiple()
+                    ->prefixIcon('heroicon-m-user')
+                    ->columnSpan([
+                        'xl' => '2',
+                    ])
+                    ->translateLabel(),
                 // Campo Version Office
                 Forms\Components\Select::make('office_version')
                     ->options(['Office_365' => 'Office 365', 'Office_2016' => 'Office 2016', 'Office_2013' => 'Office 2013'])
@@ -192,16 +181,18 @@ class ComputerResource extends Resource
                     ->required(fn ($get) => $get('condition') == 'new' ? true : false)
                     ->maxDate(now())
                     ->translateLabel(),
-
                 // Campo Descripción
                 Forms\Components\Textarea::make('description')
                     ->maxLength(150)
-                    ->default(fn ($get) => print_r(Device::select('ip')->where('id', '=', $get('id')->get())))
+                    ->columnSpan([
+                        'sm' => 2, 'xl' => 4,
+                    ])
                     ->translateLabel(),
                 // Campo que envía el tipo de equipo igual a computer
                 Forms\Components\Hidden::make('device_type')
                     ->default('computer'),
-            ]);
+
+            ])->columns(['sm' => 2, 'xl' => 4]);
     }
 
     public static function table(Table $table): Table

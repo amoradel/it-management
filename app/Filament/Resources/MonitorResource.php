@@ -105,7 +105,7 @@ class MonitorResource extends Resource
                 // Columna que envia el tipo de equipo igual a computer
                 Forms\Components\Hidden::make('device_type')
                     ->default('monitor'),
-            ]);
+            ])->columns(['sm' => 2, 'xl' => 4]);
     }
 
     public static function table(Table $table): Table

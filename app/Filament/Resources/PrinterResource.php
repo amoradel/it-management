@@ -35,37 +35,20 @@ class PrinterResource extends Resource
             ->schema([
                 // Campo Nombre
                 Forms\Components\TextInput::make('name')
-                    ->required()
                     ->maxLength(30)
                     ->unique(ignorable: fn ($record) => $record)
+                    ->columnSpan([
+                        'xl' => '2',
+                    ])
                     ->translateLabel(),
-                // Campo Marca
-                Forms\Components\Select::make('brand_id')
-                    ->relationship('brand', 'name')
-                    ->searchable()
-                    ->preload()
-                    ->required()
-                    ->translateLabel()
-                    ->afterStateUpdated(function (callable $set) {
-                        $set('model_id', null);
-                    }),
-                // Campo Ubicacion
+                // Campo Ubicación
                 Forms\Components\TextInput::make('location')
+                    ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'location'))
                     ->required()
                     ->maxLength(50)
-                    ->translateLabel(),
-                // Campo Modelo
-                Forms\Components\Select::make('model_id')
-                    ->label('Model')
-                    ->options(fn (Get $get): Collection => DeviceModel::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
-                    ->searchable()
-                    ->preload()
-                    ->live()
-                    ->required()
-                    ->translateLabel(),
-                // Campo Descripcion
-                Forms\Components\Textarea::make('description')
-                    ->maxLength(150)
+                    ->columnSpan([
+                        'xl' => '2',
+                    ])
                     ->translateLabel(),
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
@@ -74,45 +57,80 @@ class PrinterResource extends Resource
                     ->searchable()
                     ->required()
                     ->preload()
+                    ->prefixIcon('heroicon-m-rectangle-stack')
+                    ->columnSpan([
+                        'xl' => '2',
+                    ])
+                    ->translateLabel(),
+                // Campo Marca
+                Forms\Components\Select::make('brand_id')
+                    ->relationship('brand', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->required()
+                    ->reactive()
+                    ->prefixIcon('heroicon-m-tag')
+                    ->translateLabel(),
+                // Campo Modelo
+                Forms\Components\Select::make('model_id')
+                    ->label('Model')
+                    ->options(fn (Get $get): Collection => DeviceModel::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
+                    ->searchable()
+                    ->prefixIcon('heroicon-m-swatch')
+                    ->required()
                     ->translateLabel(),
                 // Campo Numero de Activo
                 Forms\Components\TextInput::make('asset_number')
                     ->required()
                     ->maxLength(20)
                     ->unique(ignorable: fn ($record) => $record)
+                    ->prefixIcon('heroicon-m-hashtag')
                     ->translateLabel(),
                 // Campo Numero de Serie
                 Forms\Components\TextInput::make('serial_number')
                     ->required()
                     ->maxLength(50)
                     ->unique(ignorable: fn ($record) => $record)
+                    ->prefixIcon('heroicon-m-hashtag')
                     ->translateLabel(),
-                // Campo Condicion
-                Forms\Components\Select::make('condition')
-                    ->options((['Viejo' => 'Viejo', 'Nuevo' => 'Nuevo']))
-                    ->searchable()
-                    ->required()
-                    ->translateLabel(),
-                Forms\Components\DatePicker::make('entry_date')
-                    ->required()
-                    ->maxDate(now())
-                    ->translateLabel(),
-                // Campo Seleccion Usuarios
                 Forms\Components\Select::make('partner_id')
                     ->relationship('partners', 'name')
+                    ->searchable()
                     ->preload()
-                    ->multiple()
+                    // ->multiple()
+                    ->prefixIcon('heroicon-m-user')
+                    ->columnSpan([
+                        'xl' => '2',
+                    ])
                     ->translateLabel(),
-                // Campo Estado
-                Forms\Components\Toggle::make('status')
-                    ->onColor('success')
-                    ->translateLabel()
-                    ->default(true),
-                // Columna que envia el tipo de equipo igual a printer
+
+                // Campo Condición
+                Forms\Components\Select::make('condition')
+                    ->options((['used' => 'En uso', 'new' => 'Nuevo']))
+                    ->searchable()
+                    ->required()
+                    ->reactive()
+                    ->translateLabel(),
+                // Campo Fecha de Ingreso
+                Forms\Components\DatePicker::make('entry_date')
+                    ->required(fn ($get) => $get('condition') == 'new' ? true : false)
+                    ->maxDate(now())
+                    ->translateLabel(),
+                // Campo Selección Usuarios
+
+                // Campo Descripción
+                Forms\Components\Textarea::make('description')
+                    ->maxLength(150)
+                    ->columnSpan([
+                        'xl' => '2',
+                    ])
+                    ->translateLabel(),
+                // Columna que envía el tipo de equipo igual a printer
                 Forms\Components\Hidden::make('device_type')
                     ->default('printer'),
 
-            ]);
+            ])->columns(['sm' => 2, 'xl' => 4]);
+
     }
 
     public static function table(Table $table): Table
@@ -181,13 +199,6 @@ class PrinterResource extends Resource
                     ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
-                // Columna Estado
-                Tables\Columns\ToggleColumn::make('status')
-                    ->sortable()
-                    ->translateLabel()
-                    ->onColor('success')
-                    ->offColor('warning'),
-
             ])
             ->filters([
                 Tables\Filters\BaseFilter::make('device_type')

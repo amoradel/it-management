@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('devices', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
+            $table->string('name', 50)->nullable();
             $table->string('location');
             $table->foreignId('brand_id')->nullable();
             $table->foreignId('model_id')->nullable();
