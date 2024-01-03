@@ -157,6 +157,11 @@ class PrinterResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),
+                // Columna Ip
+                Tables\Columns\TextColumn::make('ip.ip_address')
+                    ->searchable()
+                    ->sortable()
+                    ->translateLabel(),
                 // Columna Marca
                 Tables\Columns\TextColumn::make('brand.name')
                     ->searchable()
@@ -186,16 +191,13 @@ class PrinterResource extends Resource
                 Tables\Columns\TextColumn::make('asset_number')
                     ->searchable()
                     ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->translateLabel(),
                 // Columna Numero de Serie
                 Tables\Columns\TextColumn::make('serial_number')
                     ->searchable()
                     ->sortable()
-                    ->translateLabel(),
-                // Columna Ip
-                Tables\Columns\TextColumn::make('ip.ip_address')
-                    ->searchable()
-                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->translateLabel(),
                 // Columna Condicion
                 Tables\Columns\TextColumn::make('condition')
