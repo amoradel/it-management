@@ -44,8 +44,10 @@ class MonitorResource extends Resource
                     ->translateLabel(),
                 // Campo Ubicación
                 Forms\Components\TextInput::make('location')
+                    ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'location'))
                     ->required()
                     ->maxLength(50)
+                    ->prefixIcon('heroicon-m-map-pin')
                     ->translateLabel(),
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
@@ -54,6 +56,7 @@ class MonitorResource extends Resource
                     ->searchable()
                     ->required()
                     ->preload()
+                    ->prefixIcon('heroicon-m-rectangle-stack')
                     ->translateLabel(),
                 // Campo Marca
                 Forms\Components\Select::make('brand_id')
@@ -86,25 +89,24 @@ class MonitorResource extends Resource
                     ->unique(ignorable: fn ($record) => $record)
                     ->prefixIcon('heroicon-m-hashtag')
                     ->translateLabel(),
-                // Campo Observación
-                Forms\Components\TextInput::make('description')
-                    ->maxLength(150)
-                    ->translateLabel(),
                 // Campo Condición
                 Forms\Components\Select::make('condition')
-                    ->options((['Viejo' => 'Viejo', 'Nuevo' => 'Nuevo']))
-                    ->required()
+                    ->options((['used' => 'En uso', 'new' => 'Nuevo']))
                     ->searchable()
+                    ->required()
+                    ->reactive()
                     ->translateLabel(),
                 // Campo Fecha de Ingreso
                 Forms\Components\DatePicker::make('entry_date')
-                    ->required()
+                    ->required(fn ($get) => $get('condition') == 'new' ? true : false)
                     ->maxDate(now())
                     ->translateLabel(),
-                // Campo Estado
-                Forms\Components\Toggle::make('status')
-                    ->onColor('success')
-                    ->default('true')
+                // Campo Descripción
+                Forms\Components\Textarea::make('description')
+                    ->maxLength(150)
+                    ->columnSpan([
+                        'xl' => '2',
+                    ])
                     ->translateLabel(),
                 // Columna que envía el tipo de equipo igual a computer
                 Forms\Components\Hidden::make('device_type')

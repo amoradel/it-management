@@ -46,6 +46,7 @@ class PrinterResource extends Resource
                     ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'location'))
                     ->required()
                     ->maxLength(50)
+                    ->prefixIcon('heroicon-m-map-pin')
                     ->columnSpan([
                         'xl' => '2',
                     ])
