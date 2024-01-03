@@ -35,48 +35,26 @@ class CamerasDvrResource extends Resource
             ->schema([
                 // Campo Nombre
                 Forms\Components\TextInput::make('name')
-                    ->required()
                     ->maxLength(50)
                     ->unique(ignorable: fn ($record) => $record)
+                    ->columnSpan([
+                        'xl' => '2',
+                    ])
                     ->translateLabel(),
-                // Campo Marca
-                Forms\Components\Select::make('brand_id')
-                    ->relationship('brand', 'name')
-                    ->searchable()
-                    ->preload()
-                    ->required()
-                    ->translateLabel()
-                    ->afterStateUpdated(function (callable $set) {
-                        $set('model_id', null);
-                    }),
-                // Campo Ubicacion
+                // Campo Ubicación
                 Forms\Components\TextInput::make('location')
+                    ->datalist(fn () => getGroupedColumnValues(table: 'devices', column: 'location'))
                     ->required()
                     ->maxLength(50)
-                    ->translateLabel(),
-                // Campo Modelo
-                Forms\Components\Select::make('model_id')
-                    ->label('Model')
-                    ->options(fn (Get $get): Collection => DeviceModel::query()
-                        ->where('brand_id', $get('brand_id'))
-                        ->pluck('name', 'id'))
-                    ->searchable()
-                    ->preload()
-                    ->live()
-                    ->required()
-                    ->translateLabel(),
-                // Campo Programa
-                Forms\Components\Select::make('dvr_program')
-                    ->options(['IVMS-4200' => 'IVMS-4200', 'CMS3.0' => 'CMS3.0', 'VI MonitorPlus' => 'VI MonitorPlus'])
-                    ->searchable()
-                    ->preload()
+                    ->prefixIcon('heroicon-m-map-pin')
                     ->translateLabel(),
                 // Campo Tipo de Equipo
                 Forms\Components\Select::make('device_type')
-                    ->label('Camara/Dvr')
-                    ->options(['camera' => 'Camara', 'dvr' => 'Dvr'])
+                    ->label('Cámara / DVR')
+                    ->options(['camera' => 'Cámara', 'dvr' => 'DVR'])
                     ->required()
                     ->searchable()
+                    ->afterStateUpdated(fn (callable $set) => $set('type_id', ''))
                     ->live(),
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
@@ -84,40 +62,68 @@ class CamerasDvrResource extends Resource
                     ->options(fn (Get $get): Collection => Type::query()->where('device_type', $get('device_type'))->pluck('name', 'id'))
                     ->searchable()
                     ->required()
+                    ->reactive()
                     ->preload()
+                    ->prefixIcon('heroicon-m-rectangle-stack')
+                    ->translateLabel(),
+                // Campo Programa
+                Forms\Components\Select::make('dvr_program')
+                    ->options(['IVMS-4200' => 'IVMS-4200', 'CMS3.0' => 'CMS3.0', 'VI MonitorPlus' => 'VI MonitorPlus'])
+                    ->searchable()
+                    ->preload()
+                    ->translateLabel(),
+                // Campo Marca
+                Forms\Components\Select::make('brand_id')
+                    ->relationship('brand', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->required()
+                    ->reactive()
+                    ->prefixIcon('heroicon-m-tag')
+                    ->afterStateUpdated(fn (callable $set) => $set('model_id', ''))
+                    ->translateLabel(),
+                // Campo Modelo
+                Forms\Components\Select::make('model_id')
+                    ->label('Model')
+                    ->options(fn (Get $get): Collection => DeviceModel::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
+                    ->searchable()
+                    ->prefixIcon('heroicon-m-swatch')
+                    ->required()
                     ->translateLabel(),
                 // Campo Numero de Activo
                 Forms\Components\TextInput::make('asset_number')
-                    ->translateLabel()
-                    ->required()
+                    ->maxLength(20)
                     ->unique(ignorable: fn ($record) => $record)
-                    ->maxLength(15),
+                    ->prefixIcon('heroicon-m-hashtag')
+                    ->translateLabel(),
                 // Campo Numero de Serie
                 Forms\Components\TextInput::make('serial_number')
                     ->required()
+                    ->maxLength(50)
                     ->unique(ignorable: fn ($record) => $record)
+                    ->prefixIcon('heroicon-m-hashtag')
                     ->translateLabel(),
-                // Campo Condicion
+                // Campo Condición
                 Forms\Components\Select::make('condition')
-                    ->options((['Viejo' => 'Viejo', 'Nuevo' => 'Nuevo']))
+                    ->options((['used' => 'En uso', 'new' => 'Nuevo']))
                     ->searchable()
                     ->required()
+                    ->reactive()
                     ->translateLabel(),
                 // Campo Fecha de Ingreso
                 Forms\Components\DatePicker::make('entry_date')
-                    ->required()
+                    ->required(fn ($get) => $get('condition') == 'new' ? true : false)
                     ->maxDate(now())
                     ->translateLabel(),
-                // Campo Observacion
-                Forms\Components\TextInput::make('description')
-                    ->translateLabel(),
-                // Campo Estado
-                Forms\Components\Toggle::make('status')
-                    ->onColor('success')
-                    ->default('true')
+                // Campo Descripción
+                Forms\Components\Textarea::make('description')
+                    ->maxLength(150)
+                    ->columnSpan([
+                        'xl' => '2',
+                    ])
                     ->translateLabel(),
 
-            ]);
+            ])->columns(['sm' => 2, 'xl' => 4]);
     }
 
     public static function table(Table $table): Table
@@ -134,7 +140,7 @@ class CamerasDvrResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),
-                // Columna Ubicacion
+                // Columna Ubicación
                 Tables\Columns\TextColumn::make('location')
                     ->translateLabel(),
                 // Columna Marca
@@ -167,7 +173,7 @@ class CamerasDvrResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),
-                // Columna Condicion
+                // Columna Condición
                 Tables\Columns\TextColumn::make('condition')
                     ->searchable()
                     ->translateLabel()
@@ -177,7 +183,7 @@ class CamerasDvrResource extends Resource
                     ->searchable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
-                // Columna Observacion
+                // Columna Observación
                 Tables\Columns\TextColumn::make('description')
                     ->searchable()
                     ->translateLabel()
@@ -191,7 +197,7 @@ class CamerasDvrResource extends Resource
             ])
             ->filters([
                 Tables\Filters\BaseFilter::make('device_type')
-                    ->query(fn (Builder $query): Builder => $query->where('device_type', 'camera_dvr')),
+                    ->query(fn (Builder $query): Builder => $query->where('device_type', 'camera')->orWhere('device_type', 'dvr')),
 
                 Tables\Filters\TrashedFilter::make(),
 
