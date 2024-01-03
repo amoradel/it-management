@@ -38,35 +38,14 @@ class MonitorResource extends Resource
                     ->required()
                     ->maxLength(30)
                     ->unique(ignorable: fn ($record) => $record)
+                    ->columnSpan([
+                        'xl' => '2',
+                    ])
                     ->translateLabel(),
-                // Campo Marca
-                Forms\Components\Select::make('brand_id')
-                    ->relationship('brand', 'name')
-                    ->searchable()
-                    ->preload()
-                    ->required()
-                    ->translateLabel()
-                    ->afterStateUpdated(function (callable $set) {
-                        $set('model_id', null);
-                    }),
-                // Campo Ubicacion
+                // Campo Ubicación
                 Forms\Components\TextInput::make('location')
                     ->required()
                     ->maxLength(50)
-                    ->translateLabel(),
-                // Campo Modelo
-                Forms\Components\Select::make('model_id')
-                    ->label('Model')
-                    ->options(fn (Get $get): Collection => DeviceModel::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
-                    ->searchable()
-                    ->preload()
-                    ->live()
-                    ->required()
-                    ->translateLabel(),
-                // Campo Numero de Serie
-                Forms\Components\TextInput::make('serial_number')
-                    ->required()
-                    ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
@@ -76,17 +55,42 @@ class MonitorResource extends Resource
                     ->required()
                     ->preload()
                     ->translateLabel(),
+                // Campo Marca
+                Forms\Components\Select::make('brand_id')
+                    ->relationship('brand', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->required()
+                    ->reactive()
+                    ->prefixIcon('heroicon-m-tag')
+                    ->translateLabel(),
+                // Campo Modelo
+                Forms\Components\Select::make('model_id')
+                    ->label('Model')
+                    ->options(fn (Get $get): Collection => DeviceModel::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
+                    ->searchable()
+                    ->prefixIcon('heroicon-m-swatch')
+                    ->required()
+                    ->translateLabel(),
                 // Campo Numero de Activo
                 Forms\Components\TextInput::make('asset_number')
                     ->required()
                     ->maxLength(20)
                     ->unique(ignorable: fn ($record) => $record)
+                    ->prefixIcon('heroicon-m-hashtag')
                     ->translateLabel(),
-                // Campo Observacion
-                Forms\Components\TextInput::make('observation')
+                // Campo Numero de Serie
+                Forms\Components\TextInput::make('serial_number')
+                    ->required()
+                    ->maxLength(50)
+                    ->unique(ignorable: fn ($record) => $record)
+                    ->prefixIcon('heroicon-m-hashtag')
+                    ->translateLabel(),
+                // Campo Observación
+                Forms\Components\TextInput::make('description')
                     ->maxLength(150)
                     ->translateLabel(),
-                // Campo Condicion
+                // Campo Condición
                 Forms\Components\Select::make('condition')
                     ->options((['Viejo' => 'Viejo', 'Nuevo' => 'Nuevo']))
                     ->required()
@@ -102,7 +106,7 @@ class MonitorResource extends Resource
                     ->onColor('success')
                     ->default('true')
                     ->translateLabel(),
-                // Columna que envia el tipo de equipo igual a computer
+                // Columna que envía el tipo de equipo igual a computer
                 Forms\Components\Hidden::make('device_type')
                     ->default('monitor'),
             ])->columns(['sm' => 2, 'xl' => 4]);
@@ -122,7 +126,7 @@ class MonitorResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),
-                // Columna Ubicacion
+                // Columna Ubicación
                 Tables\Columns\TextColumn::make('location')
                     ->translateLabel(),
                 // Columna Marca
@@ -145,7 +149,7 @@ class MonitorResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),
-                // Columna Condicion
+                // Columna Condición
                 Tables\Columns\TextColumn::make('condition')
                     ->searchable()
                     ->translateLabel()
@@ -155,8 +159,8 @@ class MonitorResource extends Resource
                     ->searchable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
-                // Columna Observacion
-                Tables\Columns\TextColumn::make('observation')
+                // Columna Observación
+                Tables\Columns\TextColumn::make('description')
                     ->searchable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),

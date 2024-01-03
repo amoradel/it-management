@@ -104,6 +104,7 @@ class PrinterResource extends Resource
                     ->unique(ignorable: fn ($record) => $record)
                     ->prefixIcon('heroicon-m-hashtag')
                     ->translateLabel(),
+                // Campo Selección Usuarios
                 Forms\Components\Select::make('partner_id')
                     ->relationship('partners', 'name')
                     ->searchable()
@@ -126,8 +127,6 @@ class PrinterResource extends Resource
                     ->required(fn ($get) => $get('condition') == 'new' ? true : false)
                     ->maxDate(now())
                     ->translateLabel(),
-                // Campo Selección Usuarios
-
                 // Campo Descripción
                 Forms\Components\Textarea::make('description')
                     ->maxLength(150)
@@ -152,7 +151,7 @@ class PrinterResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->translateLabel(),
-                // Columna Ubicacion
+                // Columna Ubicación
                 Tables\Columns\TextColumn::make('location')
                     ->searchable()
                     ->sortable()
@@ -180,7 +179,7 @@ class PrinterResource extends Resource
                     ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
-                // Columna Descripcion
+                // Columna Descripción
                 Tables\Columns\TextColumn::make('description')
                     ->wrap()
                     ->searchable()
@@ -199,13 +198,13 @@ class PrinterResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->translateLabel(),
-                // Columna Condicion
+                // Columna Condición
                 Tables\Columns\TextColumn::make('condition')
                     ->searchable()
                     ->sortable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
-                // Columna Condicion
+                // Columna Fecha de Ingreso
                 Tables\Columns\TextColumn::make('entry_date')
                     ->searchable()
                     ->sortable()

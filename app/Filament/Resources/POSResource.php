@@ -77,7 +77,7 @@ class POSResource extends Resource
                     ->preload()
                     ->translateLabel(),
                 // Campo Observacion
-                Forms\Components\TextInput::make('observation')
+                Forms\Components\TextInput::make('description')
                     ->translateLabel(),
                 // Campo Condicion
                 Forms\Components\Select::make('condition')
@@ -151,7 +151,7 @@ class POSResource extends Resource
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
                 // Columna Observacion
-                Tables\Columns\TextColumn::make('observation')
+                Tables\Columns\TextColumn::make('description')
                     ->searchable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),

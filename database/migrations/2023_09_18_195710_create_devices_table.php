@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('model_id')->nullable();
             $table->foreignId('type_id')->nullable();
             $table->string('device_type');
-            $table->text('description')->nullable();
+            $table->string('description')->nullable();
             $table->string('storage')->nullable();
             $table->string('storage_type')->nullable();
             $table->string('ram_memory_type')->nullable();
@@ -32,7 +32,6 @@ return new class extends Migration
             $table->string('office_version')->nullable();
             $table->string('windows_version')->nullable();
             $table->string('dvr_program')->nullable();
-            $table->string('observation')->nullable();
             $table->string('condition');
             $table->date('entry_date')->nullable();
 

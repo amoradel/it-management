@@ -37,7 +37,6 @@ class Device extends Model
                 'office_version',
                 'windows_version',
                 'dvr_program',
-                'observation',
                 'condition',
                 'entry_date',
                 'status',

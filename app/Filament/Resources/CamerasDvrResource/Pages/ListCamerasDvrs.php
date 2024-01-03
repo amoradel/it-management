@@ -49,8 +49,6 @@ class ListCamerasDvrs extends ListRecords
                         ->required(),
                     ImportField::make('entry_date')
                         ->required(),
-                    ImportField::make('observation')
-                        ->required(),
                     ImportField::make('status')
                         ->required(),
                 ])->handleRecordCreation(function (array $data) {
@@ -82,10 +80,6 @@ class ListCamerasDvrs extends ListRecords
                             'entry_date' => Carbon::createFromFormat('Y-m-d', '1900-01-01')->addDays($data['entry_date'] - 2),
                             // 'status' => $data['status'],
                         ];
-
-                        if (isset($data['observation'])) {
-                            $documentData['observation'] = $data['observation'];
-                        }
 
                         if (isset($data['dvr_program'])) {
                             $documentData['dvr_program'] = $data['dvr_program'];

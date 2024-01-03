@@ -109,7 +109,7 @@ class CamerasDvrResource extends Resource
                     ->maxDate(now())
                     ->translateLabel(),
                 // Campo Observacion
-                Forms\Components\TextInput::make('observation')
+                Forms\Components\TextInput::make('description')
                     ->translateLabel(),
                 // Campo Estado
                 Forms\Components\Toggle::make('status')
@@ -178,7 +178,7 @@ class CamerasDvrResource extends Resource
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
                 // Columna Observacion
-                Tables\Columns\TextColumn::make('observation')
+                Tables\Columns\TextColumn::make('description')
                     ->searchable()
                     ->translateLabel()
                     ->toggleable(isToggledHiddenByDefault: true),
