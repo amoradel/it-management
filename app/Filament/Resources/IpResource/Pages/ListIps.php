@@ -54,6 +54,7 @@ class ListIps extends ListRecords
                         'ip_address' => trim($data['ip_address']),
                         'description' => trim($data['description']) ?? '',
                         'ip_type' => trim($data['ip_type']),
+                        'availability' => trim($data['description']) == '' ? 'Disponible' : 'Ocupado',
                         'assignment_type' => trim($data['assignment_type']) ?? '',
                         'segment' => trim($data['segment']),
                         'status' => trim($data['status']),

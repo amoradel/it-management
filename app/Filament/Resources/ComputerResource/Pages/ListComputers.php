@@ -97,11 +97,20 @@ class ListComputers extends ListRecords
                         ->translateLabel()
                         ->required(),
                 ])->handleRecordCreation(function (array $data) {
-                    $brand = BrandResource::getEloquentQuery()->where('name', $data['brand']['name'])->first();
+                    $brand = BrandResource::getEloquentQuery()
+                        ->where('name', $data['brand']['name'])
+                        ->whereNull('deleted_at')
+                        ->first();
 
-                    $model = DeviceModelResource::getEloquentQuery()->where('name', $data['model']['name'])->first();
+                    $model = DeviceModelResource::getEloquentQuery()
+                        ->where('name', $data['model']['name'])
+                        ->whereNull('deleted_at')
+                        ->first();
 
-                    $type = TypeResource::getEloquentQuery()->where('name', $data['type']['name'])->first();
+                    $type = TypeResource::getEloquentQuery()
+                        ->where('name', $data['type']['name'])
+                        ->whereNull('deleted_at')
+                        ->first();
 
                     // dd(isset($brand) && isset($model) && isset($type), isset($brand), isset($model), isset($type));
                     if (isset($brand) && isset($model) && isset($type)) {

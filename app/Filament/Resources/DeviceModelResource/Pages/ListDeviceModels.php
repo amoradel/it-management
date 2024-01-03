@@ -32,7 +32,11 @@ class ListDeviceModels extends ListRecords
                         ->rules('exists:App\Models\Brand,name', ['The brand name is not registered.'])
                         ->required(),
                 ])->handleRecordCreation(function (array $data) {
-                    $brand = BrandResource::getEloquentQuery()->where('name', $data['brand']['name'])->first();
+                    $brand = BrandResource::getEloquentQuery()
+                        ->where('name', $data['brand']['name'])
+                        ->whereNull('deleted_at')
+                        ->first();
+
                     if ($brand) {
                         return DeviceModel::create([
                             'name' => $data['name'],

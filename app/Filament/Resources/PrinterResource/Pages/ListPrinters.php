@@ -28,7 +28,7 @@ class ListPrinters extends ListRecords
                 ->fields([
                     ImportField::make('name')
                         ->translateLabel()
-                        ->rules('required|max:15')
+                        ->rules('required')
                         ->required(),
                     ImportField::make('location')
                         ->translateLabel()
@@ -71,13 +71,25 @@ class ListPrinters extends ListRecords
                         ->translateLabel()
                         ->required(),
                 ])->handleRecordCreation(function (array $data) {
-                    $brand = BrandResource::getEloquentQuery()->where('name', $data['brand']['name'])->first();
+                    $brand = BrandResource::getEloquentQuery()
+                        ->where('name', $data['brand']['name'])
+                        ->whereNull('deleted_at')
+                        ->first();
 
-                    $device_model = DeviceModelResource::getEloquentQuery()->where('name', $data['model']['name'])->first();
+                    $device_model = DeviceModelResource::getEloquentQuery()
+                        ->where('name', $data['model']['name'])
+                        ->whereNull('deleted_at')
+                        ->first();
 
-                    $type = TypeResource::getEloquentQuery()->where('name', $data['type']['name'])->first();
+                    $type = TypeResource::getEloquentQuery()
+                        ->where('name', $data['type']['name'])
+                        ->whereNull('deleted_at')
+                        ->first();
 
-                    $ip = IpResource::getEloquentQuery()->where('ip_address', $data['ip']['ip_address'])->first();
+                    $ip = IpResource::getEloquentQuery()
+                        ->where('ip_address', $data['ip']['ip_address'])
+                        ->whereNull('deleted_at')
+                        ->first();
 
                     // dd(isset($brand) && isset($model) && isset($type), isset($brand), isset($model), isset($type));
                     if (isset($brand) && isset($device_model) && isset($type) && isset($ip)) {
@@ -88,7 +100,7 @@ class ListPrinters extends ListRecords
                             'brand_id' => $brand->id,
                             'model_id' => $device_model->id,
                             'type_id' => $type->id,
-                            'ip_address' => $ip->id,
+                            'ip_id' => $ip->id,
                             'device_type' => 'printer',
                             'asset_number' => trim($data['asset_number']),
                             'serial_number' => trim($data['serial_number']),
