@@ -54,7 +54,7 @@ class SecurityDeviceResource extends Resource
                 // Campo Tipo de Equipo
                 Forms\Components\Select::make('device_type')
                     ->label('Device')
-                    ->options(['camera' => 'Cámara', 'dvr' => 'DVR'])
+                    ->options(['camera' => 'Cámara', 'dvr' => 'DVR', 'access control' => 'Control de acceso', 'alarm' => 'Alarma'])
                     ->required()
                     ->searchable()
                     ->live()
@@ -74,6 +74,7 @@ class SecurityDeviceResource extends Resource
                 Forms\Components\Select::make('default_app')
                     ->options(['IVMS-4200' => 'IVMS-4200', 'CMS3.0' => 'CMS3.0', 'VI MonitorPlus' => 'VI MonitorPlus'])
                     ->searchable()
+                    ->required()
                     ->preload()
                     ->translateLabel(),
                 // Campo Dirección IP

@@ -36,7 +36,7 @@ class ListSecurityDevices extends ListRecords
                         ->required(),
                     ImportField::make('device_type')
                         ->translateLabel()
-                        ->rules('in:camera,dvr', ['The imported device_type is invalid.'])
+                        ->rules('in:camera,dvr,access control,alarm', ['The imported device_type is invalid.'])
                         ->required(),
                     ImportField::make('type.name')
                         ->label('Brand name')
@@ -119,10 +119,10 @@ class ListSecurityDevices extends ListRecords
     {
         $tabs = ['all' => Tab::make('All')->badge($this->getModel()::count())];
 
-        $segments = ['camera' => 'Cámaras', 'dvr' => 'DVRs'];
+        $segments = ['camera' => 'Cámara', 'dvr' => 'DVR', 'access control' => 'Control de acceso', 'alarm' => 'Alarma'];
 
         foreach ($segments as $key => $value) {
-            $slug = str($value)->slug()->toString();
+            $slug = str($key)->slug()->toString();
             $tabs[$slug] = Tab::make($value)
                 ->badge(Device::where('device_type', $key)->count())
                 ->modifyQueryUsing(function ($query) use ($key) {
