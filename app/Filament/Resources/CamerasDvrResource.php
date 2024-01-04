@@ -47,15 +47,19 @@ class CamerasDvrResource extends Resource
                     ->required()
                     ->maxLength(50)
                     ->prefixIcon('heroicon-m-map-pin')
+                    ->columnSpan([
+                        'xl' => '2',
+                    ])
                     ->translateLabel(),
                 // Campo Tipo de Equipo
                 Forms\Components\Select::make('device_type')
-                    ->label('Cámara / DVR')
+                    ->label('Camera / DVR')
                     ->options(['camera' => 'Cámara', 'dvr' => 'DVR'])
                     ->required()
                     ->searchable()
+                    ->live()
                     ->afterStateUpdated(fn (callable $set) => $set('type_id', ''))
-                    ->live(),
+                    ->translateLabel(),
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
                     ->label('Type')
@@ -67,10 +71,18 @@ class CamerasDvrResource extends Resource
                     ->prefixIcon('heroicon-m-rectangle-stack')
                     ->translateLabel(),
                 // Campo Programa
-                Forms\Components\Select::make('dvr_program')
+                Forms\Components\Select::make('default_app')
                     ->options(['IVMS-4200' => 'IVMS-4200', 'CMS3.0' => 'CMS3.0', 'VI MonitorPlus' => 'VI MonitorPlus'])
                     ->searchable()
                     ->preload()
+                    ->translateLabel(),
+                // Campo Dirección IP
+                Forms\Components\Select::make('ip_id')
+                    ->relationship('ip', 'ip_address')
+                    ->unique(ignorable: fn ($record) => $record)
+                    ->searchable()
+                    ->preload()
+                    ->prefixIcon('heroicon-m-wifi')
                     ->translateLabel(),
                 // Campo Marca
                 Forms\Components\Select::make('brand_id')
@@ -139,34 +151,40 @@ class CamerasDvrResource extends Resource
                 Tables\Columns\TextColumn::make('type.name')
                     ->searchable()
                     ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->translateLabel(),
                 // Columna Ubicación
                 Tables\Columns\TextColumn::make('location')
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->translateLabel(),
                 // Columna Marca
                 Tables\Columns\TextColumn::make('brand.name')
                     ->searchable()
                     ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->translateLabel(),
                 // Columna Modelo
                 Tables\Columns\TextColumn::make('model.name')
                     ->searchable()
                     ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->translateLabel(),
                 // Columna Programa de Dvr
-                Tables\Columns\TextColumn::make('dvr_program')
+                Tables\Columns\TextColumn::make('default_app')
                     ->searchable()
-                    ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->translateLabel(),
                 // Columna Numero de Asset
                 Tables\Columns\TextColumn::make('asset_number')
                     ->searchable()
                     ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->translateLabel(),
                 // Columna Numero de Serie
                 Tables\Columns\TextColumn::make('serial_number')
                     ->searchable()
                     ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->translateLabel(),
                 // Columna Ip
                 Tables\Columns\TextColumn::make('ip.ip_address')
@@ -187,11 +205,6 @@ class CamerasDvrResource extends Resource
                 Tables\Columns\TextColumn::make('description')
                     ->searchable()
                     ->translateLabel()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                // Columna Estado
-                Tables\Columns\ToggleColumn::make('status')
-                    ->translateLabel()
-                    ->onColor('success')
                     ->toggleable(isToggledHiddenByDefault: true),
 
             ])

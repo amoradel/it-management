@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('anydesk')->nullable();
             $table->string('office_version')->nullable();
             $table->string('windows_version')->nullable();
-            $table->string('dvr_program')->nullable();
+            $table->string('default_app')->nullable();
             $table->string('condition');
             $table->date('entry_date')->nullable();
 

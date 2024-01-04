@@ -36,7 +36,7 @@ class Device extends Model
                 'anydesk',
                 'office_version',
                 'windows_version',
-                'dvr_program',
+                'default_app',
                 'condition',
                 'entry_date',
                 'status',
