@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CamerasDVRResource\Pages;
+use App\Filament\Resources\SecurityDeviceResource\Pages;
 use App\Models\Device;
 use App\Models\DeviceModel;
 use App\Models\Type;
@@ -15,15 +15,15 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
-class CamerasDvrResource extends Resource
+class SecurityDeviceResource extends Resource
 {
     protected static ?string $model = Device::class;
 
     protected static ?string $navigationGroup = 'Dispositivos';
 
-    protected static ?string $modelLabel = 'Cámara / DVR';
+    protected static ?string $modelLabel = 'Dispositivo';
 
-    protected static ?string $pluralModelLabel = "Cámaras / DVR'S";
+    protected static ?string $pluralModelLabel = 'Dispositivos de seguridad';
 
     protected static ?string $navigationIcon = 'heroicon-o-video-camera';
 
@@ -53,7 +53,7 @@ class CamerasDvrResource extends Resource
                     ->translateLabel(),
                 // Campo Tipo de Equipo
                 Forms\Components\Select::make('device_type')
-                    ->label('Camera / DVR')
+                    ->label('Device')
                     ->options(['camera' => 'Cámara', 'dvr' => 'DVR'])
                     ->required()
                     ->searchable()
@@ -219,7 +219,7 @@ class CamerasDvrResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
-                Tables\Actions\Action::make('activities')->url(fn ($record) => CamerasDVRResource::getUrl('activities', ['record' => $record]))
+                Tables\Actions\Action::make('activities')->url(fn ($record) => SecurityDeviceResource::getUrl('activities', ['record' => $record]))
                     ->icon('heroicon-m-information-circle')
                     ->translateLabel(),
                 Tables\Actions\ForceDeleteAction::make(),
@@ -244,10 +244,10 @@ class CamerasDvrResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCamerasDVRS::route('/'),
-            'create' => Pages\CreateCamerasDVR::route('/create'),
-            'edit' => Pages\EditCamerasDVR::route('/{record}/edit'),
-            'activities' => Pages\ListCamerasDvrActivities::route('/{record}/activities'),
+            'index' => Pages\ListSecurityDeviceS::route('/'),
+            'create' => Pages\CreateSecurityDevice::route('/create'),
+            'edit' => Pages\EditSecurityDevice::route('/{record}/edit'),
+            'activities' => Pages\ListSecurityDeviceActivities::route('/{record}/activities'),
         ];
     }
 }

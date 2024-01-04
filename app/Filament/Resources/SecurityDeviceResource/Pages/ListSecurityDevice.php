@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Resources\CamerasDvrResource\Pages;
+namespace App\Filament\Resources\SecurityDeviceResource\Pages;
 
 use App\Filament\Resources\BrandResource;
-use App\Filament\Resources\CamerasDvrResource;
 use App\Filament\Resources\DeviceModelResource;
+use App\Filament\Resources\SecurityDeviceResource;
 use App\Filament\Resources\TypeResource;
 use App\Models\Device;
 use Filament\Actions;
@@ -13,9 +13,9 @@ use Filament\Resources\Pages\ListRecords;
 use Konnco\FilamentImport\Actions\ImportAction;
 use Konnco\FilamentImport\Actions\ImportField;
 
-class ListCamerasDvrs extends ListRecords
+class ListSecurityDevices extends ListRecords
 {
-    protected static string $resource = CamerasDvrResource::class;
+    protected static string $resource = SecurityDeviceResource::class;
 
     protected function getHeaderActions(): array
     {
