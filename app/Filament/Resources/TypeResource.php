@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TypeResource\Pages;
 use App\Models\Type;
+use App\Utilities\DeviceTypes;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -31,15 +32,7 @@ class TypeResource extends Resource
             ->schema([
                 // Campo Tipo de Equipo
                 Forms\Components\Select::make('device_type')
-                    ->options([
-                        'computer' => 'Computadora',
-                        'printer' => 'Impresora',
-                        'camera' => 'Camara',
-                        'monitor' => 'Monitor',
-                        'pos' => 'Pos',
-                        'dvr' => 'Dvr',
-                        'others' => 'Accesorios y Otros',
-                    ])
+                    ->options(DeviceTypes::TYPES)
                     ->searchable()
                     ->preload()
                     ->live()
@@ -52,7 +45,7 @@ class TypeResource extends Resource
                     ->maxLength(50)
                     ->unique(ignorable: fn ($record) => $record)
                     ->translateLabel(),
-                // Campo Descripcion
+                // Campo Descripción
                 Forms\Components\Textarea::make('description')
                     ->maxLength(150)
                     ->translateLabel(),

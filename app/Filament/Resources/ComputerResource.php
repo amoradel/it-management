@@ -30,6 +30,8 @@ class ComputerResource extends Resource
 
     protected static ?int $navigationSort = 0;
 
+    private const DEVICE_TYPE = 'computer';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -56,7 +58,7 @@ class ComputerResource extends Resource
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
                     ->label('Type')
-                    ->options(fn (): Collection => Type::query()->where('device_type', 'computer')->pluck('name', 'id'))
+                    ->options(fn (): Collection => Type::where('device_type', self::DEVICE_TYPE)->pluck('name', 'id'))
                     ->searchable()
                     ->required()
                     ->preload()
@@ -77,7 +79,7 @@ class ComputerResource extends Resource
                 // Campo Modelo
                 Forms\Components\Select::make('model_id')
                     ->label('Model')
-                    ->options(fn (Get $get): Collection => DeviceModel::query()->where('brand_id', $get('brand_id'))->pluck('name', 'id'))
+                    ->options(fn (Get $get): Collection => DeviceModel::where('brand_id', $get('brand_id'))->pluck('name', 'id'))
                     ->searchable()
                     ->prefixIcon('heroicon-m-swatch')
                     ->required()
@@ -200,7 +202,7 @@ class ComputerResource extends Resource
                     ->translateLabel(),
                 // Campo que envía el tipo de equipo igual a computer
                 Forms\Components\Hidden::make('device_type')
-                    ->default('computer'),
+                    ->default(self::DEVICE_TYPE),
 
             ])->columns(['sm' => 2, 'xl' => 4]);
     }
@@ -320,7 +322,7 @@ class ComputerResource extends Resource
             ->filters([
                 Tables\Filters\BaseFilter::make('device_type')
                     ->query(fn (Builder $query): Builder => $query
-                        ->where('device_type', 'computer')),
+                        ->where('device_type', self::DEVICE_TYPE)),
 
                 Tables\Filters\TrashedFilter::make(),
             ])

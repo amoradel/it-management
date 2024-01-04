@@ -4,6 +4,7 @@ namespace App\Filament\Resources\TypeResource\Pages;
 
 use App\Filament\Resources\TypeResource;
 use App\Models\Type;
+use App\Utilities\DeviceTypes;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Konnco\FilamentImport\Actions\ImportAction;
@@ -26,7 +27,7 @@ class ListTypes extends ListRecords
                     ImportField::make('device_type')
                         ->label('Device type')
                         ->translateLabel()
-                        ->rules('in:computer,printer,camera,monitor,pos,dvr,others', ['The imported device type is invalid.'])
+                        ->rules('in:' . DeviceTypes::typesKeyOnString(), ['The imported device type is invalid.'])
                         ->required(),
                     ImportField::make('name')
                         ->translateLabel()
