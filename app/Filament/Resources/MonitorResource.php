@@ -29,6 +29,9 @@ class MonitorResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
+    private const DEVICE_TYPE = 'monitor';
+
+
     public static function form(Form $form): Form
     {
         return $form
@@ -52,7 +55,7 @@ class MonitorResource extends Resource
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
                     ->label('Type')
-                    ->options(fn (): Collection => Type::query()->where('device_type', 'monitor')->pluck('name', 'id'))
+                    ->options(fn (): Collection => Type::query()->where('device_type', self::DEVICE_TYPE)->pluck('name', 'id'))
                     ->searchable()
                     ->required()
                     ->preload()
@@ -108,9 +111,9 @@ class MonitorResource extends Resource
                         'xl' => '2',
                     ])
                     ->translateLabel(),
-                // Columna que envía el tipo de equipo igual a computer
+                // Columna que envía el tipo de equipo
                 Forms\Components\Hidden::make('device_type')
-                    ->default('monitor'),
+                    ->default(self::DEVICE_TYPE),
             ])->columns(['sm' => 2, 'xl' => 4]);
     }
 
@@ -173,7 +176,7 @@ class MonitorResource extends Resource
             ])
             ->filters([
                 Tables\Filters\BaseFilter::make('device_type')
-                    ->query(fn (Builder $query): Builder => $query->where('device_type', 'monitor')),
+                    ->query(fn (Builder $query): Builder => $query->where('device_type', self::DEVICE_TYPE)),
 
                 Tables\Filters\TrashedFilter::make(),
             ])

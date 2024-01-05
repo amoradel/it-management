@@ -29,6 +29,8 @@ class PrinterResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+    private const DEVICE_TYPE = 'printer';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -54,7 +56,7 @@ class PrinterResource extends Resource
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
                     ->label('Type')
-                    ->options(fn (): Collection => Type::query()->where('device_type', 'printer')->pluck('name', 'id'))
+                    ->options(fn (): Collection => Type::query()->where('device_type', self::DEVICE_TYPE)->pluck('name', 'id'))
                     ->searchable()
                     ->required()
                     ->preload()
@@ -135,9 +137,9 @@ class PrinterResource extends Resource
                         'xl' => '2',
                     ])
                     ->translateLabel(),
-                // Columna que envía el tipo de equipo igual a printer
+                // Columna que envía el tipo de equipo
                 Forms\Components\Hidden::make('device_type')
-                    ->default('printer'),
+                    ->default(self::DEVICE_TYPE),
 
             ])->columns(['sm' => 2, 'xl' => 4]);
 
@@ -214,7 +216,7 @@ class PrinterResource extends Resource
             ])
             ->filters([
                 Tables\Filters\BaseFilter::make('device_type')
-                    ->query(fn (Builder $query): Builder => $query->where('device_type', 'printer')),
+                    ->query(fn (Builder $query): Builder => $query->where('device_type', self::DEVICE_TYPE)),
 
                 Tables\Filters\TrashedFilter::make(),
             ])

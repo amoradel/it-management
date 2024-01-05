@@ -29,6 +29,9 @@ class POSResource extends Resource
 
     protected static ?int $navigationSort = 4;
 
+    private const DEVICE_TYPE = 'pos';
+
+
     public static function form(Form $form): Form
     {
         return $form
@@ -71,7 +74,7 @@ class POSResource extends Resource
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
                     ->label('Type')
-                    ->options(fn (): Collection => Type::query()->where('device_type', 'pos')->pluck('name', 'id'))
+                    ->options(fn (): Collection => Type::query()->where('device_type', self::DEVICE_TYPE)->pluck('name', 'id'))
                     ->searchable()
                     ->required()
                     ->preload()
@@ -95,9 +98,9 @@ class POSResource extends Resource
                     ->onColor('success')
                     ->default('true')
                     ->translateLabel(),
-                // Columna que envia el tipo de equipo igual a computer
+                // Columna que envía el tipo de equipo
                 Forms\Components\Hidden::make('device_type')
-                    ->default('pos'),
+                    ->default(self::DEVICE_TYPE),
             ]);
     }
 
@@ -163,7 +166,7 @@ class POSResource extends Resource
             ])
             ->filters([
                 Tables\Filters\BaseFilter::make('device_type')
-                    ->query(fn (Builder $query): Builder => $query->where('device_type', 'pos')),
+                    ->query(fn (Builder $query): Builder => $query->where('device_type', self::DEVICE_TYPE)),
 
                 Tables\Filters\TrashedFilter::make(),
             ])

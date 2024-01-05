@@ -200,7 +200,7 @@ class ComputerResource extends Resource
                         'sm' => 2, 'xl' => 4,
                     ])
                     ->translateLabel(),
-                // Campo que envía el tipo de equipo igual a computer
+                // Columna que envía el tipo de equipo
                 Forms\Components\Hidden::make('device_type')
                     ->default(self::DEVICE_TYPE),
 
