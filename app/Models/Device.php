@@ -14,6 +14,10 @@ class Device extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'device_type' => DeviceType::class,
+    ];
+
     // Función para genera el log de la tabla
     public function getActivitylogOptions(): LogOptions
     {
@@ -37,6 +41,7 @@ class Device extends Model
                 'office_version',
                 'windows_version',
                 'default_app',
+                'device_type',
                 'condition',
                 'entry_date',
                 'status',

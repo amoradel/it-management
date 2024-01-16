@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\DeviceType;
 use App\Filament\Resources\TypeResource\Pages;
 use App\Models\Type;
-use App\Utilities\DeviceTypes;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -32,7 +32,7 @@ class TypeResource extends Resource
             ->schema([
                 // Campo Tipo de Equipo
                 Forms\Components\Select::make('device_type')
-                    ->options(DeviceTypes::TYPES)
+                    ->options(DeviceType::class)
                     ->searchable()
                     ->preload()
                     ->live()
@@ -70,7 +70,7 @@ class TypeResource extends Resource
                     ->translateLabel()
                     ->searchable()
                     ->sortable(),
-                // Columna Descripcion
+                // Columna Descripción
                 Tables\Columns\TextColumn::make('description')
                     ->wrap()
                     ->searchable()

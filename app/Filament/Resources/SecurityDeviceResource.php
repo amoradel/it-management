@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\DeviceType;
 use App\Filament\Resources\SecurityDeviceResource\Pages;
 use App\Models\Device;
 use App\Models\DeviceModel;
@@ -54,7 +55,12 @@ class SecurityDeviceResource extends Resource
                 // Campo Tipo de Equipo
                 Forms\Components\Select::make('device_type')
                     ->label('Device')
-                    ->options(['camera' => 'Cámara', 'dvr' => 'DVR', 'access control' => 'Control de acceso', 'alarm' => 'Alarma'])
+                    ->options(array_merge(
+                        DeviceType::Camera->getOption(),
+                        DeviceType::Dvr->getOption(),
+                        DeviceType::AccessControl->getOption(),
+                        DeviceType::Alarm->getOption()
+                    ))
                     ->required()
                     ->searchable()
                     ->live()

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\SecurityDeviceResource\Pages;
 
+use App\Enums\DeviceType;
 use App\Filament\Resources\BrandResource;
 use App\Filament\Resources\DeviceModelResource;
 use App\Filament\Resources\SecurityDeviceResource;
@@ -117,9 +118,20 @@ class ListSecurityDevices extends ListRecords
 
     public function getTabs(): array
     {
-        $tabs = ['all' => Tab::make('All')->badge($this->getModel()::count())];
+        $count_all = $this->getModel()::where('device_type', DeviceType::Camera->value)
+            ->orWhere('device_type', DeviceType::Dvr->value)
+            ->orWhere('device_type', DeviceType::AccessControl->value)
+            ->orWhere('device_type', DeviceType::Alarm->value)
+            ->count();
 
-        $segments = ['camera' => 'Cámara', 'dvr' => 'DVR', 'access control' => 'Control de acceso', 'alarm' => 'Alarma'];
+        $tabs = ['all' => Tab::make(__('All'))->badge($count_all)];
+
+        $segments = array_merge(
+            DeviceType::Camera->getOption(),
+            DeviceType::Dvr->getOption(),
+            DeviceType::AccessControl->getOption(),
+            DeviceType::Alarm->getOption()
+        );
 
         foreach ($segments as $key => $value) {
             $slug = str($key)->slug()->toString();
@@ -129,7 +141,24 @@ class ListSecurityDevices extends ListRecords
                     return $query->where('device_type', $key);
                 });
         }
+        // dd($tabs);
 
         return $tabs;
+
+        // $tabs = ['all' => Tab::make('All')->badge($this->getModel()::count())];
+
+        // $segments = getGroupedColumnValues(table: 'ips', column: 'segment');
+
+        // foreach ($segments as $segment) {
+        //     $slug = str($segment)->slug()->toString();
+
+        //     $tabs[$slug] = Tab::make($segment)
+        //         ->badge(Ip::where('segment', $segment)->count())
+        //         ->modifyQueryUsing(function ($query) use ($segment) {
+        //             return $query->where('segment', $segment);
+        //         });
+        // }
+
+        // return $tabs;
     }
 }

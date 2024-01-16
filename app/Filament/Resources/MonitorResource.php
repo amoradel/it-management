@@ -31,7 +31,6 @@ class MonitorResource extends Resource
 
     private const DEVICE_TYPE = 'monitor';
 
-
     public static function form(Form $form): Form
     {
         return $form

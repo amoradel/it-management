@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\DeviceType;
 use App\Filament\Resources\ComputerResource\Pages;
 use App\Models\Device;
 use App\Models\DeviceModel;
@@ -30,8 +31,6 @@ class ComputerResource extends Resource
 
     protected static ?int $navigationSort = 0;
 
-    private const DEVICE_TYPE = 'computer';
-
     public static function form(Form $form): Form
     {
         return $form
@@ -58,7 +57,7 @@ class ComputerResource extends Resource
                 // Campo Tipo
                 Forms\Components\Select::make('type_id')
                     ->label('Type')
-                    ->options(fn (): Collection => Type::where('device_type', self::DEVICE_TYPE)->pluck('name', 'id'))
+                    ->options(fn (): Collection => Type::where('device_type', DeviceType::Computer)->pluck('name', 'id'))
                     ->searchable()
                     ->required()
                     ->preload()
@@ -202,7 +201,7 @@ class ComputerResource extends Resource
                     ->translateLabel(),
                 // Columna que envía el tipo de equipo
                 Forms\Components\Hidden::make('device_type')
-                    ->default(self::DEVICE_TYPE),
+                    ->default(DeviceType::Computer),
 
             ])->columns(['sm' => 2, 'xl' => 4]);
     }
@@ -322,7 +321,7 @@ class ComputerResource extends Resource
             ->filters([
                 Tables\Filters\BaseFilter::make('device_type')
                     ->query(fn (Builder $query): Builder => $query
-                        ->where('device_type', self::DEVICE_TYPE)),
+                        ->where('device_type', DeviceType::Computer)),
 
                 Tables\Filters\TrashedFilter::make(),
             ])

@@ -31,7 +31,6 @@ class POSResource extends Resource
 
     private const DEVICE_TYPE = 'pos';
 
-
     public static function form(Form $form): Form
     {
         return $form
