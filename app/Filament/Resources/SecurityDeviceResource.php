@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\DefaultApp;
 use App\Enums\DeviceType;
 use App\Filament\Resources\SecurityDeviceResource\Pages;
 use App\Models\Device;
@@ -78,7 +79,7 @@ class SecurityDeviceResource extends Resource
                     ->translateLabel(),
                 // Campo Programa
                 Forms\Components\Select::make('default_app')
-                    ->options(['IVMS-4200' => 'IVMS-4200', 'CMS3.0' => 'CMS3.0', 'VI MonitorPlus' => 'VI MonitorPlus'])
+                    ->options(DefaultApp::class)
                     ->searchable()
                     ->required()
                     ->preload()

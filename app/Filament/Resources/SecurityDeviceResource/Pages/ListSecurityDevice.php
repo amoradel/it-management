@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\SecurityDeviceResource\Pages;
 
+use App\Enums\DefaultApp;
 use App\Enums\DeviceType;
 use App\Filament\Resources\BrandResource;
 use App\Filament\Resources\DeviceModelResource;
@@ -46,7 +47,7 @@ class ListSecurityDevices extends ListRecords
                         ->required(),
                     ImportField::make('default_app')
                         ->translateLabel()
-                        ->rules('in:IVMS-4200,CMS3.0,VI MonitorPlus')
+                        ->rules('in:'.DefaultApp::getAllOnString())
                         ->required(),
                     ImportField::make('brand.name')
                         ->label('Brand name')

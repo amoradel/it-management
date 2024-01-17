@@ -41,17 +41,17 @@ enum DeviceType: string implements HasLabel
     public function getOption()
     {
         return match ($this) {
-            self::Computer => [self::Computer->value => __('Computer')],
-            self::Printer => [self::Printer->value => __('Printer')],
-            self::Monitor => [self::Monitor->value => __('Monitor')],
-            self::Camera => [self::Camera->value => __('Camera')],
-            self::Dvr => [self::Dvr->value => __('DVR')],
-            self::Network => [self::Network->value => __('Network')],
-            self::AccessControl => [self::AccessControl->value => __('Access Control')],
-            self::Alarm => [self::Alarm->value => __('Alarm')],
-            self::Pos => [self::Pos->value => __('POS')],
-            self::Voip => [self::Voip->value => __('VoIP')],
-            self::Others => [self::Others->value => __('Others')],
+            self::Computer => [self::Computer->value => self::Computer->getLabel()],
+            self::Printer => [self::Printer->value => self::Printer->getLabel()],
+            self::Monitor => [self::Monitor->value => self::Monitor->getLabel()],
+            self::Camera => [self::Camera->value => self::Camera->getLabel()],
+            self::Dvr => [self::Dvr->value => self::Dvr->getLabel()],
+            self::Network => [self::Network->value => self::Network->getLabel()],
+            self::AccessControl => [self::AccessControl->value => self::AccessControl->getLabel()],
+            self::Alarm => [self::Alarm->value => self::Alarm->getLabel()],
+            self::Pos => [self::Pos->value => self::Pos->getLabel()],
+            self::Voip => [self::Voip->value => self::Voip->getLabel()],
+            self::Others => [self::Others->value => self::Others->getLabel()],
             default => [__('Unknown') => __('Unknown')],
         };
     }
