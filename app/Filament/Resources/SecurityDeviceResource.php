@@ -217,7 +217,12 @@ class SecurityDeviceResource extends Resource
             ])
             ->filters([
                 Tables\Filters\BaseFilter::make('device_type')
-                    ->query(fn (Builder $query): Builder => $query->where('device_type', 'camera')->orWhere('device_type', 'dvr')),
+                    ->query(fn (Builder $query): Builder => $query
+                    ->where('device_type', DeviceType::Camera->value)
+                    ->orWhere('device_type', DeviceType::Dvr->value)
+                    ->orWhere('device_type', DeviceType::AccessControl->value)
+                    ->orWhere('device_type', DeviceType::Alarm->value)
+                ),
 
                 Tables\Filters\TrashedFilter::make(),
 

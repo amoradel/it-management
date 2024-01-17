@@ -118,7 +118,8 @@ class ListSecurityDevices extends ListRecords
 
     public function getTabs(): array
     {
-        $count_all = $this->getModel()::where('device_type', DeviceType::Camera->value)
+        $count_all = $this->getModel()::
+            where('device_type', DeviceType::Camera->value)
             ->orWhere('device_type', DeviceType::Dvr->value)
             ->orWhere('device_type', DeviceType::AccessControl->value)
             ->orWhere('device_type', DeviceType::Alarm->value)
@@ -141,7 +142,6 @@ class ListSecurityDevices extends ListRecords
                     return $query->where('device_type', $key);
                 });
         }
-        // dd($tabs);
 
         return $tabs;
 
